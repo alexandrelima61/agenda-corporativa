@@ -1,5 +1,5 @@
 #summary Visão geral do projeto.
-#labels Phase-Requirements,Visãogeral
+#labels Phase-Requirements,Visão-geral
 
 = Home =
 
