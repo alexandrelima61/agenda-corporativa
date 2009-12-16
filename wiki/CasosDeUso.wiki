@@ -13,6 +13,8 @@ Abaixo segue a lista e breve definição dos casos de uso deste sistema.
   * Visualizar calendário (3)
   * Armazenar contatos (PF) (2)
   * Cadastro de categorias (1)
+  * Agendar compromisso da equipe
+  * Convidar contato ao compromisso
   * Cadastro de usuários
   * Cadastro de grupos (adm, usu)
   * Aceitar cadastro
