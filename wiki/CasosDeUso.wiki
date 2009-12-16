@@ -1,0 +1,49 @@
+#summary Lista e definição dos casos de uso do sistema.
+#labels Featured,casosdeuso
+
+= Introdução =
+
+Abaixo segue a lista e breve definição dos casos de uso deste sistema.
+
+
+
+= Agendar compromisso =
+
+
+= Registrar tarefa =
+
+
+= Registrar lembrete =
+
+
+= Visualizar calendário =
+
+
+= Armazenar contatos (PF) =
+
+
+= Cadastro de categorias = 
+
+
+= Cadastro de usuários =
+
+
+= Cadastro de grupos (adm, usu) =
+
+
+= Aceitar cadastro =
+
+
+= Visualizar histórico =
+
+
+= Autenticação =
+
+
+= Ir para data determinada =
+
+
+= Configurar visualização do calendário =
+
+
+= Vincular tarefas a compromisso =
