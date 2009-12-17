@@ -1,0 +1,5 @@
+Resumo do Caso de Uso – Registrar Lembretes
+
+	Esse caso de uso realiza o registro de lembretes pelo calendário e dá ao usuário ,
+cadastrado a opção de aviso, através de um alarme prévio – com os horários definidos 
+pelo usuário - ou, simplesmente o cadastro no calendário.
