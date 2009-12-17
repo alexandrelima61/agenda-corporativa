@@ -1,0 +1,4 @@
+Caso de Uso Registrar Tarefa (Resumo)
+
+Este caso de uso é responsável pelo cadastro de novas tarefas pelo usuário da Agenda Corporativa, visando o melhor gerenciamento de suas atividades em geral.
+Para cadastrar uma nova tarefa, será necessário informar: título, descrição, local, data, hora e prioridade (alta, baixa, média).
