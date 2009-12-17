@@ -1,4 +1,4 @@
-package br.edu.ifrn.agenda.beans
+package br.edu.ifrn.agenda.beans;
 
 /**
  *
