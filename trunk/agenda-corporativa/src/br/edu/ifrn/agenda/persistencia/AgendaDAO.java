@@ -1,7 +1,6 @@
-package br.com.agenda.dao;
-
-import br.com.agenda.Agenda.Agenda;
-import br.com.agenda.util.ConnectionFactory;
+package br.edu.ifrn.agenda.persistencia;
+import br.edu.ifrn.agenda.beans.Agenda;
+//import br.com.agenda.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,14 +8,14 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class AgendaDAO implements DAO {
+public class AgendaDAO{
 
     private Connection conn;
 
   
     public AgendaDAO() throws Exception {
         try {
-            this.conn = ConnectionFactory.getConnection();
+            //this.conn = ConnectionFactory.getConnection();
 
         } catch (Exception e) {
             throw new Exception("Erro: " +
