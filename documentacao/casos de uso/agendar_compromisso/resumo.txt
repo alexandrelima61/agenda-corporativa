@@ -1,0 +1,4 @@
+O agendamento de compromissos consistirá na inserção de dados referentes a data,
+hora, local, título, descrição e categoria do compromisso, estando vinculado a agenda
+de um usuário ou de um grupo. O criador do compromisso poderá ainda convidar outros
+usuários para este compromisso.
