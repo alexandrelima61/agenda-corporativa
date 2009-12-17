@@ -1,0 +1,74 @@
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link href="/Registrar_Tarefa/stiloAgendaCorporativaCadastro.css" rel="stylesheet" type="text/css" media="screen" />
+
+<title>Registrar Tarefa</title>
+</head>
+<body>
+
+	<div id="geral">
+		<h1>Registrar Tarefa</h1>
+		<div>
+			<form action="" method="get">
+				<table>
+					<tr>
+						<td>Título:</td>
+						<td colspan="3"><input type="text" name="tituloTarefa" size="62"/></td>
+					</tr>
+					<tr>
+						<td>Categoria:</td>
+						<td colspan="3"><select name="categoriaTarefa">
+								<option>Categoria 1</option>
+								<option>Categoria 2</option>
+								<option>Categoria n</option>
+							</select>
+						</td>
+					</tr>
+					<tr>	
+						<td>Data:</td>
+						<td colspan="3"><input type="text" name="dataTarefa" maxlength="10"/></td>
+					</tr>
+					<tr>
+						<td>Hora Inicial:</td>
+						<td colspan="3"><input type="text" name="horaInicialTarefa" maxlength="5"/></td>
+					</tr>
+					<tr>
+						<td>Local:</td>
+						<td colspan="3"><input type="text" name="localTarefa" size="62"/></td>
+					</tr>
+					<tr>
+						<td>Prioridade</td>
+						<td colspan="3">
+							<select name="prioridadeTarefa">
+								<option>Baixa</option>
+								<option>Média</option>
+								<option>Alta</option>
+							</select>
+						</td>
+					</tr>
+<!--				<tr>
+  						<td>Status</td>
+						<td>
+							<select name="StatusTarefa">
+								<option>Pendente</option>
+								<option>Concluído</option>
+							</select>
+						</td>
+					</tr>
+-->
+					<tr>
+						<td>Descrição:</td>
+						<td colspan="3"><textarea name="descrição" cols="47" rows="7"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="4"><br/><input type="submit" name="botao" value="Cadastrar Tarefa"></td>
+					</tr>								
+				</table>	
+			</form>
+		</div>
+	</div>
+</body>
+</html>
