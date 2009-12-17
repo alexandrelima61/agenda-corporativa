@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : Reference
+Version    : 1.0
+Released   : 20081110
+Description: A two-column, fixed-width and lightweight template ideal for 1024x768 resolutions. Suitable for blogs and small websites.
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Agenda Corporativa - &lt;Caso de Uso&gt;</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<link href="css/default.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type=text/css href="development-bundle/themes/ui-darkness/jquery-ui-1.7.2.custom.css" />
+		<script type="text/javascript" src="development-bundle/jquery-1.3.2.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="js/calendario.js"></script>
+	</head>
+<body>
+<!-- start header -->
+<div id="header">
+  <div id="logo">
+    <h1><a href="#">Agenda Corporativa</a></h1>	
+        </div>
+        <div id="menu">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Calendário</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Compromissos</a></li>
+            <li><a href="#">Contatos</a></li>
+            <li class="active"><a href="#">Lembretes</a></li>
+            <li><a href="#">Tarefas</a></li>
+          </ul>
+        </div>
+    </div>
+    
+    <!-- end header -->
+    
+    <div id="wrapper">
+    <!-- start page -->
+    <div id="page">
+        <!-- start content -->
+        <div id="content">
+            <div class="post">
+                <h1 class="title">Registrar Lembrete</h1>
+                <div class="entry">
+                    <form action="/" method="post"> 
+                    	<table>
+                         
+                             <tr>
+                                <td class="e">                     	
+                                    <label for="assunto">Assunto*:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="assunto"  class="size"/>
+                                </td>
+                             </tr>
+                             
+                             <tr>
+                                <td class="e">                     	
+                                    <label for="descrição">Descrição*:</label>
+                                </td>
+                                <td>
+                                    <textarea rows="4"  name="descriçao" class="size"></textarea>
+                                </td>
+                             </tr>
+                             
+                             <tr>
+                                <td class="e">
+                                   <label for="calendario">Data:*</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="calendario" id="calendario" class="size"/>
+                                </td>
+                             </tr>
+                             
+                             <tr>
+                                <td class="e">
+                                   <label for="alarme">Horário*:</label>
+                                </td>
+                                <td>H:
+                                    <select name="hora">
+                                    	<option value="-1">&nu;&nbsp;&nu;</option>
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>                                        
+                                    </select>
+                                    Min:
+                                    <select name="hora">
+                                    	<option value="-1">&nu;&nbsp;&nu;</option>
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                        <option value="32">32</option>
+                                        <option value="33">33</option>
+                                        <option value="34">34</option>
+                                        <option value="35">35</option>
+                                        <option value="36">36</option>
+                                        <option value="37">37</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                        <option value="45">45</option>
+                                        <option value="46">46</option>
+                                        <option value="47">47</option>
+                                        <option value="48">48</option>
+                                        <option value="49">49</option>
+                                        <option value="50">50</option> 
+                                        <option value="51">51</option>
+                                        <option value="52">52</option>
+                                        <option value="53">53</option>
+                                        <option value="54">54</option>
+                                        <option value="55">55</option>
+                                        <option value="56">56</option>
+                                        <option value="57">57</option>
+                                        <option value="58">58</option>
+                                        <option value="59">59</option>                                           
+                                    </select>
+                                </td>
+                             </tr>
+                             
+                             <tr>
+                                <td class="e">
+                                   <label for="alarme">Alarmar? :</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="alarmar"/><span style="font-size:0.8em;">Se sim, marque</span>
+                                </td>
+                             </tr>
+                             
+                             <tr>
+                                <td class="e">
+                                   <label for="repetir">Repetir Lembrete? :</label>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="repetir"/><span style="font-size:0.8em;">Se sim, marque também abaixo</span>
+                                </td>
+                             </tr>
+                             
+                              <tr>
+                                <td class="e">
+                                   <label for="alarme">Quantos dias? :</label>
+                                </td>
+                                <td>
+                                    <select name="hora">
+                                    	<option value="-1">&nu;&nbsp;&nu;</option>
+                                        <option value="00">00</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>                                         
+                                    </select>
+                                   
+                                </td>
+                          </tr>
+                                
+                                <tr>
+                               
+                                <td colspan="2" class="e" style="padding-top:40px;">
+                               		<input type="reset" name="reset" />
+                                    <input type="submit" name="enviar" />
+                                </td>
+                             </tr>
+                      </table>     
+                		
+                  </form>       
+             </div>
+                
+            </div>
+        </div>
+        <!-- end content -->
+        <!-- start sidebar -->
+        <div id="sidebar">
+            <!--<ul>
+                <li id="search">
+                    <h2><b class="text1">Search</b></h2>
+                    <form method="get" action="">
+                        <fieldset>
+                        <input type="text" id="s" name="s" value="" />
+                        <input type="submit" id="x" value="Search" />
+                        </fieldset>
+                    </form>
+                </li>
+                -->
+                <li>
+                    <h2>Menu Lembretes</h2>
+                    <ul>
+                    <li><a href="RegistrarLembrete.html" class="active">Registrar Lembretes</a></li>
+                        <li><a href="ListarLembrete.html">Listar Lembretes</a></li>
+                        <li><a href="#">Gerenciar Lembretes</a></li>
+                        
+                </li>
+                <!--
+                <li>
+                    <h2><b>Volutpat</b> Dolore</h2>
+                    <ul>
+                        <li><a href="#">Nec metus sed donec</a></li>
+                        <li><a href="#">Magna lacus bibendum mauris</a></li>
+                        <li><a href="#">Velit semper nisi molestie</a></li>
+                        <li><a href="#">Eget tempor eget nonummy</a></li>
+                        <li><a href="#">Nec metus sed donec</a></li>
+                        <li><a href="#">Magna lacus bibendum mauris</a></li>
+                        <li><a href="#">Velit semper nisi molestie</a></li>
+                        <li><a href="#">Magna lacus bibendum mauris</a></li>
+                        <li><a href="#">Velit semper nisi molestie</a></li>
+                    </ul>
+                </li>
+            </ul>-->
+        </div>
+        <!-- end sidebar -->
+        <div style="clear: both;">&nbsp;</div>
+    </div>
+    </div>
+<!-- end page -->
+<!-- start footer -->
+<div id="footer">
+  <p id="legal">Disciplina Programação Web 2009.2 @ TADS / IFRN </p>
+</div>
+    <!-- end footer -->
+</body>
+</html>
