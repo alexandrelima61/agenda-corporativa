@@ -11,14 +11,12 @@ import java.util.ArrayList;
 
 public class AgendaDAO{
 
-	
-// conn deve ser substituido por Conexao	
-    private Connection conn;
+    private Conexao conn;
 
   
     public AgendaDAO() throws Exception {
         try {
-            //this.conn = ConnectionFactory.getConnection();
+            this.conn = Conexao.getInstance();
 
         } catch (Exception e) {
             throw new Exception("Erro: " +
@@ -37,7 +35,7 @@ public class AgendaDAO{
         try {
             String SQL = "INSERT INTO tb_agenda (age_titulo, age_descricao, age_ativado) " +
                     "values (?, ?, ?)";
-            ps = conn.prepareStatement(SQL);
+            ps = conn.getPreparedStatement(SQL);
             ps.setString(1, categoria.getTitulo());
             ps.setString(2, categoria.getDescricao());
             ps.setBoolean(3, categoria.isAtivo());
@@ -54,7 +52,7 @@ public class AgendaDAO{
         List<Agenda> agendas = new ArrayList<Agenda>();
             String SQL = "select * from tb_agenda";
         try {
-            ps = conn.prepareStatement(SQL);
+            ps = conn.getPreparedStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
             
             while (rs.next()){
@@ -76,7 +74,7 @@ public class AgendaDAO{
                 PreparedStatement ps = null ;
                 try{
                     String SQL = "DELETE from tb_agenda where age_id = ?";
-                    ps = conn.prepareStatement(SQL);
+                    ps = conn.getPreparedStatement(SQL);
                     ps.setInt(1, agenda.getOid());
                     ps.executeUpdate();
                 } catch(Exception ex){
@@ -89,7 +87,7 @@ public class AgendaDAO{
                 try{
                     String SQL = "UPDATE tb_agenda SET age_titulo = ?, age_descricao = ?," +
                             "age_ativado = ? WHERE age_id = ?";
-                    ps = conn.prepareStatement(SQL);
+                    ps = conn.getPreparedStatement(SQL);
                     ps.setString(1, agenda.getTitulo());
                     ps.setString(2, agenda.getDescricao());
                     ps.setBoolean(3, agenda.isAtivo());
