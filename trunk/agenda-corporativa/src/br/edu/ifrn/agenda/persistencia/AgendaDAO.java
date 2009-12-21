@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class AgendaDAO{
 
+	
+// conn deve ser substituido por Conexao	
     private Connection conn;
 
   
