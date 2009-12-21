@@ -1,4 +1,5 @@
 package br.edu.ifrn.agenda.persistencia;
+
 import br.edu.ifrn.agenda.beans.Agenda;
 //import br.com.agenda.util.ConnectionFactory;
 import java.sql.Connection;
@@ -46,7 +47,7 @@ public class AgendaDAO{
         }
     }
 
-    public List listarTodasAgendas() throws Exception{
+    public List<Agenda> listarTodasAgendas() throws Exception{
         PreparedStatement ps = null ;
         List<Agenda> agendas = new ArrayList<Agenda>();
             String SQL = "select * from tb_agenda";
