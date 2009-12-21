@@ -19,7 +19,7 @@ public class ContatoDAO{
 	PreparedStatement statementRecuperar = Conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato WHERE nome=?");
 	PreparedStatement statementRecuperarTodos = Conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato");
 	
-	public void InserirContato(Contato contato){
+	/*public void InserirContato(Contato contato){
 		try{	
 			this.statementInserir.setString(1,contato.getNome());
 			this.statementInserir.setString(2,contato.getTelefone());
@@ -29,18 +29,31 @@ public class ContatoDAO{
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public void AtualizarContato(Contato contato){
-		try{	
-			this.statementAtualizar.setString(1,contato.getNome());
-			this.statementAtualizar.setString(2,contato.getTelefone());
-			this.statementAtualizar.setString(3,contato.getEmail());
-			this.statementAtualizar.setString(4,contato.getEndereco());
-			this.statementAtualizar.execute();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}	
+		if(contato.getOid()== 0){
+			try{	
+				this.statementInserir.setString(1,contato.getNome());
+				this.statementInserir.setString(2,contato.getTelefone());
+				this.statementInserir.setString(3,contato.getEmail());
+				this.statementInserir.setString(4,contato.getEndereco());
+				this.statementInserir.execute();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		else{
+			try{	
+				this.statementAtualizar.setString(1,contato.getNome());
+				this.statementAtualizar.setString(2,contato.getTelefone());
+				this.statementAtualizar.setString(3,contato.getEmail());
+				this.statementAtualizar.setString(4,contato.getEndereco());
+				this.statementAtualizar.execute();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
 	}
 	public Contato buscarContato(Contato contato){
 		try{
