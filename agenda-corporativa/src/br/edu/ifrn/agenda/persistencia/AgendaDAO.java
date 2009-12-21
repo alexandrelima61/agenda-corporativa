@@ -56,7 +56,7 @@ public class AgendaDAO{
             
             while (rs.next()){
                 Agenda a = new Agenda();
-                a.setCod(rs.getInt("age_id"));
+                a.setOid(rs.getInt("age_id"));
                 a.setTitulo(rs.getString("age_titulo"));
                 a.setDescricao(rs.getString("age_descricao"));
                 a.setAtivado(rs.getBoolean("age_ativado"));
@@ -74,7 +74,7 @@ public class AgendaDAO{
                 try{
                     String SQL = "DELETE from tb_agenda where age_id = ?";
                     ps = conn.prepareStatement(SQL);
-                    ps.setInt(1, agenda.getCod());
+                    ps.setInt(1, agenda.getOid());
                     ps.executeUpdate();
                 } catch(Exception ex){
                     throw new Exception("Erro ao deletar os dados " + ex);
@@ -90,7 +90,7 @@ public class AgendaDAO{
                     ps.setString(1, agenda.getTitulo());
                     ps.setString(2, agenda.getDescricao());
                     ps.setBoolean(3, agenda.isAtivado());
-                    ps.setInt(4, agenda.getCod());
+                    ps.setInt(4, agenda.getOid());
                     ps.executeUpdate();
                 } catch (SQLException ex){
                     throw new Exception("Erro ao editar os dados " + ex);
