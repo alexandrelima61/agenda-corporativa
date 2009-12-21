@@ -16,6 +16,14 @@ public class Contato {
 // segundo o modelo, os contatos devem ter uma agenda	
 	private Agenda agenda;
 	
+	public void setOid(int oid){
+		this.oid = oid;
+	}
+	
+	public int getOid(){
+		return this.oid;
+	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
