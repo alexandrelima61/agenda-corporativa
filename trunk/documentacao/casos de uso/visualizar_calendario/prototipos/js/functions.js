@@ -48,8 +48,8 @@
     },
         function(action, el, pos) {
 		var evento = action.split('-');
-		
-		jQuery('#calendario-content').slideUp(300);
+		//alert(evento[1]+'/cadastrar.html')
+		jQuery('#calendario-content').load(evento[1]+'s/cadastrar.html');
 		
     });
 
