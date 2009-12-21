@@ -7,7 +7,7 @@ CREATE TABLE tb_lembrete (
 
 CREATE TABLE tb_lembretes_datas (
   lem_id serial NOT NULL,
-  dat_data date,
+  dat_data timestamp,
   CONSTRAINT fk_lem_id FOREIGN KEY (lem_id)
   	REFERENCES tb_lembrete (lem_id) MATCH SIMPLE
   	ON UPDATE NO ACTION ON DELETE NO ACTION
