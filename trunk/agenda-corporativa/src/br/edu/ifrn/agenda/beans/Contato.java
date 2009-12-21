@@ -7,10 +7,10 @@ public class Contato {
 // todos os beans devem ter um identificador	
 	private int oid;
 	private String  nome;
-	private List<String> telefone;
-	private List<String> email;
+	private String telefone;
+	private String email;
 	private String endereco;
-// todos as informações devem ter um flag
+// todos as informacoes devem ter um flag
 	private boolean ativo;
 	
 // segundo o modelo, os contatos devem ter uma agenda	
@@ -23,19 +23,19 @@ public class Contato {
 		return nome;
 	}
 	
-	public void setTelefone(List<String> telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	
-	public List<String> getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 	
-	public void setEmail(List<String> email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	
-	public List<String> getEmail() {
+	public String getEmail() {
 		return email;
 	}
 	
