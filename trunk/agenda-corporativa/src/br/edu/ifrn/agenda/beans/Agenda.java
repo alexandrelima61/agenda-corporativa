@@ -12,7 +12,7 @@ public class Agenda {
     private int oid;
     private String titulo;
     private String descricao;
-    private boolean ativado = true;
+    private boolean ativo = true;
 
 // faltaram a definicao dos relacionamentos
 // os atributos precisam de get e set
@@ -47,12 +47,12 @@ public class Agenda {
         this.titulo = titulo;
     }
 
-    public boolean isAtivado() {
-        return ativado;
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    public void setAtivado(boolean ativado) {
-        this.ativado = ativado;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
 	public void setContatos(List<Contato> contatos) {
