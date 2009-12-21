@@ -1,0 +1,2 @@
+O caso de uso Contato consiste no armazenamento de vários contatos de um usuário previamente cadastrado e ativo no sistema. As informações
+que serão armazendas de cada contato são: Nome, Telefones, E-mails e endereço.
