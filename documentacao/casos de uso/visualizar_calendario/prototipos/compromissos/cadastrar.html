@@ -1,20 +1,27 @@
+<script type="text/javascript">
+	jQuery(function() {
+		jQuery('#dataInicial, #dataFinal').datepicker();
+	});
+</script>
+
 <div id="internas-content">
+	<h2>Adicionar Compromisso</h2>
 <form action="#">
 	<fieldset>
 		<label for="Compromisso">Compromisso</label>
-		<input type="text" name="tituloCompromisso" id="tituloCompromisso" />
+		<input type="text" name="tituloCompromisso" class="input-longo" id="tituloCompromisso" />
 		
 		<label for="Data">Data</label>
 		<div class="inputInline">
-			<input type="text" name="dataInicial" id="dataInicial" />
-			<input type="text" name="horaInicial" id="horaInicial" />
-			
-			<input type="text" name="dataFinal" id="dataFinal" />
-			<input type="text" name="horaFinal" id="horaFinal" />
+			<input type="text" class="input-medio" name="dataInicial" id="dataInicial" />
+			<input type="text" class="input-pequeno" name="horaInicial"  id="horaInicial" />
+			<span>Até</span>
+			<input type="text" class="input-medio" name="dataFinal" id="dataFinal" />
+			<input type="text" class="input-pequeno" name="horaFinal" id="horaFinal" />
 		</div>
 		
 		<label for="Local">Local</label>
-		<input type="text" name="localCompromisso" id="localCompromisso" />
+		<input type="text" class="input-longo" name="localCompromisso" id="localCompromisso" />
 		
 		<label for="Categoria">Categoria</label>
 		<select id="categoriaCompromisso">

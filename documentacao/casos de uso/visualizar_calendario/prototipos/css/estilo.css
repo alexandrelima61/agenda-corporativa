@@ -196,3 +196,43 @@ a:hover{color: #000;}
 .portlet-header { margin: 0.3em; padding: 6px; }
 .portlet-header .ui-icon { float: right; }
 .portlet-content { padding: 0.4em; }
+
+/* Formulários */
+
+fieldset
+{
+	border:none;
+}
+
+label
+{
+	display:block
+}
+
+input, select, textarea
+{
+	padding: 4px;
+	color:#999;
+	margin-top:3px;
+	margin-bottom:3px;
+	border:1px solid #e2e2e2;
+	background-color: #fff;
+}
+.input-pequeno
+{
+	width:36px;
+}
+.input-medio
+{
+	width:70px;
+}
+.input-longo
+{
+	width:400px;
+}
+
+textarea
+{
+	width:400px;
+	height:150px;
+}
