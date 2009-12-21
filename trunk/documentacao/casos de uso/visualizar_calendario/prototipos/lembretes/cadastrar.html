@@ -1,0 +1,33 @@
+<form action="#">
+	<fieldset>
+
+		 <label for="Assunto">Assunto</label>
+		 <input type="text" name="assuntoLembrete" id="assuntoLembrete" />
+		 
+		 <label for="Descricao">Descricação</label>
+		 <textarea name="descricaoLembrete" id="descricaoLembrete"></textarea>
+		 
+		 <label for="Data">Data</label>
+		 <input type="text" name="dataLembrete" id="dataLembrete" />
+		 
+		 <label for="Hora">Hora</label>
+		 <input type="text" name="horaLembrete" id="horaLembrete" />
+		 
+		 <div class="inputInline">
+			<label for="Alarmar">Alarmar</label>
+		 	<input type="checkbox" name="alarmarLembrete" id="alarmarLembrete"/>
+			
+			<label for="Alarmar">Repetir Lembrete</label>
+		 	<input type="checkbox" id="repetirLembrete"/>
+			
+			<label for="Periodicidade">Periodicidade</label>
+			<input type="text" name="periodicidadeLembrete" id="periodicidadeLembrete" disabled="disabled" />
+		 </div>
+		 
+		 
+		 <div class="buttonsForm">
+		 	<input type="button" value="Registrar" id="btnCadastro" />
+			<input type="reset" value="Limpar" /> 
+		 </div>
+	</fieldset>
+</form>
