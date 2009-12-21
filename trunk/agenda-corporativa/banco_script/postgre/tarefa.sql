@@ -5,11 +5,11 @@ CREATE TABLE tb_tarefa (
   tar_titulo character varying(25),
   tar_data timestamp,
   tar_local character varying(40),
-  tar_prioridade character varying(10),
+  tar_prioridade integer,
   tar_descricao character varying(250),
-  tar_estado varchar(8),
+  tar_estado integer,
   tar_ativado boolean NOT NULL,
-  CONSTRAINT pk_age_id PRIMARY KEY (age_id)
-  FOREIGN KEY(age_id) REFERENCES tb_agenda(age_id)
+  CONSTRAINT pk_tar_id PRIMARY KEY (tar_id),
+  FOREIGN KEY(age_id) REFERENCES tb_agenda(age_id),
   FOREIGN KEY(usu_id) REFERENCES tb_usuario(usu_id)
 ) 
