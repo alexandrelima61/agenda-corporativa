@@ -3,14 +3,18 @@ package br.edu.ifrn.agenda.beans;
 import java.util.Date;
 
 public class Tarefa {
-	
+
+// faltou o identificador
+	private int oid;
 	private String titulo;
 	private Prioridade prioridade;
 	private EstadoTarefa estado = EstadoTarefa.ABERTO;
 	private Date data;
 	private String local;
 	private String descricao;
-	
+// faltou os relacionamentos com agenda e com usuario
+	private Agenda agenda;
+	private Usuario usuario;
 	
 	public String getTitulo() {
 		return titulo;
@@ -59,5 +63,44 @@ public class Tarefa {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	public void setOid(int oid) {
+		this.oid = oid;
+	}
+
+	public int getOid() {
+		return oid;
+	}
+
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
+	}
+
+	public Agenda getAgenda() {
+		return agenda;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
 	
+// deve ter toString e equals implementado	
+	@Override
+	public String toString() {
+		return "Tarefa ID " + this.oid;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Tarefa) {
+			Tarefa tarefa = (Tarefa) object;
+			return this.getOid() == tarefa.getOid();
+		}
+		
+		return false;
+	}
 }
