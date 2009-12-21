@@ -1,63 +1,59 @@
 package br.edu.ifrn.agenda.beans;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Compromisso {
-	private int idUsuario;
-	private int idAgenda;
-	private int idCompromisso;
-	private ArrayList<Date> datas;
+	private int oid;
+
+// Como estamos trabalhando com objetos, nada de idOutroObjeto
+	// private int idUsuario;
+	// private int idAgenda;
+	
+	private boolean ativo;
 	private String local;
 	private String titulo;
 	private String descricao;
-	private boolean ativo;
-	private ArrayList<Usuario> participantes;
-	
-	public Compromisso(int idUsuario, int idAgenda, int idCompromisso,
-			ArrayList<Date> datas, String local, String titulo,
-			String descricao, boolean ativo, ArrayList<Usuario> participantes) {
+	private List<Date> datas;
+	private Usuario proprietario;
+	private List<Usuario> participantes;
+	private Agenda agenda;
+
+// Sempre deve ter um construtor sem parametro para os beans	
+	public Compromisso() {
 		super();
-		this.idUsuario = idUsuario;
-		this.idAgenda = idAgenda;
-		this.idCompromisso = idCompromisso;
-		this.datas = datas;
-		this.local = local;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.ativo = ativo;
-		this.participantes = participantes;
 	}
 
-	public int getIdUsuario() {
-		return idUsuario;
+// Como não tem idOutroObjeto também não tem métodos de acesso
+//	public int getIdUsuario() {
+//		return idUsuario;
+//	}
+//
+//	public void setIdUsuario(int idUsuario) {
+//		this.idUsuario = idUsuario;
+//	}
+//
+//	public int getIdAgenda() {
+//		return idAgenda;
+//	}
+//
+//	public void setIdAgenda(int idAgenda) {
+//		this.idAgenda = idAgenda;
+//	}
+
+	public int getOid() {
+		return oid;
 	}
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setOid(int idCompromisso) {
+		this.oid = idCompromisso;
 	}
 
-	public int getIdAgenda() {
-		return idAgenda;
-	}
-
-	public void setIdAgenda(int idAgenda) {
-		this.idAgenda = idAgenda;
-	}
-
-	public int getIdCompromisso() {
-		return idCompromisso;
-	}
-
-	public void setIdCompromisso(int idCompromisso) {
-		this.idCompromisso = idCompromisso;
-	}
-
-	public ArrayList<Date> getDatas() {
+	public List<Date> getDatas() {
 		return datas;
 	}
 
-	public void setDatas(ArrayList<Date> datas) {
+	public void setDatas(List<Date> datas) {
 		this.datas = datas;
 	}
 
@@ -93,13 +89,43 @@ public class Compromisso {
 		this.ativo = ativo;
 	}
 
-	public ArrayList<Usuario> getParticipantes() {
+	public List<Usuario> getParticipantes() {
 		return participantes;
 	}
 
-	public void setParticipantes(ArrayList<Usuario> participantes) {
+	public void setParticipantes(List<Usuario> participantes) {
 		this.participantes = participantes;
 	}
+
+	public void setProprietario(Usuario proprietario) {
+		this.proprietario = proprietario;
+	}
+
+	public Usuario getProprietario() {
+		return proprietario;
+	}
+
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
+	}
+
+	public Agenda getAgenda() {
+		return agenda;
+	}
+
+// Os métodos toString e equals devem ser implementados	
+	@Override
+	public String toString() {
+		return "Compromisso ID " + this.oid;
+	}
 	
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Compromisso) {
+			Compromisso compromisso = (Compromisso) object;
+			return this.getOid() == compromisso.getOid();
+		}
+		return false;
+	}
 		
 }
