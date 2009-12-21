@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,12 +18,12 @@ public class LembreteDAO {
 
 	}
 
-	public void inserirLembrete(String titulo, String corpo, String datas)
+	@SuppressWarnings("deprecation")
+	public void inserirLembrete(String titulo, String corpo, List<Date>datas)
 			throws SQLException {
 
 		String comando = "insert into tb_lembrete(titulo,corpo) values(?,?)";
-		PreparedStatement statement = Conexao.getInstance()
-				.getPreparedStatement(comando);
+		PreparedStatement statement = Conexao.getInstance().getPreparedStatement(comando);
 
 		statement.setString(1, titulo);
 		statement.setString(2, corpo);
@@ -39,23 +40,24 @@ public class LembreteDAO {
 		ResultSet result = Conexao.getInstance().executeQueryStatement(
 				comandoBusca);
 
-		@SuppressWarnings("unused")
-		int lem_id;
+		int lem_id = 0;
 		while (result.next()) {
 			lem_id = result.getInt("lem_id");
 		}
 
-		comando = "insert into tb_datas(lem_id, datas) values(?,?)";
+		comando = "insert into tb_lembretes_datas(lem_id, datas) values(?,?)";
 
-		for (int i = 0; i < datas.length(); i++) {
+		for (Date date : datas) {
 			PreparedStatement statement3 = Conexao.getInstance().getPreparedStatement(comando);
+			statement3.setInt(1, lem_id);
+			statement3.setInt(2, date.getDate());
 			statement3.execute();
 			statement3.close();
 		}
 	}
 
 	public Lembrete buscarLembretePorData(Date data) {
-		String comando = "SELECT  * FROM tb_lembretes  INNER JOIN tb_datas ON  tb_lembrete.id_lem = tb_datas.id_lem WHERE tb_datas.data = ? ";
+		String comando = "SELECT  * FROM tb_lembretes  INNER JOIN tb_lembretes_datas ON  tb_lembrete.id_lem = tb_lembretes_datas.id_lem WHERE tb_lembretes_datas.data = ? ";
 				
 		Lembrete lembrete = null;
 		try {
@@ -73,7 +75,7 @@ public class LembreteDAO {
 	}
 	
 	public Lembrete buscarLembretePorTitulo(String titulo) {
-		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_datas ON  tb_lembrete.id_lem = tb_datas.id_lem WHERE tb_lembrete.titulo = ? ";
+		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_lembretes_datas ON  tb_lembrete.id_lem = tb_lembretes_datas.id_lem WHERE tb_lembrete.titulo = ? ";
 				
 		Lembrete lembrete = null;
 		try {
@@ -92,7 +94,7 @@ public class LembreteDAO {
 	}
 	
 	public Lembrete recuperarTodosLembretes() {
-		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_datas ON  tb_lembrete.id_lem = tb_datas.id_lem";
+		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_lembretes_datas ON  tb_lembrete.id_lem = tb_lembretes_datas.id_lem";
 
 		ResultSet result = Conexao.getInstance().executeQueryStatement(
 				comando);
@@ -101,7 +103,7 @@ public class LembreteDAO {
 	}
 	
 	public void apagarTodosLembretes() {
-		String comando = "DELETE  FROM tb_datas";
+		String comando = "DELETE  FROM tb_lembretes_datas";
 
 		PreparedStatement statement1 = Conexao.getInstance().getPreparedStatement(comando);
 		
@@ -126,7 +128,7 @@ public class LembreteDAO {
 	}
 	
 	public Lembrete apagarLembretePorTitulo(String titulo) {
-		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_datas ON  tb_lembrete.id_lem = tb_datas.id_lem WHERE tb_lembrete.titulo = ? ";
+		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_lembretes_datas ON  tb_lembrete.id_lem = tb_lembretes_datas.id_lem WHERE tb_lembrete.titulo = ? ";
 		
 		Lembrete lembrete;
 		
@@ -146,7 +148,7 @@ public class LembreteDAO {
 			
 			
 		
-		comando = "DELETE  FROM tb_datas WHERE tb_datas.lem_id = ?";
+		comando = "DELETE  FROM tb_lembretes_datas WHERE tb_lembretes_datas.lem_id = ?";
 		
 
 		PreparedStatement statement1 = Conexao.getInstance().getPreparedStatement(comando);
@@ -177,7 +179,7 @@ public class LembreteDAO {
 	}
 	
 	public Lembrete atualizarLembretePorTitulo(String titulo) {
-		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_datas ON  tb_lembrete.id_lem = tb_datas.id_lem WHERE tb_lembrete.titulo = ? ";
+		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_lembretes_datas ON  tb_lembrete.id_lem = tb_lembretes_datas.id_lem WHERE tb_lembrete.titulo = ? ";
 		
 		Lembrete lembrete;
 		
@@ -199,7 +201,7 @@ public class LembreteDAO {
 		SET Address='Nissestien 67', City='Sandnes'
 		WHERE LastName='Tjessem' AND FirstName='Jakob'*/
 		
-		comando = "UPDATE tb_datas SET data = ? WHERE tb_datas.lem_id = ?";
+		comando = "UPDATE tb_lembretes_datas SET data = ? WHERE tb_lembretes_datas.lem_id = ?";
 		PreparedStatement statement1 = Conexao.getInstance().getPreparedStatement(comando);
 		
 			try {
