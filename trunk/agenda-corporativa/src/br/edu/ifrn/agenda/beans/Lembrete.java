@@ -1,6 +1,6 @@
 package br.edu.ifrn.agenda.beans;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class Lembrete {
