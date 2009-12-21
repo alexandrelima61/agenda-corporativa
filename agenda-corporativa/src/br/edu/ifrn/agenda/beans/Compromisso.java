@@ -1,6 +1,6 @@
 package br.edu.ifrn.agenda.beans;
 
-import java.util.Date;
+
 import java.util.List;
 
 public class Compromisso {
@@ -14,7 +14,7 @@ public class Compromisso {
 	private String local;
 	private String titulo;
 	private String descricao;
-	private List<Date> datas;
+	private List<HorarioCom> datas;
 	private Usuario proprietario;
 	private List<Usuario> participantes;
 	private Agenda agenda;
@@ -49,11 +49,11 @@ public class Compromisso {
 		this.oid = idCompromisso;
 	}
 
-	public List<Date> getDatas() {
+	public List<HorarioCom> getDatas() {
 		return datas;
 	}
 
-	public void setDatas(List<Date> datas) {
+	public void setDatas(List<HorarioCom> datas) {
 		this.datas = datas;
 	}
 
