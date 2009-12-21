@@ -8,14 +8,11 @@ import java.util.List;
  */
 public class Agenda {
 
-// o nome do atributo de identificacao Ž oid	
+
     private int oid;
     private String titulo;
     private String descricao;
     private boolean ativo = true;
-
-// faltaram a definicao dos relacionamentos
-// os atributos precisam de get e set
     private List<Contato> contatos;
     private List<Usuario> usuarios;
     private List<Tarefa> tarefas;
@@ -95,13 +92,10 @@ public class Agenda {
 		return lembretes;
 	}
 
-// os beans devem ter toString e equals	
-	@Override
 	public String toString() {
 		return "Agenda ID " + this.oid;
 	}
 
-	@Override
 	public boolean equals(Object object) {
 		if (object instanceof Agenda) {
 			Agenda agenda = (Agenda) object;
