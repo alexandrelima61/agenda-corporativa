@@ -12,10 +12,11 @@ public class Tarefa {
 	private Date data;
 	private String local;
 	private String descricao;
+	private boolean ativo;
 // faltou os relacionamentos com agenda e com usuario
 	private Agenda agenda;
 	private Usuario usuario;
-	
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -88,6 +89,14 @@ public class Tarefa {
 		return usuario;
 	}
 	
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
 // deve ter toString e equals implementado	
 	@Override
 	public String toString() {
@@ -103,4 +112,5 @@ public class Tarefa {
 		
 		return false;
 	}
+	
 }
