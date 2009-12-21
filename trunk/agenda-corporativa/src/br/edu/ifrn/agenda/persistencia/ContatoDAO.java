@@ -1,14 +1,23 @@
+package br.edu.ifrn.agenda.persistencia;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import br.edu.ifrn.agenda.beans.Contato;
+
 public class ContatoDAO{
-	public static ContatoDAO instance = new ContatoDao();
+	public static ContatoDAO instance = new ContatoDAO();
 	
-	public static Contato DAO getInstance(){
-		return UsuarioDAO.instance;
+	public static ContatoDAO getInstance(){
+		return ContatoDAO.instance;
 	}
 	
-	PreparedStatement statementInserir = conexao.getInstance().getPreparedStament("INSERT INTO contato(nome,telefone,email,endereco) VALUES (?,?,?,?)");
-	PreparedStatement statementAtualizar = conexao.getInstance().getPreparedStament("UPDATE contato set (nome=?,telefone=?,email=?,endereco=?) WHERE con_id=?");
-	PreparedStatement statementRecuperar = conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato WHERE nome=?");
-	PreparedStatement statementRecuperarTodos = conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato");
+	PreparedStatement statementInserir = Conexao.getInstance().getPreparedStatement("INSERT INTO contato(nome,telefone,email,endereco) VALUES (?,?,?,?)");
+	PreparedStatement statementAtualizar = Conexao.getInstance().getPreparedStatement("UPDATE contato set (nome=?,telefone=?,email=?,endereco=?) WHERE con_id=?");
+	PreparedStatement statementRecuperar = Conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato WHERE nome=?");
+	PreparedStatement statementRecuperarTodos = Conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato");
 	
 	public void InserirContato(Contato contato){
 		try{	
@@ -35,8 +44,8 @@ public class ContatoDAO{
 	}
 	public Contato buscarContato(Contato contato){
 		try{
-			this.statementRecuperar.setString(1,getNome());
-			ResultSet rs = statementRecuperar.execute();
+			this.statementRecuperar.setString(1,contato.getNome());
+			ResultSet rs = statementRecuperar.executeQuery();
 			
 			while(rs.next()){
 				contato.setNome(rs.getString("nome"));
@@ -51,9 +60,11 @@ public class ContatoDAO{
 	}
 	
 	public List buscarTodos(){
+		
+		List<Contato> contatos = new ArrayList<Contato>();
+		
 		try{
-			List<Contato> contatos = new ArrayList<Contato>;
-			ResultSet rs = statementRecuperar.execute();
+			ResultSet rs = statementRecuperar.executeQuery();
 			
 			while(rs.next()){
 				Contato contato = new Contato();
@@ -66,6 +77,6 @@ public class ContatoDAO{
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		return contato;
+		return contatos;
 	}
 }
