@@ -103,4 +103,11 @@ public class Agenda {
 		}
 		return super.equals(object);
 	}
+
+	public static Agenda buscarPorID(int int1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }
