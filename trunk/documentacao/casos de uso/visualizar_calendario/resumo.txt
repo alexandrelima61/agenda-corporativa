@@ -1,0 +1,1 @@
+Este caso de uso é responsável pela visualização das tarefas, compromissos e/ou lembretes das agendas, agrupados pelas diferentes agendas cadastradas.
