@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].[Contato](
+CREATE TABLE [dbo].[tb_Contato](
 	[nome] [varchar](60) NOT NULL,
 	[telefone] [varchar](50) NOT NULL,
 	[email] [varchar](50) NOT NULL,
