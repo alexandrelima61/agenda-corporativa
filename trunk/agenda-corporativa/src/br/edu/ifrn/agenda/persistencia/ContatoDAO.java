@@ -31,7 +31,7 @@ public class ContatoDAO{
 		}
 	}*/
 	
-	public void AtualizarContato(Contato contato){
+	public void atualizarContato(Contato contato){
 		if(contato.getOid()== 0){
 			try{	
 				this.statementInserir.setString(1,contato.getNome());
@@ -55,7 +55,7 @@ public class ContatoDAO{
 			}
 		}
 	}
-	public Contato buscarContato(Contato contato){
+	public Contato listarContato(Contato contato){
 		try{
 			this.statementRecuperar.setString(1,contato.getNome());
 			ResultSet rs = statementRecuperar.executeQuery();
@@ -72,7 +72,7 @@ public class ContatoDAO{
 		return contato;
 	}
 	
-	public List buscarTodos(){
+	public List listarTodos(){
 		
 		List<Contato> contatos = new ArrayList<Contato>();
 		
