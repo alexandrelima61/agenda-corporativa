@@ -24,5 +24,5 @@ CREATE TABLE tb_compromisso_data(
 	dat_datafim Datetime NULL,
 	dat_ativo bit NULL,
 	CONSTRAINT fk_dat_com FOREIGN KEY (com_id)
-    REFERENCES tb_dat_com(com_id)
+    REFERENCES tb_compromisso(com_id)
     )
