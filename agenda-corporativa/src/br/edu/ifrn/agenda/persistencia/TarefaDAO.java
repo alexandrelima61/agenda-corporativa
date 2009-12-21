@@ -29,7 +29,7 @@ public class TarefaDAO {
 		
 		stmt.setInt(1, id);
 		
-		
+		return null;
 		
 	}
 	
@@ -43,6 +43,8 @@ public class TarefaDAO {
 			tarefa.setData(rs.getDate("tar_data"));
 			
 		}
+		
+		return null;
 		
 	}
 	
