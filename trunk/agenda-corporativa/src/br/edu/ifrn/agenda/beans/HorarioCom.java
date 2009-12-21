@@ -5,8 +5,8 @@ import java.util.Date;
 public class HorarioCom {
 	
 	private int oid;
-	private Date datainicio;
-	private Date datafim;
+	private Date dataInicio;
+	private Date dataFim;
 	private boolean ativo;
 	
 	public HorarioCom() {
@@ -17,8 +17,8 @@ public class HorarioCom {
 			Date datafim, boolean ativo) {
 		super();
 		this.oid = oid;
-		this.datainicio = datainicio;
-		this.datafim = datafim;
+		this.dataInicio = datainicio;
+		this.dataFim = datafim;
 		this.ativo = ativo;
 	}
 
@@ -30,20 +30,20 @@ public class HorarioCom {
 		this.oid = oid;
 	}
 
-	public Date getDatainicio() {
-		return datainicio;
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDatainicio(Date datainicio) {
-		this.datainicio = datainicio;
+	public void setDataInicio(Date datainicio) {
+		this.dataInicio = datainicio;
 	}
 
-	public Date getDatafim() {
-		return datafim;
+	public Date getDataFim() {
+		return dataFim;
 	}
 
-	public void setDatafim(Date datafim) {
-		this.datafim = datafim;
+	public void setDataFim(Date datafim) {
+		this.dataFim = datafim;
 	}
 
 	public boolean isAtivo() {
