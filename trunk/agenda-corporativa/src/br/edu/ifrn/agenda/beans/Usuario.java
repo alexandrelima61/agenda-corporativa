@@ -15,7 +15,16 @@ public class Usuario {
 	public int getOid() {		
 		return this.oid;
 	}
-	
+
+
+
+	public static Usuario buscarPorID(int oid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 	
 
 }
