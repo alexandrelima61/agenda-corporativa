@@ -47,6 +47,9 @@
         menu: 'menu-direito'
     },
         function(action, el, pos) {
+		var evento = action.split('-');
+		
+		jQuery('#calendario-content').slideUp(300);
 		
     });
 
