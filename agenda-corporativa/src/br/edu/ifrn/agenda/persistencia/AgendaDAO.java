@@ -40,7 +40,7 @@ public class AgendaDAO{
             ps = conn.prepareStatement(SQL);
             ps.setString(1, categoria.getTitulo());
             ps.setString(2, categoria.getDescricao());
-            ps.setBoolean(3, categoria.isAtivado());
+            ps.setBoolean(3, categoria.isAtivo());
 
             ps.executeUpdate();
 
@@ -62,7 +62,7 @@ public class AgendaDAO{
                 a.setOid(rs.getInt("age_id"));
                 a.setTitulo(rs.getString("age_titulo"));
                 a.setDescricao(rs.getString("age_descricao"));
-                a.setAtivado(rs.getBoolean("age_ativado"));
+                a.setAtivo(rs.getBoolean("age_ativado"));
                 agendas.add(a);
             }
         } catch (SQLException ex) {
@@ -92,7 +92,7 @@ public class AgendaDAO{
                     ps = conn.prepareStatement(SQL);
                     ps.setString(1, agenda.getTitulo());
                     ps.setString(2, agenda.getDescricao());
-                    ps.setBoolean(3, agenda.isAtivado());
+                    ps.setBoolean(3, agenda.isAtivo());
                     ps.setInt(4, agenda.getOid());
                     ps.executeUpdate();
                 } catch (SQLException ex){
