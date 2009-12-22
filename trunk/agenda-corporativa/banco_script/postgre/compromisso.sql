@@ -3,7 +3,7 @@ CREATE TABLE tb_compromisso (
     com_titulo character varying(50),
     com_local character varying(50),
     com_descricao character varying(200),
-    com_ativo boolean,
+    com_ativo boolean NOT NULL,
     usu_id integer,
     age_id integer,
     
