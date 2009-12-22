@@ -26,3 +26,16 @@ CREATE TABLE tb_compromisso_data(
 	CONSTRAINT fk_dat_com FOREIGN KEY (com_id)
     REFERENCES tb_compromisso(com_id)
     )
+    
+CREATE TABLE tb_compromisso_participantes(
+	com_par_id int IDENTITY(1,1) primary key NOT NULL,
+	com_id int NOT NULL,
+	usu_id int NOT NULL,
+    com_par_ativo bit,	
+	
+	CONSTRAINT fk_tb_compromisso_participantes_com 
+	FOREIGN KEY (com_id) REFERENCES tb_compromisso(com_id),	
+	CONSTRAINT fk_tb_compromisso_participantes_usu
+	FOREIGN KEY (usu_id) REFERENCES tb_usuario (usu_id)
+	
+)  
