@@ -196,15 +196,13 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));               
                 	participantes.add(participante);
                 
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes);
                 compromissos.add(comp);
             
             }
@@ -267,15 +265,12 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
-                	participantes.add(participante);
-                
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
+                	participantes.add(participante);                
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes); 
                 compromissos.add(comp);
             
             }
@@ -338,15 +333,13 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
                 	participantes.add(participante);
                 
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes);
                 compromissos.add(comp);
             
             }
