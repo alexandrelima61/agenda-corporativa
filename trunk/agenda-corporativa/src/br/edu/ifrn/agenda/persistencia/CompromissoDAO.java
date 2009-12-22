@@ -85,7 +85,7 @@ public class CompromissoDAO {
             
             while (rs.next()){
                 Compromisso comp = new Compromisso();
-                comp.setProprietario(Usuario.buscarPorID(rs.getInt("usu_id")));
+                comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
                 comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
                 comp.setTitulo(rs.getString("com_titulo"));
                 comp.setLocal(rs.getString("com_local"));
@@ -155,7 +155,7 @@ public class CompromissoDAO {
             
             while (rs.next()){
                 Compromisso comp = new Compromisso();
-                comp.setProprietario(Usuario.buscarPorID(rs.getInt("usu_id")));
+                comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
                 comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
                 comp.setTitulo(rs.getString("com_titulo"));
                 comp.setLocal(rs.getString("com_local"));
@@ -226,7 +226,7 @@ public class CompromissoDAO {
             
             while (rs.next()){
                 Compromisso comp = new Compromisso();
-                comp.setProprietario(Usuario.buscarPorID(rs.getInt("usu_id")));
+                comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
                 comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
                 comp.setTitulo(rs.getString("com_titulo"));
                 comp.setLocal(rs.getString("com_local"));
@@ -297,7 +297,7 @@ public class CompromissoDAO {
             
             while (rs.next()){
                 Compromisso comp = new Compromisso();
-                comp.setProprietario(Usuario.buscarPorID(rs.getInt("usu_id")));
+                comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
                 comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
                 comp.setTitulo(rs.getString("com_titulo"));
                 comp.setLocal(rs.getString("com_local"));
