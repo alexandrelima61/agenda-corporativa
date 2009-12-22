@@ -4,6 +4,7 @@ CREATE TABLE tb_contato(
 	telefone character varying(60),
 	email character varying(60),
 	endereco character varying(60),
+	ativado boolean NOT NULL,
 	
 	CONSTRAINT tb_contato_pk 
 		PRIMARY KEY (con_id)
