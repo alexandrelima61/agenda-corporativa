@@ -3,5 +3,6 @@ CREATE TABLE tb_agenda (
   age_titulo character varying(50),
   age_descricao character varying(200),
   age_ativado boolean NOT NULL,
-  CONSTRAINT pk_age_id PRIMARY KEY (age_id)
+
+  CONSTRAINT tb_agenda_pk PRIMARY KEY (age_id)
 ) 

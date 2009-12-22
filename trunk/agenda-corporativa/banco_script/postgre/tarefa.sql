@@ -9,7 +9,7 @@ CREATE TABLE tb_tarefa (
   tar_descricao character varying(250),
   tar_estado integer,
   tar_ativado boolean NOT NULL,
-  CONSTRAINT pk_tar_id PRIMARY KEY (tar_id),
+  CONSTRAINT tb_tarefa_pk PRIMARY KEY (tar_id),
   FOREIGN KEY(age_id) REFERENCES tb_agenda(age_id),
   FOREIGN KEY(usu_id) REFERENCES tb_usuario(usu_id)
-) 
+);
