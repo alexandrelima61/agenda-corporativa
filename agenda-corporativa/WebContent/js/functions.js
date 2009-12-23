@@ -49,7 +49,7 @@
         function(action, el, pos) {
 		var evento = action.split('-');
 		//alert(evento[1]+'/cadastrar.html')
-		jQuery('#calendario-content').load(evento[1]+'s/cadastrar.html');
+		jQuery('#calendario-content').load(evento[1]+'s/cadastrar.jsp');
 		
     });
 
