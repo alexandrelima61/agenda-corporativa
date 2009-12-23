@@ -15,30 +15,27 @@ public class ContatoDAO{
 		return ContatoDAO.instance;
 	}
 	
-	PreparedStatement statementInserir = Conexao.getInstance().getPreparedStatement("INSERT INTO contato(nome,telefone,email,endereco) VALUES (?,?,?,?)");
-	PreparedStatement statementAtualizar = Conexao.getInstance().getPreparedStatement("UPDATE contato set (nome=?,telefone=?,email=?,endereco=?) WHERE con_id=?");
-	PreparedStatement statementRecuperar = Conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato WHERE nome=?");
-	PreparedStatement statementRecuperarTodos = Conexao.getInstance().getPreparedStatement("SELECT nome,telefone,email,endereco FROM contato");
+	PreparedStatement statementInserir = Conexao.getInstance().getPreparedStatement("INSERT INTO tb_contato(con_nome,con_endereco,con_id) VALUES (?,?,?)");
+	PreparedStatement statementAtualizar = Conexao.getInstance().getPreparedStatement("UPDATE tb_contato set (con_nome=?,con_endereco=?) WHERE con_id=?");
+	PreparedStatement statementRecuperar = Conexao.getInstance().getPreparedStatement("SELECT con_nome,con_telefone,con_email,con_endereco FROM tb_contato WHERE con_nome=?");
+	PreparedStatement statementRecuperarTodos = Conexao.getInstance().getPreparedStatement("SELECT con_nome,con_telefone,con_email,con_endereco FROM tb_contato");
+	PreparedStatement statementInserirTelefone = Conexao.getInstance().getPreparedStatement("INSERT INTO tb_telefone(con_oid,con_telefone) VALUES(?,?)");
+	PreparedStatement statementInserirEmail = Conexao.getInstance().getPreparedStatement("INSERT INTO tb_email(con_oid,con_email) VALUES(?,?)");
+	PreparedStatement statementAtualizarTelefone = Conexao.getInstance().getPreparedStatement("UPDATE tb_contato set (con_telefone=?) WHERE con_id=?");
+	PreparedStatement statementAtualizarEmail = Conexao.getInstance().getPreparedStatement("UPDATE tb_contato set (con_email=?) WHERE con_id=?");
+	PreparedStatement statementRecuperarTelefones = Conexao.getInstance().getPreparedStatement("SELECT con_telefone FROM tb_telefone WHERE con_id=?");
+	PreparedStatement statementRecuperarEmails = Conexao.getInstance().getPreparedStatement("SELECT con_email FROM tb_email WHERE con_id=?");
+	PreparedStatement statementOid = Conexao.getInstance().getPreparedStatement("SELECT con_id FROM tb_contato WHERE con_id = MAX(con_id)");
 	
-	/*public void InserirContato(Contato contato){
-		try{	
-			this.statementInserir.setString(1,contato.getNome());
-			this.statementInserir.setString(2,contato.getTelefone());
-			this.statementInserir.setString(3,contato.getEmail());
-			this.statementInserir.setString(4,contato.getEndereco());
-			this.statementInserir.execute();
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-	}*/
 	
 	public void atualizarContato(Contato contato){
 		if(contato.getOid()== 0){
 			try{	
 				this.statementInserir.setString(1,contato.getNome());
-				this.statementInserir.setString(2,contato.getTelefone());
-				this.statementInserir.setString(3,contato.getEmail());
-				this.statementInserir.setString(4,contato.getEndereco());
+				inserirTelefone(contato);
+				inserirEmail(contato);
+				this.statementInserir.setString(2,contato.getEndereco());
+				this.statementInserir.setInt(3,novoOid());
 				this.statementInserir.execute();
 			}catch(SQLException e){
 				e.printStackTrace();
@@ -46,10 +43,9 @@ public class ContatoDAO{
 		}
 		else{
 			try{	
-				this.statementAtualizar.setString(1,contato.getNome());
-				this.statementAtualizar.setString(2,contato.getTelefone());
-				this.statementAtualizar.setString(3,contato.getEmail());
-				this.statementAtualizar.setString(4,contato.getEndereco());
+				this.statementAtualizar.setString(1,contato.getNome());		
+				this.statementAtualizar.setString(2,contato.getEndereco());
+				this.statementAtualizar.setInt(3,contato.getOid());
 				this.statementAtualizar.execute();
 			}catch(SQLException e){
 				e.printStackTrace();
@@ -62,9 +58,11 @@ public class ContatoDAO{
 			ResultSet rs = statementRecuperar.executeQuery();
 			
 			while(rs.next()){
-				contato.setNome(rs.getString("nome"));
-				contato.setTelefone(rs.getString("telefone"));
-				contato.setEmail(rs.getString("email"));
+				contato.setNome(rs.getString("con_nome"));
+				//contato.setTelefone(rs.getString("tb_telefone"));
+				
+				//contato.setEmail(rs.getString("email"));
+				
 				contato.setEndereco(rs.getString("endereco"));
 			}
 		}catch(SQLException e){
@@ -92,5 +90,79 @@ public class ContatoDAO{
 			e.printStackTrace();
 		}
 		return contatos;
+	}
+	
+	public void inserirTelefone(Contato contato){
+		try {
+			
+			ResultSet rs = statementInserirTelefone.executeQuery();
+			String telefone;
+			
+			for(int i=0;i<contato.getTelefone().size();i++){
+				statementInserirTelefone.setInt(1, contato.getOid());
+				telefone = contato.getTelefone().get(i);
+				statementInserirTelefone.setString(2,telefone);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void inserirEmail(Contato contato){
+		try {
+			
+			ResultSet rs = statementInserirEmail.executeQuery();
+			String email;
+			
+			for(int i=0;i<contato.getEmail().size();i++){
+				statementInserirEmail.setInt(1, contato.getOid());
+				email = contato.getEmail().get(i);
+				statementInserirEmail.setString(2,email);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void atualizarTelefone(Contato contato){
+		
+	}
+	
+	public void atualizarEmail(){
+		
+	}
+	
+	public List recuperarTelefones(){
+		List<String> telefones = null;
+		try {
+			ResultSet rs = statementRecuperarTelefones.executeQuery();
+			while(rs.next()){
+				telefones.add(rs.getString("con_telefone"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return telefones;
+	}
+	
+	public void recuperarEmails(){
+		
+	}
+	
+	public int novoOid(){
+		
+		int id=0;
+		
+		try {
+			ResultSet rs = statementOid.executeQuery();
+			id = rs.getInt("con_id");
+			id++;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 }
