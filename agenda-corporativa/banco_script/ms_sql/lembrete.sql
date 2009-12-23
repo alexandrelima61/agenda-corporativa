@@ -1,11 +1,16 @@
-CREATE TABLE [dbo].[tb_lembrete](
-	[lem_id] [int] NOT NULL,
-	[titulo] [varchar](25) NOT NULL,
-	[corpo] [varchar](150) NOT NULL,
- CONSTRAINT [PK_tb_lembrete] PRIMARY KEY CLUSTERED 
-(
-	[lem_id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-SET ANSI_PADDING OFF
+CREATE TABLE tb_lembrete (
+  lem_id int IDENTITY(1,1) primary key NOT NULL,
+  lem_titulo varchar(50),
+  lem_corpo varchar(150),
+  lem_ativo bit NOT NULL,
+);
+
+
+CREATE TABLE tb_lembretes_datas (
+  lem_id int NOT NULL,
+  lem_dat_data Datetime NOT NULL,
+
+  CONSTRAINT tb_lembretes_datas_lem_fk 
+	FOREIGN KEY (lem_id)
+  	REFERENCES tb_lembrete (lem_id)
+);
