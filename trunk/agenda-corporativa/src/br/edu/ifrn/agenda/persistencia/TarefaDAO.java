@@ -1,5 +1,6 @@
 package br.edu.ifrn.agenda.persistencia;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class TarefaDAO {
 		conexao = Conexao.getInstance();
 	}
 
-
-	public List<Tarefa> retornaTarefaPorTitulo(String titulo) throws SQLException {
+	public List<Tarefa> retornaTarefaPorTitulo(String titulo)
+			throws SQLException {
 
 		ResultSet rs = conexao
 				.executeQueryStatement("select * from tb_tarefa where tar_titulo = "
@@ -51,6 +52,20 @@ public class TarefaDAO {
 
 		return tarefas;
 
+	}
+
+	public List<Tarefa> recuperarPorData(Date dataInicio, Date dataFim)
+			throws SQLException {
+
+		ResultSet rs = conexao
+				.executeQueryStatement("select * from tb_tarefe where tar_data > '"
+						+ dataInicio + "' and tar_data < '" + dataFim + "'");
+
+		List<Tarefa> tarefas = new ArrayList<Tarefa>();
+		while (rs.next())
+			tarefas.add(this.gerarTarefa(rs));
+
+		return tarefas;
 	}
 
 	public void salvar(Tarefa tarefa) {
@@ -90,8 +105,9 @@ public class TarefaDAO {
 
 	public void remover(int tarefaOid) {
 
-		conexao.executeQueryStatement("update tb_tarefa set tar_ativo = 0 where tar_id="
-				+ tarefaOid);
+		conexao
+				.executeQueryStatement("update tb_tarefa set tar_ativo = 0 where tar_id="
+						+ tarefaOid);
 	}
 
 	private Tarefa gerarTarefa(ResultSet rs) throws SQLException {
@@ -100,7 +116,8 @@ public class TarefaDAO {
 
 		if (rs.next()) {
 
-			//tarefa.setAgenda(new AgendaDAO().recuperarPorId(rs.getInt("age_id")));
+			// tarefa.setAgenda(new
+			// AgendaDAO().recuperarPorId(rs.getInt("age_id")));
 			tarefa.setTitulo(rs.getString("tar_titulo"));
 			tarefa.setData(rs.getDate("tar_data"));
 			tarefa.setLocal(rs.getString("tar_local"));
