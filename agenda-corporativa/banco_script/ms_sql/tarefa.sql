@@ -1,6 +1,7 @@
 CREATE TABLE tb_tarefa (
 	tar_id int IDENTITY(1,1) PRIMARY KEY,
 	age_id int,
+	usu_id int,
 	tar_titulo varchar(70),
 	tar_data datetime,
 	tar_local varchar(40),
@@ -11,5 +12,10 @@ CREATE TABLE tb_tarefa (
 
 	CONSTRAINT FK_tb_tarefa_agen
 		FOREIGN KEY(age_id) 
-		REFERENCES tb_agenda (age_id)
+		REFERENCES tb_agenda (age_id),
+
+	CONSTRAINT FK_tb_tarefa_usu
+		FOREIGN KEY(usu_id) 
+		REFERENCES tb_usuario (usu_id)
+
 );

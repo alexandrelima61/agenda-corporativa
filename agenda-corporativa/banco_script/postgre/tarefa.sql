@@ -1,6 +1,7 @@
 CREATE TABLE tb_tarefa (
 	tar_id serial NOT NULL,
 	age_id integer NOT NULL,
+	usu_id integer NOT NULL,
 	tar_titulo character varying(70),
 	tar_data timestamp,
 	tar_local character varying(40),
@@ -12,5 +13,7 @@ CREATE TABLE tb_tarefa (
 	CONSTRAINT tb_tarefa_pk 
 		PRIMARY KEY (tar_id),
 	CONSTRAINT 
-		FOREIGN KEY(age_id) REFERENCES tb_agenda(age_id)
+		FOREIGN KEY(age_id) REFERENCES tb_agenda(age_id),
+	CONSTRAINT 
+		FOREIGN KEY(usu_id) REFERENCES tb_usuario(usu_id)
 );
