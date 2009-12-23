@@ -16,18 +16,15 @@ import br.edu.ifrn.agenda.beans.Usuario;
 
 public class CompromissoDAO {
 
-	private Conexao conn = Conexao.getInstance();
+	private static CompromissoDAO singleton = new CompromissoDAO();
 	
-	public CompromissoDAO() throws Exception {
-        try {
-            
 
-        } catch (Exception e) {
-            throw new Exception("Erro: " +
-                    "\n" + e.getMessage());
-        }
-    }
+	public static CompromissoDAO getInstance() {
+		return CompromissoDAO.singleton;
+	}
 	
+	private Conexao conn = Conexao.getInstance();
+		
 	
 	public void salvar(Compromisso comp) throws Exception {
         PreparedStatement ps = null;
