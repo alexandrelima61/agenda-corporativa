@@ -1,13 +1,12 @@
 package br.edu.ifrn.agenda.persistencia;
 
-import br.edu.ifrn.agenda.beans.Agenda;
-//import br.com.agenda.util.ConnectionFactory;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.List;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
+import br.edu.ifrn.agenda.beans.Agenda;
 
 public class AgendaDAO{
 

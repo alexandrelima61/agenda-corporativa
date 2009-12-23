@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import br.edu.ifrn.agenda.beans.Contato;
 
 public class ContatoDAO{
