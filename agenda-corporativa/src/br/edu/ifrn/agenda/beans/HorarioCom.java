@@ -34,8 +34,8 @@ public class HorarioCom {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date datainicio) {
-		this.dataInicio = datainicio;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 	public Date getDataFim() {
