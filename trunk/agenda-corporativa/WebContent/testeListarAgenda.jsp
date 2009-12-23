@@ -7,11 +7,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Teste</title>
 </head>
 <body>
-<c:forEach var="agenda" items="${AgendaDAO.listarTodasAgendas}">
-	<c:out value="${agenda.titulo}"></c:out>
-</c:forEach>
+<h1>antes</h1>
+	<% AgendaDAO agenda = new AgendaDAO(); %>
+	<ul>
+		<% for (Agenda agendas : agenda.listarTodasAgendas()){ %>
+		<li><%=agendas.getTitulo() %></li>
+		<%}%>		
+	</ul>
+
+
+<h2>depois</h2>
 </body>
 </html>
