@@ -190,7 +190,7 @@ public class TarefaDAO {
 
 		}
 
-		return null;
+		return tarefa;
 
 	}
 
