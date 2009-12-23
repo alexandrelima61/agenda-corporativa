@@ -12,6 +12,8 @@
 		<script type="text/javascript" src="js/jquery.contextMenu.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/navegacao-calendario.js"></script>
+		<script type="text/javascript" src="js/navegacao.js"></script>
+		
 		
 		<link rel="stylesheet" type="text/css" href="css/redmond/jquery-ui-1.7.2.custom.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.tooltip.css" />
@@ -59,7 +61,7 @@
 										Agenda Verde
 									</div>
 									<div class="add-button-wrap">
-										<a href="#">Adicionar Agenda</a>
+										<a href="<%=request.getContextPath() %>/agendas/cadastrar.jsp">Adicionar Agenda</a>
 									</div>
 								</div>
 							</div>
