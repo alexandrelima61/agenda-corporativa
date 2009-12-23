@@ -2,7 +2,28 @@
     pageEncoding="ISO-8859-1"%>
 <script type="text/javascript">
 	jQuery(function() {
-		jQuery('#dataInicial, #dataFinal').datepicker();
+		jQuery('#dataInicial, #dataFinal').datepicker({
+			dateFormat: 'dd/mm/yy',
+			dayNames: [  
+			'Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'  
+			],  
+			dayNamesMin: [  
+			'D','S','T','Q','Q','S','S','D'  
+			],  
+			dayNamesShort: [  
+			'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'  
+			],  
+			monthNames: [  
+			'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro',  
+			'Outubro','Novembro','Dezembro'  
+			],  
+			monthNamesShort: [  
+			'Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set',  
+			'Out','Nov','Dez'  
+			],  
+			nextText: 'Próximo',  
+			prevText: 'Anterior'
+		});
 	});
 </script>
 
@@ -25,10 +46,10 @@
 		<label for="Local">Local</label>
 		<input type="text" class="input-longo" name="localCompromisso" id="localCompromisso" />
 		
-		<label for="Categoria">Categoria</label>
-		<select id="categoriaCompromisso">
-			<option id="1">Categoria 1</option>
-			<option id="2">Categoria 2</option>
+		<label for="Categoria">Agenda</label>
+		<select id="agendaCompromisso">
+			<option id="1">Agenda 1</option>
+			<option id="2">Agenda 2</option>
 		</select>
 		
 		<label for="Descricao">Descrição</label>

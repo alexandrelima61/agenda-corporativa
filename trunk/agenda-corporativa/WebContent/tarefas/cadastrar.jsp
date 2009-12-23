@@ -2,7 +2,28 @@
     pageEncoding="ISO-8859-1"%>
 <script type="text/javascript">
 	jQuery(function() {
-		jQuery('#dataTarefa').datepicker();
+		jQuery('#dataTarefa').datepicker({
+			dateFormat: 'dd/mm/yy',
+			dayNames: [  
+			'Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'  
+			],  
+			dayNamesMin: [  
+			'D','S','T','Q','Q','S','S','D'  
+			],  
+			dayNamesShort: [  
+			'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'  
+			],  
+			monthNames: [  
+			'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro',  
+			'Outubro','Novembro','Dezembro'  
+			],  
+			monthNamesShort: [  
+			'Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set',  
+			'Out','Nov','Dez'  
+			],  
+			nextText: 'Próximo',  
+			prevText: 'Anterior'
+		});
 	});
 </script>
 
@@ -12,11 +33,11 @@
   <fieldset>
   <label for="Título">Título</label>
   <input type="text" class="input-longo" name="tituloTarefa" id="tituloTarefa"/>
-  <label for="Categoria">Categoria</label>
-  <select name="categoriaTarefa" id="categoriaTarefa">
-    <option>Categoria 1</option>
-    <option>Categoria 2</option>
-    <option>Categoria n</option>
+  <label for="Agenda">Agenda</label>
+  <select name="agendaTarefa" id="agendaTarefa">
+    <option>Agenda 1</option>
+    <option>Agenda 2</option>
+    <option>Agenda n</option>
   </select>
 		<div class="inputInline">
 			<label for="Data">Data</label>
