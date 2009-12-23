@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 public class Conexao {
 
-	private static Conexao singleton = new Conexao();
+	private static Conexao singleton = null;
 	
 	private Connection connection;
 	private DataSource source;
@@ -23,13 +23,20 @@ public class Conexao {
 	private String usuario = "postgres";
 	private String senha = "postgres";
 	
+	public static Conexao createInstance() {
+		return new Conexao();
+	}
+	
 	public static Conexao getInstance() {
+		if (Conexao.singleton == null) {
+			Conexao.singleton = new Conexao();
+			Conexao.singleton.init();
+		}
 		return Conexao.singleton;
 	}
 	
 	private Conexao() {
 		super();
-		init();
 	}
 	
 	public void initEnvironment(String driver, String url, String usuario, String senha) {
@@ -39,21 +46,26 @@ public class Conexao {
 		this.senha = senha;
 	}
 	
-	public void initDriver() {
-		try {
-			Class.forName(this.driver);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	private void initDriver() throws ClassNotFoundException {
+		Class.forName(this.driver);
+	}
+	
+	private void initDatasource() throws NamingException {
+		Context contextInitial = new InitialContext();
+		Context context = (Context)contextInitial.lookup("java:comp/env");
+		source = (DataSource)context.lookup("jdbc/agendaDataSource");
 	}
 	
 	public void init() {
 		try {
-			Context contextInitial = new InitialContext();
-			Context context = (Context)contextInitial.lookup("java:comp/env");
-			source = (DataSource)context.lookup("jdbc/agendaDataSource");
-		} catch (NamingException e) {
-			e.printStackTrace();
+			initDatasource();
+		} catch (NamingException excNaming) {
+			try {
+				initDriver();
+			} catch (ClassNotFoundException exClassNotFound) {
+				// FIXME deve lancar uma excecao da aplicacao
+				exClassNotFound.printStackTrace();
+			}
 		}
 	}
 	

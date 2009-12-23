@@ -1,12 +1,10 @@
 package br.edu.ifrn.agenda.persistencia;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.EstadoTarefa;
 import br.edu.ifrn.agenda.beans.Prioridade;
 import br.edu.ifrn.agenda.beans.Tarefa;
