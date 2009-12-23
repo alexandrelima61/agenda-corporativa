@@ -1,4 +1,4 @@
-Ôªø*
+*
 {
 	margin: 0 auto;
 	font: 10.5px Verdana, "Trebuchet MS", Tahoma, Arial;
@@ -61,7 +61,7 @@ a:hover{color: #000;}
 }
 
 
-/* Calend√°rio */ 
+/* Calend·rio */ 
 #calendario-wrap
 {
 	overflow: hidden;
@@ -189,6 +189,18 @@ a:hover{color: #000;}
 	margin-bottom:10px;
 }
 
+.add-button-wrap
+{
+
+	background-color:#fff;
+	text-align:right;
+	margin-top:8px;
+}
+.add-button-wrap a, .add-button-wrap
+{
+	padding:3px;	
+}
+.add-button-wrap a:hover{background:#DEF0FF;}
 .odd{background-color:#f8f8f8;}
 .even{background-color:white;}
 .linha-hover{background-color: #F4FAFF;}
@@ -197,7 +209,7 @@ a:hover{color: #000;}
 .portlet-header .ui-icon { float: right; }
 .portlet-content { padding: 0.4em; }
 
-/* Formul√°rios */
+/* Formul·rios */
 
 fieldset
 {

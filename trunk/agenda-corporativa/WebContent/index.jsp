@@ -58,6 +58,9 @@
 									<div class="eventos-dia-calendario agenda-verde" >
 										Agenda Verde
 									</div>
+									<div class="add-button-wrap">
+										<a href="#">Adicionar Agenda</a>
+									</div>
 								</div>
 							</div>
 							
