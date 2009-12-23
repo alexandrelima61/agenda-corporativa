@@ -17,14 +17,18 @@ public class TarefaDAO {
 		conexao = Conexao.getInstance();
 	}
 
-	// nome errado da tarefa!!!
-	public Tarefa retornaTarefaPorTitulo(String titulo) throws SQLException {
+
+	public List<Tarefa> retornaTarefaPorTitulo(String titulo) throws SQLException {
 
 		ResultSet rs = conexao
-				.executeQueryStatement("select * from Tarefa where tar_titulo = "
+				.executeQueryStatement("select * from tb_tarefa where tar_titulo = "
 						+ titulo);
 
-		return this.gerarTarefa(rs);
+		List<Tarefa> tarefas = new ArrayList<Tarefa>();
+		while (rs.next())
+			tarefas.add(this.gerarTarefa(rs));
+
+		return tarefas;
 	}
 
 	public Tarefa recuperarPorOid(int id) throws SQLException {
@@ -86,7 +90,7 @@ public class TarefaDAO {
 
 	public void remover(int tarefaOid) {
 
-		conexao.executeQueryStatement("delete from tb_tarefa where tar_id="
+		conexao.executeQueryStatement("update tb_tarefa set tar_ativo = 0 where tar_id="
 				+ tarefaOid);
 	}
 
@@ -96,7 +100,7 @@ public class TarefaDAO {
 
 		if (rs.next()) {
 
-			// tarefa.setAgenda(new AgendaDAO().recuperarPorId());
+			//tarefa.setAgenda(new AgendaDAO().recuperarPorId(rs.getInt("age_id")));
 			tarefa.setTitulo(rs.getString("tar_titulo"));
 			tarefa.setData(rs.getDate("tar_data"));
 			tarefa.setLocal(rs.getString("tar_local"));
