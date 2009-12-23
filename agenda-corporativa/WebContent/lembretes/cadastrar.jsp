@@ -27,6 +27,7 @@
 	});
 </script>
 <div id="internas-content">
+<div class="backBtn"><a href="<%=request.getContextPath() %>">Voltar</a></div>
 	<h2>Adicionar Lembrete</h2>
 <form action="#">
 	<fieldset>
