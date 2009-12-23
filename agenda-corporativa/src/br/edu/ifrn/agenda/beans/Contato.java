@@ -7,8 +7,8 @@ public class Contato {
 // todos os beans devem ter um identificador	
 	private int oid;
 	private String  nome;
-	private String telefone;
-	private String email;
+	private List<String> telefone;
+	private List<String> email;
 	private String endereco;
 // todos as informacoes devem ter um flag
 	private boolean ativo;
@@ -31,19 +31,19 @@ public class Contato {
 		return nome;
 	}
 	
-	public void setTelefone(String telefone) {
+	public void setTelefone(List<String> telefone) {
 		this.telefone = telefone;
 	}
 	
-	public String getTelefone() {
+	public List<String> getTelefone() {
 		return telefone;
 	}
 	
-	public void setEmail(String email) {
+	public void setEmail(List<String> email) {
 		this.email = email;
 	}
 	
-	public String getEmail() {
+	public List<String> getEmail() {
 		return email;
 	}
 	
