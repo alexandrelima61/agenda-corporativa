@@ -5,10 +5,10 @@
 <form action="#">
   <fieldset>
   <label for="Título">Título:</label>
-  <input type="text" class="input-longo" name="tituloTarefa" id="tituloTarefa"/>
+  <input type="text" class="input-longo" name="tituloAgenda" id="tituloAgenda"/>
   
     <label for="Descrição">Descrição:</label>
-  <textarea name="descricao" id="descricao"></textarea>
+  <textarea name="descricaoAgenda" id="descricaoAgenda"></textarea>
  <div class="buttonsForm">
   <input type="button" name="botao" id="botao" value="Cadastrar Agenda"/>
   </div>
