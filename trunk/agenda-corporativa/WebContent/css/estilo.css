@@ -188,6 +188,11 @@ a:hover{color: #000;}
 	padding-bottom:2px;
 	margin-bottom:10px;
 }
+.backBtn
+{
+	padding:3px;
+	text-align:right;
+}
 
 .add-button-wrap
 {
