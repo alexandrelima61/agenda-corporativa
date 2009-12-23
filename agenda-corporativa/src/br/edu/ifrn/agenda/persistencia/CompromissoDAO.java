@@ -32,6 +32,7 @@ public class CompromissoDAO {
 	public void salvar(Compromisso comp) throws Exception {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
+        PreparedStatement ps3 = null;
         
         
         try {
@@ -59,10 +60,16 @@ public class CompromissoDAO {
             
          }
          
-         //for(Usuario participantes : comp.getParticipantes()){   
-            
+         for(Usuario participantes : comp.getParticipantes()){   
+        	 String SQL3 = "INSERT INTO tb_compromisso_participantes (com_id, usu_id, com_par_ativo) " +
+             "values (?, ?, ?)";
+        	 ps3 = conn.getPreparedStatement(SQL3);
+        	 ps3.setInt(1, comp.getOid());
+        	 ps3.setInt(2, participantes.getOid());
+        	 ps3.setBoolean(3, participantes.isAtivado());
+        	 ps3.executeUpdate();
                  
-             // }
+        }
          
         } catch (SQLException sqle) {
             throw new Exception("Erro ao inserir dados " + sqle);
@@ -113,7 +120,7 @@ public class CompromissoDAO {
                 
                 List<Usuario> participantes = new ArrayList<Usuario>();
                 
-                SQL = "select * from tb_usuario where usu_id = ? ;";
+                SQL = "select * from tb_compromisso_participantes where com_id = ? ;";
                 ps3 = conn.getPreparedStatement(SQL);
                 ps3.setInt(1, comp.getOid());
                 
@@ -121,15 +128,13 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
                 	participantes.add(participante);
                 
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes);                
                 compromissos.add(comp);
             
             }
@@ -191,15 +196,13 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));               
                 	participantes.add(participante);
                 
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes);
                 compromissos.add(comp);
             
             }
@@ -262,15 +265,12 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
-                	participantes.add(participante);
-                
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
+                	participantes.add(participante);                
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes); 
                 compromissos.add(comp);
             
             }
@@ -333,15 +333,13 @@ public class CompromissoDAO {
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
-                //participante.
-                // Falta metodos da tabela usuario
-                
-                    
+                	comp.setOid(rs3.getInt("com_id"));
+                	participante.setOid(rs3.getInt("usu_id"));
+                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
                 	participantes.add(participante);
                 
                 }                
-                comp.setParticipantes(participantes);               
-                
+                comp.setParticipantes(participantes);
                 compromissos.add(comp);
             
             }
@@ -372,7 +370,7 @@ public class CompromissoDAO {
 	            
 	    for(HorarioCom horario : comp.getDatas()){   
 	        String SQL2 = "UPDATE INTO tb_compromisso_data com_id = ?, dat_datainicio = ?, dat_datafim = ?, com_ativo = ? " +
-	        		"where com_id = ?;) "; 
+	        		"where com_id = ?;"; 
 	        
 	        ps2 = conn.getPreparedStatement(SQL2);
 	        ps2.setInt(1, comp.getOid());
@@ -382,13 +380,21 @@ public class CompromissoDAO {
 	        ps2.executeUpdate();
 	            
 	         }
+	    
+	    for(Usuario participantes : comp.getParticipantes()){   
+	        String SQL3 = "UPDATE INTO tb_compromisso_participantes com_id = ?, usu_id = ?, com_par_ativo = ? " +
+	             "where com_id = ?;";
+	        ps3 = conn.getPreparedStatement(SQL3);
+	        ps3.setInt(1, comp.getOid());
+	        ps3.setInt(2, participantes.getOid());
+	        ps3.setBoolean(3, participantes.isAtivado());
+	        ps3.executeUpdate();
+	                 
+	        }
+	    
 	        } catch (SQLException sqle) {
 	            throw new Exception("Erro ao inserir dados " + sqle);
-	        }
-	        
-	    //for(Usuario participantes: comp.getParticipantes()){
-	    	
-	    //}
+	        }	     
 	        
 	   return rows;     
 		
@@ -396,5 +402,3 @@ public class CompromissoDAO {
 	
 	
 }
-	
-	
