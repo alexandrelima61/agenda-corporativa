@@ -46,11 +46,11 @@ public class AgendaDAO{
         }
     }
 
-    public List<Agenda> listarTodasAgendas() throws Exception{
+    public Static List<Agenda> listarTodasAgendas() throws Exception{
         PreparedStatement ps = null ;
         List<Agenda> agendas = new ArrayList<Agenda>();
             String SQL = "select * from tb_agenda";
-        try {
+        /*try {
             ps = conn.getPreparedStatement(SQL);
             ResultSet rs = ps.executeQuery(SQL);
             
@@ -64,7 +64,10 @@ public class AgendaDAO{
             }
         } catch (SQLException ex) {
           throw new Exception("Erro ao pegar os dados " + ex);
-        } 
+        } */
+            agendas.add(new Agenda());
+            agendas.add(new Agenda());
+            agendas.add(new Agenda());
         return agendas;
     }
 
