@@ -17,8 +17,8 @@ public class ContatoDAO{
 	
 	PreparedStatement statementInserir = Conexao.getInstance().getPreparedStatement("INSERT INTO tb_contato(con_nome,con_endereco,con_id) VALUES (?,?,?)");
 	PreparedStatement statementAtualizar = Conexao.getInstance().getPreparedStatement("UPDATE tb_contato set (con_nome=?,con_endereco=?) WHERE con_id=?");
-	PreparedStatement statementRecuperar = Conexao.getInstance().getPreparedStatement("SELECT con_nome,con_telefone,con_email,con_endereco FROM tb_contato WHERE con_nome=?");
-	PreparedStatement statementRecuperarTodos = Conexao.getInstance().getPreparedStatement("SELECT con_nome,con_telefone,con_email,con_endereco FROM tb_contato");
+	//PreparedStatement statementRecuperar = Conexao.getInstance().getPreparedStatement("SELECT con_nome,con_telefone,con_email,con_endereco FROM tb_contato WHERE con_id=?");
+	PreparedStatement statementRecuperarTodos = Conexao.getInstance().getPreparedStatement("SELECT con_nome,con_telefone,con_email,con_endereco,con_id FROM tb_contato");
 	PreparedStatement statementInserirTelefone = Conexao.getInstance().getPreparedStatement("INSERT INTO tb_telefone(con_oid,con_telefone) VALUES(?,?)");
 	PreparedStatement statementInserirEmail = Conexao.getInstance().getPreparedStatement("INSERT INTO tb_email(con_oid,con_email) VALUES(?,?)");
 	PreparedStatement statementAtualizarTelefone = Conexao.getInstance().getPreparedStatement("UPDATE tb_contato set (con_telefone=?) WHERE con_id=?");
@@ -29,8 +29,9 @@ public class ContatoDAO{
 	
 	
 	public void atualizarContato(Contato contato){
+			
 		if(contato.getOid()== 0){
-			try{	
+			try{					
 				this.statementInserir.setString(1,contato.getNome());
 				inserirTelefone(contato);
 				inserirEmail(contato);
@@ -52,37 +53,36 @@ public class ContatoDAO{
 			}
 		}
 	}
-	public Contato listarContato(Contato contato){
+	/*public Contato listarContato(Contato contato){
 		try{
-			this.statementRecuperar.setString(1,contato.getNome());
+			this.statementRecuperar.setInt(1,contato.getOid());
 			ResultSet rs = statementRecuperar.executeQuery();
 			
 			while(rs.next()){
 				contato.setNome(rs.getString("con_nome"));
-				//contato.setTelefone(rs.getString("tb_telefone"));
-				
-				//contato.setEmail(rs.getString("email"));
-				
+				contato.setTelefone(recuperarTelefonesContato());
+				contato.setEmail(recuperarEmailsContato());	
 				contato.setEndereco(rs.getString("endereco"));
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
 		return contato;
-	}
+	}*/
 	
-	public List listarTodos(){
+	public List<Contato> listarTodos(){
 		
 		List<Contato> contatos = new ArrayList<Contato>();
 		
 		try{
-			ResultSet rs = statementRecuperar.executeQuery();
-			
+			ResultSet rs = statementRecuperarTodos.executeQuery();
+			int id;
 			while(rs.next()){
+				id = rs.getInt("con_id");
 				Contato contato = new Contato();
 				contato.setNome(rs.getString("nome"));
-				contato.setTelefone(rs.getString("telefone"));
-				contato.setEmail(rs.getString("email"));
+				contato.setTelefone(recuperarTelefonesContato(id));
+				contato.setEmail(recuperarEmailsContato(id));
 				contato.setEndereco(rs.getString("endereco"));
 				contatos.add(contato);
 			}
@@ -134,9 +134,11 @@ public class ContatoDAO{
 		
 	}
 	
-	public List recuperarTelefones(){
+	public List<String> recuperarTelefonesContato(int id){
 		List<String> telefones = null;
+		
 		try {
+			statementRecuperarTelefones.setInt(1,id);
 			ResultSet rs = statementRecuperarTelefones.executeQuery();
 			while(rs.next()){
 				telefones.add(rs.getString("con_telefone"));
@@ -147,8 +149,18 @@ public class ContatoDAO{
 		return telefones;
 	}
 	
-	public void recuperarEmails(){
-		
+	public List<String> recuperarEmailsContato(int id){
+		List<String> emails = null;
+		try {
+			statementRecuperarEmails.setInt(1,id);
+			ResultSet rs = statementRecuperarEmails.executeQuery();
+			while(rs.next()){
+				emails.add(rs.getString("con_telefone"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return emails;
 	}
 	
 	public int novoOid(){
