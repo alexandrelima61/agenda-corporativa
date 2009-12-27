@@ -26,7 +26,7 @@ public class CompromissoDAO {
 	private Conexao conn = Conexao.getInstance();
 		
 	
-	public void salvar(Compromisso comp) throws Exception {
+	public void inserir(Compromisso comp) throws Exception {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         PreparedStatement ps3 = null;
@@ -74,7 +74,7 @@ public class CompromissoDAO {
         
 	}
 	
-	public List<Compromisso> listarTodosCompromissos() throws Exception{
+	public List<Compromisso> listarTodos() throws Exception{
         PreparedStatement ps = null ;
         PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
@@ -141,7 +141,7 @@ public class CompromissoDAO {
         return compromissos;
     }
 	
-	public List<Compromisso> buscarCompromissosPorData(Date data) throws Exception{
+	public List<Compromisso> buscarPorData(Date data) throws Exception{
         PreparedStatement ps = null ;
         PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
@@ -210,22 +210,22 @@ public class CompromissoDAO {
     }
 	
 	
-	public List<Compromisso> buscarCompromissosPorId(int id) throws Exception{
+	public Compromisso buscarPorId(int id) throws Exception{
         PreparedStatement ps = null ;
         PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
         
-        List<Compromisso> compromissos = new ArrayList<Compromisso>();
+ 
             String SQL = "select * from tb_compromisso where com_oid = ?;";
             
         try {
             ps = conn.getPreparedStatement(SQL);
             ps.setInt(1, id);            
             ResultSet rs = ps.executeQuery(SQL);
-            
+            Compromisso comp;
             
             while (rs.next()){
-                Compromisso comp = new Compromisso();
+                comp = new Compromisso();
                 comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
                 comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
                 comp.setTitulo(rs.getString("com_titulo"));
@@ -268,17 +268,17 @@ public class CompromissoDAO {
                 	participantes.add(participante);                
                 }                
                 comp.setParticipantes(participantes); 
-                compromissos.add(comp);
-            
+                
+                return comp;
             }
         } catch (SQLException ex) {
           throw new Exception("Erro ao pegar os dados " + ex);
         } 
-        return compromissos;
+        return null;
     }
 	
 	
-	public List<Compromisso> buscarCompromissosPorTitulo(String titulo) throws Exception{
+	public List<Compromisso> buscarPorTitulo(String titulo) throws Exception{
         PreparedStatement ps = null ;
         PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
@@ -346,12 +346,12 @@ public class CompromissoDAO {
         return compromissos;
     }
 	
-	public int updateCompromisso(Compromisso comp) throws Exception{
+	public int alterar(Compromisso comp) throws Exception{
 		PreparedStatement ps = null ;
 		PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
         
-	    String SQL = "UPDATE INTO tb_compromisso usu_id = ?, age_id = ?, com_titulo = ?, com_local = ?, com_descricao = ?, com_ativo = ? " +
+	    String SQL = "UPDATE SET tb_compromisso usu_id = ?, age_id = ?, com_titulo = ?, com_local = ?, com_descricao = ?, com_ativo = ? " +
 	                    "where com_id = ?;";	    
 	    int rows = 0;
 	    try {
@@ -365,21 +365,25 @@ public class CompromissoDAO {
 	         ps.executeUpdate();
 	           
 	            
-	    for(HorarioCom horario : comp.getDatas()){   
-	        String SQL2 = "UPDATE INTO tb_compromisso_data com_id = ?, dat_datainicio = ?, dat_datafim = ?, com_ativo = ? " +
-	        		"where com_id = ?;"; 
+	   
+	        String SQL2 = "UPDATE SET tb_compromisso_data dat_datainicio = ?, dat_datafim = ?, com_ativo = ? " +
+	        		"where com_id = ? and dat_datainicio = ? and dat_datafim = ?;"; 
 	        
 	        ps2 = conn.getPreparedStatement(SQL2);
-	        ps2.setInt(1, comp.getOid());
-	        ps2.setTimestamp(2, new Timestamp(horario.getDataInicio().getTime()));
-	        ps2.setTimestamp(3, new Timestamp(horario.getDataFim().getTime()));            
-	        ps2.setBoolean(4, comp.isAtivo());
+	       
+	        ps2.setTimestamp(1, new Timestamp(comp.getDatas().get(1).getDataInicio().getTime()));
+	        ps2.setTimestamp(2, new Timestamp(comp.getDatas().get(1).getDataFim().getTime()));            
+	        ps2.setBoolean(3, comp.isAtivo());
+	        ps2.setInt(4, comp.getOid());
+	        ps2.setTimestamp(5, new Timestamp(comp.getDatas().get(0).getDataInicio().getTime()));
+	        ps2.setTimestamp(6, new Timestamp(comp.getDatas().get(0).getDataFim().getTime()));
+	        
 	        ps2.executeUpdate();
 	            
-	         }
+	   
 	    
 	    for(Usuario participantes : comp.getParticipantes()){   
-	        String SQL3 = "UPDATE INTO tb_compromisso_participantes com_id = ?, usu_id = ?, com_par_ativo = ? " +
+	        String SQL3 = "UPDATE SET tb_compromisso_participantes com_id = ?, usu_id = ?, com_par_ativo = ? " +
 	             "where com_id = ?;";
 	        ps3 = conn.getPreparedStatement(SQL3);
 	        ps3.setInt(1, comp.getOid());
