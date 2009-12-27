@@ -40,10 +40,28 @@ public class Compromisso {
 //	public void setIdAgenda(int idAgenda) {
 //		this.idAgenda = idAgenda;
 //	}
+	
+	
+	
 
 	public int getOid() {
 		return oid;
 	}
+
+	public Compromisso(int oid, boolean ativo, String local, String titulo,
+		String descricao, List<HorarioCom> datas, Usuario proprietario,
+		List<Usuario> participantes, Agenda agenda) {
+	super();
+	this.oid = oid;
+	this.ativo = ativo;
+	this.local = local;
+	this.titulo = titulo;
+	this.descricao = descricao;
+	this.datas = datas;
+	this.proprietario = proprietario;
+	this.participantes = participantes;
+	this.agenda = agenda;
+}
 
 	public void setOid(int idCompromisso) {
 		this.oid = idCompromisso;
