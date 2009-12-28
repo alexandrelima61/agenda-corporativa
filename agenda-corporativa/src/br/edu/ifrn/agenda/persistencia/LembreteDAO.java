@@ -18,14 +18,16 @@ public class LembreteDAO {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void inserirLembrete(String titulo, String corpo, List<Date>datas)
+	public void inserirLembrete(Lembrete lembrete)
 			throws SQLException {
 
-		String comando = "insert into tb_lembrete(titulo,corpo) values(?,?)";
+		String comando = "insert into tb_lembrete(titulo,corpo) values(?,?,?)";
 		PreparedStatement statement = Conexao.getInstance().getPreparedStatement(comando);
 
-		statement.setString(1, titulo);
-		statement.setString(2, corpo);
+		statement.setInt(1, lembrete.getAgenda().getOid());
+		statement.setString(2, lembrete.getTitulo());
+		statement.setString(3, lembrete.getCorpo());
+		
 
 		statement.execute();
 		statement.close();
@@ -34,7 +36,7 @@ public class LembreteDAO {
 		PreparedStatement stmt = Conexao.getInstance().getPreparedStatement(
 				comandoBusca);
 
-		stmt.setString(1, corpo);
+		stmt.setString(1, lembrete.getCorpo());
 
 		ResultSet result = Conexao.getInstance().executeQueryStatement(
 				comandoBusca);
@@ -46,7 +48,7 @@ public class LembreteDAO {
 
 		comando = "insert into tb_lembretes_datas(lem_id, datas) values(?,?)";
 
-		for (Date date : datas) {
+		for (Date date : lembrete.getDatas()) {
 			PreparedStatement statement3 = Conexao.getInstance().getPreparedStatement(comando);
 			statement3.setInt(1, lem_id);
 			statement3.setInt(2, date.getDate());
@@ -196,9 +198,7 @@ public class LembreteDAO {
 		
 		
 			
-		/*UPDATE Persons
-		SET Address='Nissestien 67', City='Sandnes'
-		WHERE LastName='Tjessem' AND FirstName='Jakob'*/
+		
 		
 		comando = "UPDATE tb_lembretes_datas SET data = ? WHERE tb_lembretes_datas.lem_id = ?";
 		PreparedStatement statement1 = Conexao.getInstance().getPreparedStatement(comando);
@@ -224,7 +224,7 @@ public class LembreteDAO {
 			statement2.close();
 		
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 			return lembrete;
@@ -258,21 +258,19 @@ public class LembreteDAO {
 	public Lembrete montarLembrete(ResultSet result){
 		Lembrete lembrete = null;
 		List<Date> datas = new ArrayList();
+		lembrete = new Lembrete();
 		try { 
 			while (result.next()) {
 				datas.add(result.getDate("data")); 
+				lembrete.setTitulo(result.getString("titulo"));
+				lembrete.setCorpo(result.getString("corpo"));
+				lembrete.setDatas(datas);
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(LembreteDAO.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
-		try {
-			
-			lembrete = new Lembrete(result.getString("titulo"),result.getString("corpo"),datas);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+
 		return lembrete;
 	}
 
