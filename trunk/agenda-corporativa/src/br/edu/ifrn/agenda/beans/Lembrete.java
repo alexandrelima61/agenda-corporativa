@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Lembrete {
 	
-// todos os objetos precisam de um identificador
+
 	private int oid;
 	private String titulo, corpo;
-// utilizar lista no lugar de array
+
 	private List<Date> datas;
-// faltou se o objeto esta ativo
+
 	private boolean ativo;
-// um lembrete esta dentro de uma agenda
+
 	private Agenda agenda;
 	
 	public Lembrete() {
@@ -77,7 +77,7 @@ public class Lembrete {
 		return agenda;
 	}
 
-// modificado para adaptar a lista	
+
 	public void adicionarData(Date data){
 		this.datas.add(data);
 	}
@@ -86,7 +86,7 @@ public class Lembrete {
 		this.datas.remove(data);
 	}
 
-// os beans devem ter toString e equals	
+
 	@Override
 	public String toString() {
 		return "Lembrete ID " + this.oid;
