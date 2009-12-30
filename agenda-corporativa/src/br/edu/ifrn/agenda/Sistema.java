@@ -52,6 +52,8 @@ private static Sistema singleton = new Sistema();
 		Compromisso compromisso =  new Compromisso(oid, ativo, local, titulo, descricao, horarios, proprietario, participantes, agenda1);
 		CompromissoDAO.getInstance().alterar(compromisso);
 	}
+
+
 	
 	
 	public int removerParticipante(int idCom, int idPar) {
@@ -71,7 +73,7 @@ private static Sistema singleton = new Sistema();
 	
 	
 	public ArrayList<Usuario> buscarUsuarioPorNome(String nome){
-		
+		return UsuarioDAO.getInstance().buscarPorNome(nome);
 	}
 	
 	

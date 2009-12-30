@@ -124,7 +124,7 @@ public class CompromissoServlet extends HttpServlet {
 			int idp = 0;
 			for (int i = 0; i < partic.length; i++) {
 				idp = Integer.parseInt(partic[i]);
-				sistema.removerParticipante(idPart);
+				sistema.removerParticipante(id, Integer.parseInt(partic[i]));
 				
 			}
 			
