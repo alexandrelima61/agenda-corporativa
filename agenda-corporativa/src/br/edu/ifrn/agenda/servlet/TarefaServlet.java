@@ -1,6 +1,7 @@
 package br.edu.ifrn.agenda.servlet;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
@@ -80,7 +81,7 @@ public class TarefaServlet extends HttpServlet {
 			Prioridade prioridade = Prioridade.valueOf((request.getParameter("prioridadeTarefa").toUpperCase()));
 			Date data;
 			try {
-				data = (Date) new SimpleDateFormat("dd/MM/yyyy").parse((request.getParameter("dataTarefa")));
+				data = (java.sql.Date) new SimpleDateFormat("dd/MM/yyyy").parse((request.getParameter("dataTarefa")));
 				String dataBanco = new SimpleDateFormat("yyyy-MM-dd").format(data);
 				String hora = request.getParameter("horaTarefa");
 				
