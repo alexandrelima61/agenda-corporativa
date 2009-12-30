@@ -61,6 +61,9 @@
 			
 			<label for="Periodicidade">Periodicidade</label>
 			<input type="text" name="periodicidadeLembrete" id="periodicidadeLembrete" disabled="disabled" />
+			
+			 <label for="DataFim">DataFim</label>
+			 <input type="text" name="dataFim" id="dataFim" />
 		 </div>
 		 
 		 
