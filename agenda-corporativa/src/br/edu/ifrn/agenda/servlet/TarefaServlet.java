@@ -14,6 +14,8 @@ import com.sun.org.apache.xml.internal.serialize.Printer;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 
 import br.edu.ifrn.agenda.beans.Agenda;
@@ -76,31 +78,38 @@ public class TarefaServlet extends HttpServlet {
 			
 			String titulo = request.getParameter("tituloTarefa");
 			Prioridade prioridade = Prioridade.valueOf((request.getParameter("prioridadeTarefa").toUpperCase()));
-			Date data = Date.valueOf(request.getParameter("dataTarefa"));
-			String hora = request.getParameter("horaTarefa");
+			Date data;
+			try {
+				data = (Date) new SimpleDateFormat("dd/MM/yyyy").parse((request.getParameter("dataTarefa")));
+				String dataBanco = new SimpleDateFormat("yyyy-MM-dd").format(data);
+				String hora = request.getParameter("horaTarefa");
+				
+				String[] aux = hora.split(":");
+				data.setHours(Integer.parseInt(aux[0]));
+				data.setMinutes(Integer.parseInt(aux[1]));
+				String local = request.getParameter("localTarefa");
+				String descricao = request.getParameter("descricaoTarefa");
+				int oidAgenda = Integer.parseInt(request.getParameter("AgendaTarefa"));
+				
+				Agenda agenda = new Agenda();
+				agenda.setOid(oidAgenda);
+				
+				Usuario usuario = (Usuario) session.getAttribute("usuario");
+				
+				tarefa.setUsuario(usuario);
+				tarefa.setAgenda(agenda);
+				tarefa.setTitulo(titulo);
+				tarefa.setPrioridade(prioridade);
+				tarefa.setEstado(EstadoTarefa.ABERTO);
+				tarefa.setData(data);
+				tarefa.setLocal(local);
+				tarefa.setDescricao(descricao);
+				tarefa.setAtivo(true);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
-			String[] aux = hora.split(":");
-			data.setHours(Integer.parseInt(aux[0]));
-			data.setMinutes(Integer.parseInt(aux[1]));
-			
-			String local = request.getParameter("localTarefa");
-			String descricao = request.getParameter("descricaoTarefa");
-			int oidAgenda = Integer.parseInt(request.getParameter("AgendaTarefa"));
-			
-			Agenda agenda = new Agenda();
-			agenda.setOid(oidAgenda);
-			
-			Usuario usuario = (Usuario) session.getAttribute("usuario");
-			
-			tarefa.setUsuario(usuario);
-			tarefa.setAgenda(agenda);
-			tarefa.setTitulo(titulo);
-			tarefa.setPrioridade(prioridade);
-			tarefa.setEstado(EstadoTarefa.ABERTO);
-			tarefa.setData(data);
-			tarefa.setLocal(local);
-			tarefa.setDescricao(descricao);
-			tarefa.setAtivo(true);
 			
 			if (comando.equalsIgnoreCase("inserirTarefa"))
 				try {
