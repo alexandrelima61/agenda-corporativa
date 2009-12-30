@@ -26,7 +26,7 @@
 		});
 
 		jQuery('#btnCadastro').click(function(){
-			jQuery.post(<%=request.getContextPath()%>+'/TarefaServlet?comando=inserirTarefa',{
+			jQuery.post('/agenda/TarefaServlet?comando=inserirTarefa',{
 				tituloTarefa : jQuery('#tituloTarefa').val(),
 				prioridadeTarefa : jQuery('#prioridadeTarefa option:selected').val(),
 				dataTarefa : jQuery('#dataTarefa').val(),
@@ -36,13 +36,13 @@
 				descricaoTarefa : jQuery('#descricaoTarefa').val()	
 			},function(data){
 				if(data == 'ok')
-					jQuery('#calendario-content').load(<%=request.getContextPath()%>);
+					jQuery('#calendario-content').load('/agenda');
 				else
 					alert('Erro ao Adicionar Tarefa.\nTente Novamente');
 			});
+			return false;
 		});
 
-		return false;
 	});
 </script>
 
