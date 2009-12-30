@@ -14,7 +14,7 @@ public class Compromisso {
 	private String local;
 	private String titulo;
 	private String descricao;
-	private List<HorarioCom> datas;
+	private List<HorarioCompromisso> datas;
 	private Usuario proprietario;
 	private List<Usuario> participantes;
 	private Agenda agenda;
@@ -49,7 +49,7 @@ public class Compromisso {
 	}
 
 	public Compromisso(int oid, boolean ativo, String local, String titulo,
-		String descricao, List<HorarioCom> datas, Usuario proprietario,
+		String descricao, List<HorarioCompromisso> datas, Usuario proprietario,
 		List<Usuario> participantes, Agenda agenda) {
 	super();
 	this.oid = oid;
@@ -67,11 +67,11 @@ public class Compromisso {
 		this.oid = idCompromisso;
 	}
 
-	public List<HorarioCom> getDatas() {
+	public List<HorarioCompromisso> getDatas() {
 		return datas;
 	}
 
-	public void setDatas(List<HorarioCom> datas) {
+	public void setDatas(List<HorarioCompromisso> datas) {
 		this.datas = datas;
 	}
 

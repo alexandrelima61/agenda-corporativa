@@ -11,7 +11,7 @@ import java.util.List;
 
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
-import br.edu.ifrn.agenda.beans.HorarioCom;
+import br.edu.ifrn.agenda.beans.HorarioCompromisso;
 import br.edu.ifrn.agenda.beans.Usuario;
 
 public class CompromissoDAO {
@@ -51,7 +51,7 @@ public class CompromissoDAO {
             
             
             
-         for(HorarioCom horario : comp.getDatas()){   
+         for(HorarioCompromisso horario : comp.getDatas()){   
         String SQL2 = "INSERT INTO tb_compromisso_data (com_id, dat_datainicio, dat_datafim, com_ativo) " +
             "values (?, ?, ?, ?)"; 
             ps2 = conn.getPreparedStatement(SQL2);
@@ -190,7 +190,7 @@ public class CompromissoDAO {
                 comp.setDescricao(rs.getString("com_descricao"));
                 comp.setAtivo(rs.getBoolean("com_ativo"));
                                 
-                List<HorarioCom> horarios = new ArrayList<HorarioCom>();                                                
+                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
                 
                 SQL = "select * from tb_compromisso_data where dat_id = ? ;";
                 ps2 = conn.getPreparedStatement(SQL);
@@ -199,7 +199,7 @@ public class CompromissoDAO {
                 ResultSet rs2 = ps2.executeQuery(SQL);
                 
                 while (rs2.next()){
-                	HorarioCom horario = new HorarioCom();
+                	HorarioCompromisso horario = new HorarioCompromisso();
                 	horario.setOid(rs2.getInt("dat_id"));
                 	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
                 	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
@@ -257,7 +257,7 @@ public class CompromissoDAO {
                 comp.setDescricao(rs.getString("com_descricao"));
                 comp.setAtivo(rs.getBoolean("com_ativo"));
                                 
-                List<HorarioCom> horarios = new ArrayList<HorarioCom>();                                                
+                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
                 
                 SQL = "select * from tb_compromisso_data where dat_id = ? ;";
                 ps2 = conn.getPreparedStatement(SQL);
@@ -266,7 +266,7 @@ public class CompromissoDAO {
                 ResultSet rs2 = ps2.executeQuery(SQL);
                 
                 while (rs2.next()){
-                	HorarioCom horario = new HorarioCom();
+                	HorarioCompromisso horario = new HorarioCompromisso();
                 	horario.setOid(rs2.getInt("dat_id"));
                 	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
                 	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
@@ -325,7 +325,7 @@ public class CompromissoDAO {
                 comp.setDescricao(rs.getString("com_descricao"));
                 comp.setAtivo(rs.getBoolean("com_ativo"));
                                 
-                List<HorarioCom> horarios = new ArrayList<HorarioCom>();                                                
+                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
                 
                 SQL = "select * from tb_compromisso_data where dat_id = ? ;";
                 ps2 = conn.getPreparedStatement(SQL);
@@ -334,7 +334,7 @@ public class CompromissoDAO {
                 ResultSet rs2 = ps2.executeQuery(SQL);
                 
                 while (rs2.next()){
-                	HorarioCom horario = new HorarioCom();
+                	HorarioCompromisso horario = new HorarioCompromisso();
                 	horario.setOid(rs2.getInt("dat_id"));
                 	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
                 	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
@@ -392,7 +392,7 @@ public class CompromissoDAO {
                 comp.setDescricao(rs.getString("com_descricao"));
                 comp.setAtivo(rs.getBoolean("com_ativo"));
                                 
-                List<HorarioCom> horarios = new ArrayList<HorarioCom>();                                                
+                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
                 
                 SQL = "select * from tb_compromisso_data where dat_id = ? ;";
                 ps2 = conn.getPreparedStatement(SQL);
@@ -401,7 +401,7 @@ public class CompromissoDAO {
                 ResultSet rs2 = ps2.executeQuery(SQL);
                 
                 while (rs2.next()){
-                	HorarioCom horario = new HorarioCom();
+                	HorarioCompromisso horario = new HorarioCompromisso();
                 	horario.setOid(rs2.getInt("dat_id"));
                 	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
                 	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
