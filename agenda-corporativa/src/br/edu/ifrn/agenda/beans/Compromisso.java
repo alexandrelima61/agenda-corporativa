@@ -4,12 +4,7 @@ package br.edu.ifrn.agenda.beans;
 import java.util.List;
 
 public class Compromisso {
-	private int oid;
-
-// Como estamos trabalhando com objetos, nada de idOutroObjeto
-	// private int idUsuario;
-	// private int idAgenda;
-	
+	private int oid;	
 	private boolean ativo;
 	private String local;
 	private String titulo;
@@ -19,29 +14,10 @@ public class Compromisso {
 	private List<Usuario> participantes;
 	private Agenda agenda;
 
-// Sempre deve ter um construtor sem parametro para os beans	
+
 	public Compromisso() {
 		super();
-	}
-
-// Como não tem idOutroObjeto também não tem métodos de acesso
-//	public int getIdUsuario() {
-//		return idUsuario;
-//	}
-//
-//	public void setIdUsuario(int idUsuario) {
-//		this.idUsuario = idUsuario;
-//	}
-//
-//	public int getIdAgenda() {
-//		return idAgenda;
-//	}
-//
-//	public void setIdAgenda(int idAgenda) {
-//		this.idAgenda = idAgenda;
-//	}
-	
-	
+	}	
 	
 
 	public int getOid() {
@@ -131,7 +107,6 @@ public class Compromisso {
 		return agenda;
 	}
 
-// Os métodos toString e equals devem ser implementados	
 	@Override
 	public String toString() {
 		return "Compromisso ID " + this.oid;

@@ -22,8 +22,18 @@
   <servlet-mapping>
   		<servlet-name>ServletLembrete</servlet-name>
   		<url-pattern>/ServletLembrete</url-pattern>
+  </servlet-mapping>  
+  <servlet>
+    <description></description>
+    <display-name>CompromissoServlet</display-name>
+    <servlet-name>CompromissoServlet</servlet-name>
+    <servlet-class>br.edu.ifrn.agenda.servlet.CompromissoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompromissoServlet</servlet-name>
+    <url-pattern>/compromisso</url-pattern>
   </servlet-mapping>
-  
+    
     <description>
     </description>
 

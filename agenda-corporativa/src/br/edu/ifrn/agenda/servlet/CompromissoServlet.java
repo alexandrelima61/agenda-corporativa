@@ -42,6 +42,8 @@ public class CompromissoServlet extends HttpServlet {
 		dispache.forward(request, response);
     	
     }
+    
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,7 +63,7 @@ public class CompromissoServlet extends HttpServlet {
 		//metodo cadastrar compromisso
 		if(comando.equalsIgnoreCase("cadastrar")){
 			String titulo = request.getParameter("tituloCompromisso");
-			String datas[] = request.getParameterValues("datas");
+			String datas[] = request.getParameterValues("datasCompromisso");
 			String local = request.getParameter("localCompromisso");
 			String descricao = request.getParameter("descricaoCompromisso");
 			String agenda = request.getParameter("agendaCompromisso");
