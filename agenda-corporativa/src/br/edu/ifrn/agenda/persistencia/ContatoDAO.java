@@ -54,22 +54,7 @@ public class ContatoDAO{
 			}
 		}
 	}
-	/*public Contato listarContato(Contato contato){
-		try{
-			this.statementRecuperar.setInt(1,contato.getOid());
-			ResultSet rs = statementRecuperar.executeQuery();
-			
-			while(rs.next()){
-				contato.setNome(rs.getString("con_nome"));
-				contato.setTelefone(recuperarTelefonesContato());
-				contato.setEmail(recuperarEmailsContato());	
-				contato.setEndereco(rs.getString("endereco"));
-			}
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return contato;
-	}*/
+	
 	
 	public List<Contato> listarTodos(){
 		
@@ -81,10 +66,11 @@ public class ContatoDAO{
 			while(rs.next()){
 				id = rs.getInt("con_id");
 				Contato contato = new Contato();
-				contato.setNome(rs.getString("nome"));
+				contato.setNome(rs.getString("con_nome"));
 				contato.setTelefone(recuperarTelefonesContato(id));
 				contato.setEmail(recuperarEmailsContato(id));
-				contato.setEndereco(rs.getString("endereco"));
+				contato.setEndereco(rs.getString("con_endereco"));
+				contato.setOid(id);
 				contatos.add(contato);
 			}
 			statementRecuperarTodos.close();
@@ -96,14 +82,14 @@ public class ContatoDAO{
 	
 	public void inserirTelefone(Contato contato){
 		try {
-			
-			statementInserirTelefone.executeQuery();
+						
 			String telefone;
 			
 			for(int i=0;i<contato.getTelefone().size();i++){
 				statementInserirTelefone.setInt(1, contato.getOid());
 				telefone = contato.getTelefone().get(i);
 				statementInserirTelefone.setString(2,telefone);
+				statementInserirTelefone.executeQuery();
 			}
 			statementInserirTelefone.close();
 		} catch (SQLException e) {
@@ -114,13 +100,14 @@ public class ContatoDAO{
 	public void inserirEmail(Contato contato){
 		try {
 			
-			statementInserirEmail.executeQuery();
+			
 			String email;
 			
 			for(int i=0;i<contato.getEmail().size();i++){
 				statementInserirEmail.setInt(1, contato.getOid());
 				email = contato.getEmail().get(i);
 				statementInserirEmail.setString(2,email);
+				statementInserirEmail.executeQuery();
 			}
 			statementInserirEmail.close();
 		} catch (SQLException e) {
