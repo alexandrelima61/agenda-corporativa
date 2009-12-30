@@ -15,6 +15,7 @@ import com.sun.org.apache.xml.internal.serialize.Printer;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -79,10 +80,9 @@ public class TarefaServlet extends HttpServlet {
 			
 			String titulo = request.getParameter("tituloTarefa");
 			Prioridade prioridade = Prioridade.valueOf((request.getParameter("prioridadeTarefa").toUpperCase()));
-			Date data;
 			try {
-				data = (java.sql.Date) new SimpleDateFormat("dd/MM/yyyy").parse((request.getParameter("dataTarefa")));
-				String dataBanco = new SimpleDateFormat("yyyy-MM-dd").format(data);
+				DateFormat fmt = new SimpleDateFormat("dd/MM/yy");
+				java.sql.Date data = new java.sql.Date(fmt.parse(request.getParameter("dataTarefa")).getTime());
 				String hora = request.getParameter("horaTarefa");
 				
 				String[] aux = hora.split(":");
