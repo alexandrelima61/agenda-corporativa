@@ -94,15 +94,6 @@ public class LembreteDAO {
 		return lembrete;
 	}
 	
-	public Lembrete recuperarTodosLembretes() {
-		String comando = "SELECT * FROM tb_lembretes INNER JOIN tb_lembretes_datas ON  tb_lembrete.id_lem = tb_lembretes_datas.id_lem";
-
-		ResultSet result = Conexao.getInstance().executeQueryStatement(
-				comando);
-		Lembrete lembrete = montarLembrete(result);
-		return lembrete;
-	}
-	
 	public void apagarTodosLembretes() {
 		String comando = "DELETE  FROM tb_lembretes_datas";
 
@@ -230,29 +221,22 @@ public class LembreteDAO {
 			return lembrete;
 			
 	}
-
-
-	public List<Lembrete> getLembretes() {
-		String comando = "SELECT lem_id FROM tb_lembretes";
-		List<Lembrete> lista = new ArrayList<Lembrete>();
-
+	
+	public List<Lembrete> recuperarTodosLembretes() {
+		List<Lembrete> lista = new List<Lembrete>();
+		String comando = "SELECT tb_lembrete.lem_id, tb_lembrete.age_id, tb_lembrete.lem_titulo, tb_lembrete.lem_corpo, tb_lembrete.lem_ativo, tb_agenda.age_id AS Expr1, tb_agenda.age_titulo, tb_agenda.age_descricao, tb_agenda.age_ativo, tb_lembretes_datas.lem_id AS Expr2, tb_lembretes_datas.lem_dat_data" +
+						"FROM tb_lembrete INNER JOIN tb_agenda ON tb_lembrete.age_id = tb_agenda.age_id INNER JOIN tb_lembretes_datas ON tb_lembrete.lem_id = tb_lembretes_datas.lem_id" +
+						"WHERE  tb_agenda.age_id = ?" +
+						"ORDER BY tb_lembretes_datas.lem_dat_data"
 		PreparedStatement statement;
-		try {
-			statement = Conexao.getInstance().getPreparedStatement(comando);
-
-			ResultSet result = statement.executeQuery();
-			@SuppressWarnings("unused")
-			Lembrete lembrete = montarLembrete(result);
-
-			while (result.next()) {
-				lista.add(montarLembrete(result));
-			}
-		} catch (SQLException ex) {
-			Logger.getLogger(LembreteDAO.class.getName()).log(Level.SEVERE,
-					null, ex);
+		statement = conexao.prepareStatement(comando);
+		ResultSet result = statement.executeQuery();
+		while(result.next()){
+			Lembrete temp = montarLembrete(result);
+			lista.add(temp);
 		}
 		return lista;
-	}
+}
 
 	@SuppressWarnings("unchecked")
 	public Lembrete montarLembrete(ResultSet result){
