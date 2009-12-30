@@ -54,9 +54,15 @@ private static Sistema singleton = new Sistema();
 	}
 	
 	
+	public int removerParticipante(int idCom, int idPar) {
+		return CompromissoDAO.getInstance().removerParticipante(idCom, idPar);
+	}
 	
 	
-	
+	public int adicionarParticipante(int idCom,int idPart){
+		return CompromissoDAO.getInstance().adicionarParticipante(idCom, idPart);
+		 
+	}
 	
 	// Metodos de USUARIO
 	public Usuario recuperarUsuarioPorID(int oid){
@@ -67,6 +73,8 @@ private static Sistema singleton = new Sistema();
 	public ArrayList<Usuario> buscarUsuarioPorNome(String nome){
 		
 	}
+	
+	
 	
 	
 	

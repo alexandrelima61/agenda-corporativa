@@ -121,10 +121,11 @@ public class CompromissoServlet extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("idCompromisso"));
 			String partic[] = request.getParameterValues("participantesCompromisso");
 			
-			
+			int idp = 0;
 			for (int i = 0; i < partic.length; i++) {
+				idp = Integer.parseInt(partic[i]);
+				sistema.removerParticipante(idPart);
 				
-			
 			}
 			
 			

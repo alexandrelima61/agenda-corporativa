@@ -124,13 +124,14 @@ public class CompromissoDAO {
 		
 	}
 	
-	public int removerParticipante(int idPart) {
+	public int removerParticipante(int idCom, int idPar) {
 		 PreparedStatement ps = null;
 
-	        String SQL = "DELETE FROM tb_compromisso_participantes where com_id = ?;";
+	        String SQL = "DELETE FROM tb_compromisso_participantes where com_id = ? and usu_id = ?;";
 	        ps = conn.getPreparedStatement(SQL);
 	        try {
-				ps.setInt(1, idPart);
+	        	ps.setInt(1, idCom);
+				ps.setInt(2, idPar);
 				return ps.executeUpdate();
 				
 			} catch (SQLException e) {
