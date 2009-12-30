@@ -9,6 +9,7 @@ import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCom;
 import br.edu.ifrn.agenda.beans.Usuario;
 import br.edu.ifrn.agenda.persistencia.CompromissoDAO;
+import br.edu.ifrn.agenda.persistencia.UsuarioDAO;
 
 
 public class Sistema {
@@ -51,6 +52,23 @@ private static Sistema singleton = new Sistema();
 		Compromisso compromisso =  new Compromisso(oid, ativo, local, titulo, descricao, horarios, proprietario, participantes, agenda1);
 		CompromissoDAO.getInstance().alterar(compromisso);
 	}
+	
+	
+	
+	
+	
+	
+	// Metodos de USUARIO
+	public Usuario recuperarUsuarioPorID(int oid){
+		return UsuarioDAO.getInstance().buscarPorID(oid);
+	}
+	
+	
+	public ArrayList<Usuario> buscarUsuarioPorNome(String nome){
+		
+	}
+	
+	
 	
 	
 	

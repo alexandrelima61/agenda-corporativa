@@ -30,7 +30,7 @@ public class CompromissoDAO {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         PreparedStatement ps3 = null;
-        
+        ResultSet rs;
         
         try {
         String SQL = "INSERT INTO tb_compromisso (usu_id, age_id, com_titulo, com_local, com_descricao, com_ativo) " +
@@ -45,6 +45,12 @@ public class CompromissoDAO {
             ps.executeUpdate();
            
             
+            SQL = "SELECT MAX(com_id) as id FROM tb_compromisso";
+            rs = ps.executeQuery(SQL);
+            comp.setOid(rs.getInt("id"));
+            
+            
+            
          for(HorarioCom horario : comp.getDatas()){   
         String SQL2 = "INSERT INTO tb_compromisso_data (com_id, dat_datainicio, dat_datafim, com_ativo) " +
             "values (?, ?, ?, ?)"; 
@@ -58,12 +64,11 @@ public class CompromissoDAO {
          }
          
          for(Usuario participantes : comp.getParticipantes()){   
-        	 String SQL3 = "INSERT INTO tb_compromisso_participantes (com_id, usu_id, com_par_ativo) " +
-             "values (?, ?, ?)";
+        	 String SQL3 = "INSERT INTO tb_compromisso_participantes (com_id, usu_id) " +
+             "values (?, ?)";
         	 ps3 = conn.getPreparedStatement(SQL3);
         	 ps3.setInt(1, comp.getOid());
         	 ps3.setInt(2, participantes.getOid());
-        	 ps3.setBoolean(3, participantes.isAtivado());
         	 ps3.executeUpdate();
                  
         }
@@ -73,6 +78,94 @@ public class CompromissoDAO {
         }
         
 	}
+	
+	
+	public int alterar(Compromisso comp) throws Exception{
+		PreparedStatement ps = null ;
+		PreparedStatement ps2 = null ;
+
+        
+	    String SQL = "UPDATE SET tb_compromisso usu_id = ?, age_id = ?, com_titulo = ?, com_local = ?, com_descricao = ?, com_ativo = ? " +
+	                    "where com_id = ?;";	    
+	    int rows = 0;
+	    try {
+	         ps = conn.getPreparedStatement(SQL);
+	         ps.setInt(1, comp.getProprietario().getOid());
+	         ps.setInt(2, comp.getAgenda().getOid());
+	         ps.setString(3, comp.getTitulo());
+	         ps.setString(4, comp.getLocal());
+	         ps.setString(5, comp.getDescricao());
+	         ps.setBoolean(6, comp.isAtivo());
+	         ps.executeUpdate();
+	           
+	            
+	   
+	        String SQL2 = "UPDATE SET tb_compromisso_data dat_datainicio = ?, dat_datafim = ?, com_ativo = ? " +
+	        		"where com_id = ? and dat_datainicio = ? and dat_datafim = ?;"; 
+	        
+	        ps2 = conn.getPreparedStatement(SQL2);
+	       
+	        ps2.setTimestamp(1, new Timestamp(comp.getDatas().get(1).getDataInicio().getTime()));
+	        ps2.setTimestamp(2, new Timestamp(comp.getDatas().get(1).getDataFim().getTime()));            
+	        ps2.setBoolean(3, comp.isAtivo());
+	        ps2.setInt(4, comp.getOid());
+	        ps2.setTimestamp(5, new Timestamp(comp.getDatas().get(0).getDataInicio().getTime()));
+	        ps2.setTimestamp(6, new Timestamp(comp.getDatas().get(0).getDataFim().getTime()));
+	        
+	        ps2.executeUpdate();
+	            
+
+	    
+	        } catch (SQLException sqle) {
+	            throw new Exception("Erro ao inserir dados " + sqle);
+	        }	     
+	        
+	   return rows;     
+		
+	}
+	
+	public int removerParticipante(int idPart) {
+		 PreparedStatement ps = null;
+
+	        String SQL = "DELETE FROM tb_compromisso_participantes where com_id = ?;";
+	        ps = conn.getPreparedStatement(SQL);
+	        try {
+				ps.setInt(1, idPart);
+				return ps.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		return 0;
+
+	}
+	
+	
+	public int adicionarParticipante(int idCom, int idPart) {
+		 PreparedStatement ps = null;
+
+	        String SQL = "INSERT INTO tb_compromisso_participantes (com_id, usu_id) " +
+             "values (?, ?)";
+	        ps = conn.getPreparedStatement(SQL);
+	        try {
+				ps.setInt(1, idCom);
+				ps.setInt(2, idPart);
+				return ps.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		return 0;
+
+	}
+	
+	
+	
+	
 	
 	public List<Compromisso> listarTodos() throws Exception{
         PreparedStatement ps = null ;
@@ -126,8 +219,7 @@ public class CompromissoDAO {
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
                 	comp.setOid(rs3.getInt("com_id"));
-                	participante.setOid(rs3.getInt("usu_id"));
-                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
+                	participante.setOid(rs3.getInt("usu_id"));                
                 	participantes.add(participante);
                 
                 }                
@@ -194,8 +286,7 @@ public class CompromissoDAO {
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
                 	comp.setOid(rs3.getInt("com_id"));
-                	participante.setOid(rs3.getInt("usu_id"));
-                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));               
+                	participante.setOid(rs3.getInt("usu_id"));            
                 	participantes.add(participante);
                 
                 }                
@@ -263,8 +354,7 @@ public class CompromissoDAO {
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
                 	comp.setOid(rs3.getInt("com_id"));
-                	participante.setOid(rs3.getInt("usu_id"));
-                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
+                	participante.setOid(rs3.getInt("usu_id"));                
                 	participantes.add(participante);                
                 }                
                 comp.setParticipantes(participantes); 
@@ -331,8 +421,7 @@ public class CompromissoDAO {
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
                 	comp.setOid(rs3.getInt("com_id"));
-                	participante.setOid(rs3.getInt("usu_id"));
-                	participante.setAtivado(rs3.getBoolean("com_par_ativo"));                    
+                	participante.setOid(rs3.getInt("usu_id"));                  
                 	participantes.add(participante);
                 
                 }                
@@ -346,60 +435,7 @@ public class CompromissoDAO {
         return compromissos;
     }
 	
-	public int alterar(Compromisso comp) throws Exception{
-		PreparedStatement ps = null ;
-		PreparedStatement ps2 = null ;
-        PreparedStatement ps3 = null;
-        
-	    String SQL = "UPDATE SET tb_compromisso usu_id = ?, age_id = ?, com_titulo = ?, com_local = ?, com_descricao = ?, com_ativo = ? " +
-	                    "where com_id = ?;";	    
-	    int rows = 0;
-	    try {
-	         ps = conn.getPreparedStatement(SQL);
-	         ps.setInt(1, comp.getProprietario().getOid());
-	         ps.setInt(2, comp.getAgenda().getOid());
-	         ps.setString(3, comp.getTitulo());
-	         ps.setString(4, comp.getLocal());
-	         ps.setString(5, comp.getDescricao());
-	         ps.setBoolean(6, comp.isAtivo());
-	         ps.executeUpdate();
-	           
-	            
-	   
-	        String SQL2 = "UPDATE SET tb_compromisso_data dat_datainicio = ?, dat_datafim = ?, com_ativo = ? " +
-	        		"where com_id = ? and dat_datainicio = ? and dat_datafim = ?;"; 
-	        
-	        ps2 = conn.getPreparedStatement(SQL2);
-	       
-	        ps2.setTimestamp(1, new Timestamp(comp.getDatas().get(1).getDataInicio().getTime()));
-	        ps2.setTimestamp(2, new Timestamp(comp.getDatas().get(1).getDataFim().getTime()));            
-	        ps2.setBoolean(3, comp.isAtivo());
-	        ps2.setInt(4, comp.getOid());
-	        ps2.setTimestamp(5, new Timestamp(comp.getDatas().get(0).getDataInicio().getTime()));
-	        ps2.setTimestamp(6, new Timestamp(comp.getDatas().get(0).getDataFim().getTime()));
-	        
-	        ps2.executeUpdate();
-	            
-	   
-	    
-	    for(Usuario participantes : comp.getParticipantes()){   
-	        String SQL3 = "UPDATE SET tb_compromisso_participantes com_id = ?, usu_id = ?, com_par_ativo = ? " +
-	             "where com_id = ?;";
-	        ps3 = conn.getPreparedStatement(SQL3);
-	        ps3.setInt(1, comp.getOid());
-	        ps3.setInt(2, participantes.getOid());
-	        ps3.setBoolean(3, participantes.isAtivado());
-	        ps3.executeUpdate();
-	                 
-	        }
-	    
-	        } catch (SQLException sqle) {
-	            throw new Exception("Erro ao inserir dados " + sqle);
-	        }	     
-	        
-	   return rows;     
-		
-	}
+
 	
 	
 }
