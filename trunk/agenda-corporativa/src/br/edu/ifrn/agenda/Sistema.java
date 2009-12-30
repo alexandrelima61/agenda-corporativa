@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
-import br.edu.ifrn.agenda.beans.HorarioCom;
+import br.edu.ifrn.agenda.beans.HorarioCompromisso;
 import br.edu.ifrn.agenda.beans.Usuario;
 import br.edu.ifrn.agenda.persistencia.CompromissoDAO;
 import br.edu.ifrn.agenda.persistencia.UsuarioDAO;
@@ -35,7 +35,7 @@ private static Sistema singleton = new Sistema();
 	// Metodos referentes aos COMPROMISSOS
 
 	
-	public void cadastrarCompromisso(String titulo, List<HorarioCom> datas, String local, String descricao, 
+	public void cadastrarCompromisso(String titulo, List<HorarioCompromisso> datas, String local, String descricao, 
 			String nomeAgenda, List<Usuario> participantes, Usuario proprietario) throws Exception {
 		
 		Agenda agenda = new Agenda();
@@ -43,9 +43,9 @@ private static Sistema singleton = new Sistema();
 		CompromissoDAO.getInstance().inserir(compromisso);
 	}
 
-	public void editarCompromisso(int oid, boolean ativo, String titulo, HorarioCom horario, HorarioCom novoHorario, String local, String descricao,
+	public void editarCompromisso(int oid, boolean ativo, String titulo, HorarioCompromisso horario, HorarioCompromisso novoHorario, String local, String descricao,
 			String agenda, List<Usuario> participantes, Usuario proprietario) throws Exception {
-		ArrayList<HorarioCom> horarios = new ArrayList<HorarioCom>(); 
+		ArrayList<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>(); 
 		horarios.add(horario);
 		horarios.add(novoHorario);
 		Agenda agenda1 = new Agenda();

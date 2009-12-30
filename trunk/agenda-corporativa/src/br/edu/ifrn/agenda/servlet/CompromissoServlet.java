@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.sun.media.sound.DataPusher;
 
 import br.edu.ifrn.agenda.Sistema;
-import br.edu.ifrn.agenda.beans.HorarioCom;
+import br.edu.ifrn.agenda.beans.HorarioCompromisso;
 import br.edu.ifrn.agenda.beans.Usuario;
 
 /**
@@ -33,6 +34,13 @@ public class CompromissoServlet extends HttpServlet {
     public CompromissoServlet() {
         super();
         // TODO Auto-generated constructor stub
+    }
+    
+    
+    public void redirecionarPagina(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	RequestDispatcher dispache = request.getRequestDispatcher(url);
+		dispache.forward(request, response);
+    	
     }
 
 	/**
@@ -61,11 +69,11 @@ public class CompromissoServlet extends HttpServlet {
 			//Pegar sessao...
 			Usuario proprietario = (Usuario) request.getSession().getAttribute("user");
 			
-			List<HorarioCom> horarios = new ArrayList<HorarioCom>();
+			List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();
 			List<Usuario> participantes = new ArrayList<Usuario>();
 			
 			for (int i = 0; i < datas.length; i++) {
-				HorarioCom horario = new HorarioCom();
+				HorarioCompromisso horario = new HorarioCompromisso();
 				String[] data = datas[0].split("-");
 				String[] horaInicial = datas[1].split("-");
 				String[] horaFinal = datas[2].split("");
@@ -75,7 +83,7 @@ public class CompromissoServlet extends HttpServlet {
 				try {
 					dataInicio = fmt.parse(data[i]);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					// TODO Tratamento de exceção
 					e.printStackTrace();
 				}
 				
@@ -89,7 +97,7 @@ public class CompromissoServlet extends HttpServlet {
 				try {
 					dataFim = fmt.parse(data[i]);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					// TODO Tratamento de exceção
 					e.printStackTrace();
 				}
 
@@ -108,31 +116,39 @@ public class CompromissoServlet extends HttpServlet {
 			
 			try {
 				sistema.cadastrarCompromisso(titulo, horarios, local, descricao, agenda, participantes, proprietario);
+				String url="";
+				this.redirecionarPagina(url, request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// TODO Tratamento de exceção
 				e.printStackTrace();
-			}
+			}	
+			
 		
-		}
-		
+		}		
 		
 		if(comando.equalsIgnoreCase("removerParticipantes")){
 			
 			int id = Integer.parseInt(request.getParameter("idCompromisso"));
-			String partic[] = request.getParameterValues("participantesCompromisso");
+			String partic[] = request.getParameterValues("participantesCompromisso");	
 			
-			int idp = 0;
-			for (int i = 0; i < partic.length; i++) {
-				idp = Integer.parseInt(partic[i]);
-				sistema.removerParticipante(id, Integer.parseInt(partic[i]));
-				
+			for (int i = 0; i < partic.length; i++) {				
+				sistema.removerParticipante(id, Integer.parseInt(partic[i]));				
 			}
-			
-			
-			
+			String url="";
+			this.redirecionarPagina(url, request, response);
 		}
 		
-		
+		if(comando.equalsIgnoreCase("adicionarParticipantes")){
+			
+			int id = Integer.parseInt(request.getParameter("idCompromisso"));
+			String partic[] = request.getParameterValues("participantesCompromisso");
+			
+			for (int i = 0; i < partic.length; i++) {				
+				sistema.adicionarParticipante(id, Integer.parseInt(partic[i]));				
+			}
+			String url="";
+			this.redirecionarPagina(url, request, response);
+		}	
 		
 		
 		//metodo editar compromisso
@@ -155,14 +171,14 @@ public class CompromissoServlet extends HttpServlet {
 
 			List<Usuario> participantes = new ArrayList<Usuario>();
 			
-			HorarioCom horario = new HorarioCom();
+			HorarioCompromisso horario = new HorarioCompromisso();
 			// Data Inicio
 			SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 			Date dataInicio = new Date();
 			try {
 				dataInicio = fmt.parse(oldData);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				// TODO Tratamento de exceção
 				e.printStackTrace();
 			}
 
@@ -176,19 +192,16 @@ public class CompromissoServlet extends HttpServlet {
 			try {
 				dataFim = fmt.parse(dataInicial);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				// TODO Tratamento de exceção
 				e.printStackTrace();
 			}
 
 			aux = oldHoraFim.split(":");
 			dataFim.setHours(Integer.parseInt(aux[0]));
 			dataFim.setMinutes(Integer.parseInt(aux[1]));
-			horario.setDataFim(dataFim);
-			
-			
-			
+			horario.setDataFim(dataFim);		
 				
-				HorarioCom novoHorario = new HorarioCom();
+				HorarioCompromisso novoHorario = new HorarioCompromisso();
 				
 				// Data Inicio
 				
@@ -196,7 +209,7 @@ public class CompromissoServlet extends HttpServlet {
 				try {
 					dataInicio = fmt.parse(dataInicial);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					// TODO Tratamento de exceção
 					e.printStackTrace();
 				}
 
@@ -210,7 +223,7 @@ public class CompromissoServlet extends HttpServlet {
 				try {
 					dataFim = fmt.parse(dataInicial);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					// TODO Tratamento de exceção
 					e.printStackTrace();
 				}
 
@@ -219,12 +232,12 @@ public class CompromissoServlet extends HttpServlet {
 				dataFim.setMinutes(Integer.parseInt(aux[1]));
 				novoHorario.setDataFim(dataFim);
 			
-
-			
 			try {
 				sistema.editarCompromisso(id, true, titulo, horario, novoHorario, local, descricao, agenda, participantes, proprietario);
+				String url="";
+				this.redirecionarPagina(url, request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				// TODO Tratamento de exceção
 				e.printStackTrace();
 			}
 			
