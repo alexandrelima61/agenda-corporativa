@@ -24,6 +24,25 @@
 			nextText: 'Próximo',  
 			prevText: 'Anterior'
 		});
+
+		jQuery('#btnCadastro').click(function(){
+			jQuery.post(<%=request.getContextPath()%>+'/TarefaServlet?comando=inserirTarefa',{
+				tituloTarefa : jQuery('#tituloTarefa').val(),
+				prioridadeTarefa : jQuery('#prioridadeTarefa option:selected').val(),
+				dataTarefa : jQuery('#dataTarefa').val(),
+				horaTarefa : jQuery('#horaTarefa').val(),
+				agendaTarefa : jQuery('#agendaTarefa option:selected').attr('id'),
+				localTarefa : jQuery('#localTarefa').val(),
+				descricaoTarefa : jQuery('#descricaoTarefa').val()	
+			},function(data){
+				if(data == 'ok')
+					jQuery('#calendario-content').load(<%=request.getContextPath()%>);
+				else
+					alert('Erro ao Adicionar Tarefa.\nTente Novamente');
+			});
+		});
+
+		return false;
 	});
 </script>
 
