@@ -53,9 +53,7 @@ public class CompromissoServlet extends HttpServlet {
 		//metodo cadastrar compromisso
 		if(comando.equalsIgnoreCase("cadastrar")){
 			String titulo = request.getParameter("tituloCompromisso");
-			String dataInicial[] = request.getParameterValues("dataInicial");
-			String horaInicial[] = request.getParameterValues("horaInicial");
-			String horaFinal[] = request.getParameterValues("horaFinal");
+			String datas[] = request.getParameterValues("datas");
 			String local = request.getParameter("localCompromisso");
 			String descricao = request.getParameter("descricaoCompromisso");
 			String agenda = request.getParameter("agendaCompromisso");
@@ -66,19 +64,21 @@ public class CompromissoServlet extends HttpServlet {
 			List<HorarioCom> horarios = new ArrayList<HorarioCom>();
 			List<Usuario> participantes = new ArrayList<Usuario>();
 			
-			for (int i = 0; i < dataInicial.length; i++) {
+			for (int i = 0; i < datas.length; i++) {
 				HorarioCom horario = new HorarioCom();
-				
+				String[] data = datas[0].split("-");
+				String[] horaInicial = datas[1].split("-");
+				String[] horaFinal = datas[2].split("");
 				// Data Inicio
 				SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 				Date dataInicio = new Date();
 				try {
-					dataInicio = fmt.parse(dataInicial[i]);
+					dataInicio = fmt.parse(data[i]);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				
 				String[] aux = horaInicial[i].split(":");
 				dataInicio.setHours(Integer.parseInt(aux[0]));
 				dataInicio.setMinutes(Integer.parseInt(aux[1]));
@@ -87,7 +87,7 @@ public class CompromissoServlet extends HttpServlet {
 				// Data Fim
 				Date dataFim = new Date();
 				try {
-					dataFim = fmt.parse(dataInicial[i]);
+					dataFim = fmt.parse(data[i]);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
