@@ -2,12 +2,32 @@
     pageEncoding="ISO-8859-1"%>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
+		jQuery('#dataInicial').datepicker({
+			dateFormat: 'dd/mm/yy',
+			dayNames: [  
+			'Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'  
+			],  
+			dayNamesMin: [  
+			'D','S','T','Q','Q','S','S','D'  
+			],  
+			dayNamesShort: [  
+			'Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'  
+			],  
+			monthNames: [  
+			'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro',  
+			'Outubro','Novembro','Dezembro'  
+			],  
+			monthNamesShort: [  
+			'Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set',  
+			'Out','Nov','Dez'  
+			],  
+			nextText: 'Próximo',  
+			prevText: 'Anterior'
+		});
+		
 		jQuery('.btnAddData').click(function(){
 			var idAtual = 2;
-			jQuery('#datasCompromisso').append('<div class="inputInline" id="data-'+idAtual+'"><input type="text" class="input-medio datas" name="dataInicial" id="dataInicial" />' +
-					'<input type="text" class="input-pequeno horaInicial" name="horaInicial" />' +
-					'<input type="text" class="input-pequeno horaFinal" name="horaInicial" />' +
-					'<img class="btnRemoveData" id="'+idAtual+'" src="/agenda/img/remove-icon.png" alt="" /></div>');
+			jQuery('#datasCompromisso').append('<div id="'+jQuery('#dataInicial').val()+'">'+jQuery('#dataInicial').val()+'</div>');
 		});
 	});
 </script>
@@ -21,13 +41,13 @@
 		<input type="text" name="tituloCompromisso" class="input-longo" id="tituloCompromisso" />
 		
 		<label for="Data">Data / Início / Fim</label>
-		<div id="datasCompromisso">
 		<div class="inputInline">
 			<input type="text" class="input-medio" name="dataInicial" id="dataInicial" />
 			<input type="text" class="input-pequeno horaInicial" name="horaInicial" />
 			<input type="text" class="input-pequeno horaFinal" name="horaInicial" />
 			<img class="btnAddData" src="/agenda/img/add-icon.png" alt="" />
 		</div>
+		<div id="datasCompromisso">
 		</div>
 		
 		<label for="Local">Local</label>
