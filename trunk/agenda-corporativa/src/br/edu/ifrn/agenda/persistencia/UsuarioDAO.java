@@ -42,6 +42,30 @@ public class UsuarioDAO {
 		return null;
 	}
 	
+	
+	public ArrayList<Usuario> buscarPorNome(String nome) {
+		String sql = "SELECT usu_id, usu_nome, usu_login, usu_ativo FROM tb_usuario WHERE (usu_nome like ?);";
+		PreparedStatement statement = Conexao.getInstance().getPreparedStatement(sql);
+//		ArrayList<Usuario> usuarios = new
+		try {
+			statement.setString(1, nome+"%");
+			ResultSet data = statement.executeQuery();
+			while ( data.next() ) {
+				Usuario usuario = new Usuario();
+				usuario.setOid(data.getInt("usu_id"));
+				usuario.setApelido( data.getString("usu_login") );
+				usuario.setAtivado( data.getBoolean("usu_ativo") );
+				usuario.setNome( data.getString("usu_nome") );
+				return usuario;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	public List<Usuario> buscarTodos() {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		String sql = "SELECT usu_oid, usu_nome, usu_login FROM tb_usuario WHERE (usu_ativo = ?);";

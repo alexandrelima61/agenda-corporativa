@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +49,8 @@ public class CompromissoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String comando = request.getParameter("comando");
 		
+		
+		//metodo cadastrar compromisso
 		if(comando.equalsIgnoreCase("cadastrar")){
 			String titulo = request.getParameter("tituloCompromisso");
 			String dataInicial[] = request.getParameterValues("dataInicial");
@@ -97,19 +100,10 @@ public class CompromissoServlet extends HttpServlet {
 				
 				horarios.add(horario);
 			}
-			
+			int oid =0;
 			for (int i = 0; i < partic.length; i++) {
-				/*
-				 * ArrayList<Grupo> filhos = new ArrayList<Grupo>();
-				// Pega subgrupos pelo ID.			
-				for(Grupo filho: sistema.recuperarGruposTodos()){
-					if(request.getParameter(filho.getOid()+"")!= null)
-					if(request.getParameter(filho.getOid()+"").equals("on"))
-						filhos.add(filho);
-				}
-
-				 */
-			
+				oid = Integer.parseInt(partic[i]);
+				participantes.add(sistema.recuperarUsuarioPorID(oid));
 			}
 			
 			try {
@@ -118,6 +112,21 @@ public class CompromissoServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
+		}
+		
+		
+		if(comando.equalsIgnoreCase("removerParticipantes")){
+			
+			int id = Integer.parseInt(request.getParameter("idCompromisso"));
+			String partic[] = request.getParameterValues("participantesCompromisso");
+			
+			
+			for (int i = 0; i < partic.length; i++) {
+				
+			
+			}
+			
 			
 			
 		}
@@ -125,7 +134,7 @@ public class CompromissoServlet extends HttpServlet {
 		
 		
 		
-		
+		//metodo editar compromisso
 		if(comando.equalsIgnoreCase("editar")){
 			int id = Integer.parseInt(request.getParameter("idCompromisso"));
 			String oldData =  request.getParameter("oldDataCompromisso");
@@ -138,7 +147,7 @@ public class CompromissoServlet extends HttpServlet {
 			String local = request.getParameter("localCompromisso");
 			String descricao = request.getParameter("descricaoCompromisso");
 			String agenda = request.getParameter("agendaCompromisso");
-			String partic[] = request.getParameterValues("participantesCompromisso");
+			
 			//Pegar sessao...
 			Usuario proprietario = (Usuario) request.getSession().getAttribute("user");
 			
@@ -208,25 +217,8 @@ public class CompromissoServlet extends HttpServlet {
 				dataFim.setHours(Integer.parseInt(aux[0]));
 				dataFim.setMinutes(Integer.parseInt(aux[1]));
 				novoHorario.setDataFim(dataFim);
-				
 			
-				
-				
-				
-				
-			for (int i = 0; i < partic.length; i++) {
-				/*
-				 * ArrayList<Grupo> filhos = new ArrayList<Grupo>();
-				// Pega subgrupos pelo ID.			
-				for(Grupo filho: sistema.recuperarGruposTodos()){
-					if(request.getParameter(filho.getOid()+"")!= null)
-					if(request.getParameter(filho.getOid()+"").equals("on"))
-						filhos.add(filho);
-				}
 
-				 */
-			
-			}
 			
 			try {
 				sistema.editarCompromisso(id, true, titulo, horario, novoHorario, local, descricao, agenda, participantes, proprietario);
