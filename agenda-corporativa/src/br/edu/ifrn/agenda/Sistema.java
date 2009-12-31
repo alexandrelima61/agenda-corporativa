@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCompromisso;
@@ -16,6 +20,7 @@ public class Sistema {
 
 private static Sistema singleton = new Sistema();
 	
+
 	public static Sistema getInstance() {
 		return singleton;
 	}
@@ -32,8 +37,12 @@ private static Sistema singleton = new Sistema();
 	
 	
 	
-	// Metodos referentes aos COMPROMISSOS
-
+	
+	/**
+	 * Método de cadastramento de compromissos
+	 * 	@author Amanda, Ari, Diego, Kairon
+	 *  @return void
+	 */
 	
 	public void cadastrarCompromisso(String titulo, List<HorarioCompromisso> datas, String local, String descricao, 
 			String nomeAgenda, List<Usuario> participantes, Usuario proprietario) throws Exception {
@@ -42,7 +51,12 @@ private static Sistema singleton = new Sistema();
 		Compromisso compromisso = new Compromisso(0, true, local, titulo, descricao, datas, proprietario, participantes, agenda);
 		CompromissoDAO.getInstance().inserir(compromisso);
 	}
-
+	
+	/**
+	 * Método de edição de compromissos
+	 * @author Amanda, Ari, Diego, Kairon
+	 * @return void
+	 */
 	public void editarCompromisso(int oid, boolean ativo, String titulo, HorarioCompromisso horario, HorarioCompromisso novoHorario, String local, String descricao,
 			String agenda, List<Usuario> participantes, Usuario proprietario) throws Exception {
 		ArrayList<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>(); 
@@ -55,12 +69,20 @@ private static Sistema singleton = new Sistema();
 
 
 	
-	
+	/**
+	 * Método para remover participante do compromisso
+	 * @author Amanda, Ari, Diego, Kairon
+	 * @return int
+	 */
 	public int removerParticipante(int idCom, int idPar) {
 		return CompromissoDAO.getInstance().removerParticipante(idCom, idPar);
 	}
 	
-	
+	/**
+	 * Método para adicionar participante ao compromisso
+	 * @author Amanda, Ari, Diego, Kairon
+	 * @return int
+	 */
 	public int adicionarParticipante(int idCom,int idPart){
 		return CompromissoDAO.getInstance().adicionarParticipante(idCom, idPart);
 		 
@@ -71,7 +93,11 @@ private static Sistema singleton = new Sistema();
 		return UsuarioDAO.getInstance().buscarPorID(oid);
 	}
 	
-	
+	/**
+	 * Método para buscar usuário pelo nome
+	 * @author Amanda, Ari, Diego, Kairon
+	 * @return ArrayList<Usuario>
+	 */
 	public ArrayList<Usuario> buscarUsuarioPorNome(String nome){
 		return UsuarioDAO.getInstance().buscarPorNome(nome);
 	}
