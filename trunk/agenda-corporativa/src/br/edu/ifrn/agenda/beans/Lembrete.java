@@ -89,7 +89,7 @@ public class Lembrete {
 
 	@Override
 	public String toString() {
-		return "ID: " + this.oid+"\tTítulo: "+this.titulo+"\nDescrição: "+this.corpo+"\nData: "+this.datas.get(0).toString+"\nAtivo: "+ativo;
+		return "ID: " + this.oid+"\tTítulo: "+this.titulo+"\nDescrição: "+this.corpo+"\nData: "+this.datas.get(0).toString()+"\nAtivo: "+ativo;
 	}
 	
 	@Override
