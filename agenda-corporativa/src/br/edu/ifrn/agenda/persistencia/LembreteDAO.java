@@ -12,9 +12,11 @@ import java.util.logging.Logger;
 import br.edu.ifrn.agenda.beans.Lembrete;
 
 public class LembreteDAO {
+	
+	private Conexao conexao = null;
 
 	public LembreteDAO() {
-
+		this.conexao = Conexao.getInstance();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -222,14 +224,14 @@ public class LembreteDAO {
 			
 	}
 	
-	public List<Lembrete> recuperarTodosLembretes() {
-		List<Lembrete> lista = new List<Lembrete>();
+	public List<Lembrete> recuperarTodosLembretes() throws SQLException {
+		List<Lembrete> lista = new ArrayList<Lembrete>();
 		String comando = "SELECT tb_lembrete.lem_id, tb_lembrete.age_id, tb_lembrete.lem_titulo, tb_lembrete.lem_corpo, tb_lembrete.lem_ativo, tb_agenda.age_id AS Expr1, tb_agenda.age_titulo, tb_agenda.age_descricao, tb_agenda.age_ativo, tb_lembretes_datas.lem_id AS Expr2, tb_lembretes_datas.lem_dat_data" +
 						"FROM tb_lembrete INNER JOIN tb_agenda ON tb_lembrete.age_id = tb_agenda.age_id INNER JOIN tb_lembretes_datas ON tb_lembrete.lem_id = tb_lembretes_datas.lem_id" +
 						"WHERE  tb_agenda.age_id = ?" +
-						"ORDER BY tb_lembretes_datas.lem_dat_data"
+						"ORDER BY tb_lembretes_datas.lem_dat_data";
 		PreparedStatement statement;
-		statement = conexao.prepareStatement(comando);
+		statement = conexao.getPreparedStatement(comando);
 		ResultSet result = statement.executeQuery();
 		while(result.next()){
 			Lembrete temp = montarLembrete(result);
