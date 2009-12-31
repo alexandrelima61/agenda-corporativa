@@ -33,7 +33,6 @@ public class CompromissoServlet extends HttpServlet {
      */
     public CompromissoServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     
