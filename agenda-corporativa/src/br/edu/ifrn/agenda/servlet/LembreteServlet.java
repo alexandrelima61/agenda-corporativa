@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import br.edu.ifrn.agenda.beans.Lembrete;
 import br.edu.ifrn.agenda.persistencia.LembreteDAO;
 
-public class ServletLembrete extends HttpServlet {
+public class LembreteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public ServletLembrete() {
+    public LembreteServlet() {
         
     }
     
@@ -94,7 +94,6 @@ public class ServletLembrete extends HttpServlet {
 	}
 	
 	public List<Date> adicionarComparando(List<Date> lista, Date datainicio, Date datafim, String periodicidade){
-		boolean go = true;
 		Date ultimaData;
 		long dia = Long.parseLong("86400000")*Long.parseLong(periodicidade);
 		ultimaData = datainicio;
