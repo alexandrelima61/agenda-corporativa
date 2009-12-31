@@ -7,7 +7,7 @@
 <title>Listagem de Lembretes</title>
 </head>
 <body>
-	<jsp:useBean id="lembretes" scope="request" type="java.util.List<src.br.edu.ifrn.agenda.persistencia.LembreteDAO>" />
+	<jsp:useBean id="lembretes" scope="request" type="java.util.List<br.edu.ifrn.agenda.persistencia.LembreteDAO>" />
 	<ul>
 		<%for(int i = 0;i < lembretes.size();i++){ %>
 			<li>
