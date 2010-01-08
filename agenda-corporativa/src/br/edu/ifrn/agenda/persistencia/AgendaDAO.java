@@ -9,22 +9,22 @@ import br.edu.ifrn.agenda.beans.Agenda;
 
 public class AgendaDAO {
 
-	private Conexao conn;
+	private Conexao conn = Conexao.getInstance();
 
-	public AgendaDAO() throws Exception {
-		try {
-			this.conn = Conexao.getInstance();
 
-		} catch (Exception e) {
-			throw new Exception("Erro: " + "\n" + e.getMessage());
-		}
+	public static AgendaDAO singleton = new AgendaDAO();
+	
+	public static AgendaDAO getInstance(){
+		return singleton;
 	}
+	
+	
 
 	public void salvar(Agenda categoria) throws Exception {
 		PreparedStatement ps = null;
 
 		if (categoria == null) {
-			throw new Exception("O valor passado não pode ser nulo");
+			throw new Exception("O valor passado nao pode ser nulo");
 		}
 
 		try {
