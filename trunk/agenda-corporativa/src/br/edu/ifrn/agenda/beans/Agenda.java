@@ -19,7 +19,15 @@ public class Agenda {
     private List<Compromisso> compromissos;
     private List<Lembrete> lembretes;
 
-
+    public Agenda(String titulo, String descricao){
+    	this.titulo = titulo;
+    	this.descricao = descricao;
+    }
+    
+    public Agenda(){
+    	
+    }
+ 
     public int getOid() {
         return oid;
     }

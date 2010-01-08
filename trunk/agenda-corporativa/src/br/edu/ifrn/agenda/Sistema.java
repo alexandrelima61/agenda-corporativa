@@ -1,11 +1,13 @@
 package br.edu.ifrn.agenda;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCompromisso;
 import br.edu.ifrn.agenda.beans.Usuario;
+import br.edu.ifrn.agenda.persistencia.AgendaDAO;
 import br.edu.ifrn.agenda.persistencia.CompromissoDAO;
 import br.edu.ifrn.agenda.persistencia.UsuarioDAO;
 
@@ -14,23 +16,11 @@ public class Sistema {
 
 private static Sistema singleton = new Sistema();
 	
+	
 
 	public static Sistema getInstance() {
 		return singleton;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * Método de cadastramento de compromissos
@@ -96,11 +86,9 @@ private static Sistema singleton = new Sistema();
 		return UsuarioDAO.getInstance().buscarPorNome(nome);
 	}
 	
-	
-	
-	
-	
-	
+	public Agenda buscarAgendaPorId(int id) throws SQLException{
+		return AgendaDAO.getInstance().recuperarPorId(id); 
+	}
 	
 	
 }
