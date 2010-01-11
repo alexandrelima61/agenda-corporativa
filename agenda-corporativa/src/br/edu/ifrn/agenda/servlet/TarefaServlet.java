@@ -63,7 +63,7 @@ public class TarefaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/visualizar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/editar.jsp");
 			dispatcher.forward(request, response);
 		}
 		
@@ -79,7 +79,7 @@ public class TarefaServlet extends HttpServlet {
 			Tarefa tarefa = new Tarefa();
 			
 			String titulo = request.getParameter("tituloTarefa");
-			Prioridade prioridade = Prioridade.valueOf((request.getParameter("prioridadeTarefa").toUpperCase()));
+			//Prioridade prioridade = Prioridade.valueOf((request.getParameter("prioridadeTarefa").toUpperCase()));
 			try {
 				DateFormat fmt = new SimpleDateFormat("dd/MM/yy");
 				java.sql.Date data = new java.sql.Date(fmt.parse(request.getParameter("dataTarefa")).getTime());
@@ -90,18 +90,18 @@ public class TarefaServlet extends HttpServlet {
 				data.setMinutes(Integer.parseInt(aux[1]));
 				String local = request.getParameter("localTarefa");
 				String descricao = request.getParameter("descricaoTarefa");
-				int oidAgenda = Integer.parseInt(request.getParameter("AgendaTarefa"));
+				//int oidAgenda = Integer.parseInt(request.getParameter("AgendaTarefa"));
 				
-				Agenda agenda = new Agenda();
-				agenda.setOid(oidAgenda);
+				//Agenda agenda = new Agenda();
+				//agenda.setOid(oidAgenda);
 				
-				Usuario usuario = (Usuario) session.getAttribute("usuario");
+				//Usuario usuario = (Usuario) session.getAttribute("usuario");
 				
-				tarefa.setUsuario(usuario);
-				tarefa.setAgenda(agenda);
+				//tarefa.setUsuario(usuario);
+				//tarefa.setAgenda(agenda);
 				tarefa.setTitulo(titulo);
-				tarefa.setPrioridade(prioridade);
-				tarefa.setEstado(EstadoTarefa.ABERTO);
+				//tarefa.setPrioridade(prioridade);
+				//tarefa.setEstado(EstadoTarefa.ABERTO);
 				tarefa.setData(data);
 				tarefa.setLocal(local);
 				tarefa.setDescricao(descricao);

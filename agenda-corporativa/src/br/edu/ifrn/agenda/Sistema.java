@@ -128,6 +128,23 @@ private static Sistema singleton = new Sistema();
 		
 	}
 	
+	public List<Compromisso> recuperarCompromissoPorDia(String data){
+	    SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+	    java.util.Date date = new java.util.Date();
+	     
+		try {
+			date = fmt.parse(data);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return CompromissoDAO.getInstance().buscarPorData(date);
+		
+	}
+	
+	
+	
 	public List<Tarefa> recuperarTarefaPorId(int id){
 		List<Tarefa> lista = new ArrayList<Tarefa>();
 		try {

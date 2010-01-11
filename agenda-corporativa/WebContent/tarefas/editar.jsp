@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<script type="text/javascript">
+
+<%@page import="java.text.SimpleDateFormat"%><script type="text/javascript">
 	jQuery(function() {
 		jQuery('#dataTarefa').datepicker({
 			dateFormat: 'dd/mm/yy',
@@ -58,25 +59,18 @@
   <input type="hidden" name="comando" value="editarTarefa"/>
   <input type="hidden" name="idTarefa" value="<%=tarefa.getOid()%>"/>
   <input type="text" class="input-longo" name="tituloTarefa" id="tituloTarefa" value="<%=tarefa.getTitulo()%>"/>
-  
-  <label for="Agenda">Agenda</label>
-  <select name="agendaTarefa" id="agendaTarefa">
-    <option><%=tarefa.getAgenda()%></option>
-    
+     
   </select>
 		<div class="inputInline">
 			<label for="Data">Data</label>
-			<input type="text" class="input-medio" name="dataTarefa" id="dataTarefa" value="<%=tarefa.getData()%>"/>		
+			<% SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy"); %>
+			<input type="text" class="input-medio" name="dataTarefa" id="dataTarefa" value="<%=fmt.format(tarefa.getData())%>"/>		
 		</div>
 		
   <label for="Local">Local</label>
   <input type="text" class="input-longo" name="localTarefa" id="localTarefa" value="<%=tarefa.getLocal()%>"/>
-  <label for="Prioridade">Prioridade</label>
-  <select name="prioridadeTarefa" id="prioridadeTarefa">
-    <option><%=tarefa.getPrioridade()%></option>
-  </select>
   <label for="Descrição">Descrição</label>
-  <textarea name="descricao" id="descricao" value="<%=tarefa.getLocal()%>" ></textarea>
+  <textarea name="descricao" id="descricao" ><%=tarefa.getDescricao()%></textarea>
   
 	<div class="buttonsForm">
 		<input type="submit" value="Editar"/>

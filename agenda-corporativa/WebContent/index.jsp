@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%@page import="br.edu.ifrn.agenda.beans.Tarefa"%>
+<%@page import="br.edu.ifrn.agenda.beans.Compromisso"%>
 <%@page import="br.edu.ifrn.agenda.Sistema"%>
 
 
@@ -41,6 +42,13 @@
         	
     		request.setAttribute("dia"+i, Sistema.getInstance().recuperarTarefaPorDia(data));
         }
+    
+    for(int i = 1; i <= 31; i++){
+    	String data;
+    	if(i > 0 && i < 10) data = "0"+i+"/01/2010";  		else data = i+"/01/2010";
+    	
+		request.setAttribute("comdia"+i, Sistema.getInstance().recuperarCompromissoPorDia("04/01/2010"));
+    }
     
      %>
     
@@ -129,9 +137,7 @@
 										</div>									</td>
 									<td>
 										<div class="dia-calendario">03</div>
-										<a class="link-evento" href="visualizar_compromisso">
-										<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-laranja" title="Horario: 14:30">
+										<div class="eventos-dia-calendario agenda-laranja">
 											<jsp:useBean id="dia3" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
 										<div>
 											<% for(Tarefa tarefa : dia3){ %>				
@@ -139,11 +145,19 @@
 											<% }%>
 										</div>
 											</div>
-										</div>	
-										</a>									
+								
 									</td>
 									<td>
 										<div class="dia-calendario">04</div>
+										<jsp:useBean id="comdia4" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
+										<div>
+											<% for(Compromisso com : comdia4){ %>				
+											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?"> <%=com.getTitulo() %></a>
+											<% }%>
+											
+										</div>
+										
+										
 									</td>
 									<td>
 										<div class="dia-calendario">05</div>
