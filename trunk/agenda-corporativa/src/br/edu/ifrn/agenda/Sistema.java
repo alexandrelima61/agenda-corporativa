@@ -7,15 +7,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import br.edu.ifrn.agenda.beans.Agenda;
+import br.edu.ifrn.agenda.beans.Prioridade;
+import br.edu.ifrn.agenda.beans.Tarefa;
 import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCompromisso;
 import br.edu.ifrn.agenda.beans.Lembrete;
-import br.edu.ifrn.agenda.beans.Tarefa;
 import br.edu.ifrn.agenda.beans.Usuario;
 import br.edu.ifrn.agenda.persistencia.AgendaDAO;
 import br.edu.ifrn.agenda.persistencia.CompromissoDAO;
-import br.edu.ifrn.agenda.persistencia.LembreteDAO;
+
 import br.edu.ifrn.agenda.persistencia.TarefaDAO;
+import br.edu.ifrn.agenda.persistencia.LembreteDAO;
 import br.edu.ifrn.agenda.persistencia.UsuarioDAO;
 
 
@@ -96,6 +98,10 @@ private static Sistema singleton = new Sistema();
 	public Agenda buscarAgendaPorId(int id) throws SQLException{
 		return AgendaDAO.getInstance().recuperarPorId(id); 
 	}
+	// Metodo para buscar tarefas e editá-las - Nélio
+	public List<Tarefa> buscarTarefaPorData(String titulo) throws SQLException{
+		return TarefaDAO.getInstance().retornaTarefaPorTitulo(titulo);
+	}
 	
 	
 	public List<Tarefa> recuperarTarefaPorDia(String data){
@@ -156,13 +162,36 @@ private static Sistema singleton = new Sistema();
 		//lembrete.setDatas(datas);
 		lembrete.setAtivo(true);
 		
-		LembreteDAO.getInstance().editarLembrete(lembrete);
-		
+		LembreteDAO.getInstance().editarLembrete(lembrete);		
 		
 	}
 	
+	//Método Listar Tarefa - Nélio
+	public List<Tarefa> recuperarTarefas(){
+		
+		try {
+			return TarefaDAO.getInstance().recuperarTodos();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ArrayList<Tarefa>();
+		
+	}
 	
-	
-	
+	// Método Editar Tarefa - Nélio
+	public void editarTarefa(int id, String assunto, String descricao, Date data, String local, Prioridade prioridade, Boolean ativo) throws SQLException{
+		Tarefa tarefa = new Tarefa();
+		tarefa.setOid(id);
+		tarefa.setTitulo(assunto);
+		tarefa.setDescricao(descricao);
+		tarefa.setData(data);
+		tarefa.setLocal(local);
+		tarefa.setPrioridade(prioridade);		
+		tarefa.setAtivo(true);
+		
+		TarefaDAO.getInstance().editar(tarefa);		
+		
+	}	
 	
 }
