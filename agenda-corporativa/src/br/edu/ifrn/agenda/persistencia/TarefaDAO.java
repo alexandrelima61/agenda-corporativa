@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.ifrn.agenda.beans.EstadoTarefa;
-import br.edu.ifrn.agenda.beans.Prioridade;
 import br.edu.ifrn.agenda.beans.Tarefa;
 
 public class TarefaDAO {
@@ -205,5 +203,24 @@ public class TarefaDAO {
 		return tarefa;
 
 	}
+	
+	// Método editar tarefa - Nélio
+	public void editar(Tarefa tarefa) throws SQLException {
+		
+	 	String SQL = "UPDATE tb_tarefa SET usu_id = ?, tar_titulo = ?, tar_data = ?, tar_local = ?," +
+	 			"tar_prioridade = ?, tar_descricao = ?, tar_estado = ?, tar_ativado = ? WHERE tar_id = ?";
+        PreparedStatement ps = conexao.getPreparedStatement(SQL);
+        ps.setInt(1, tarefa.getAgenda().getOid());
+        ps.setInt(2, tarefa.getUsuario().getOid());
+        ps.setString(3, tarefa.getTitulo());
+        ps.setDate(4, (Date) tarefa.getData());
+        ps.setString(5, tarefa.getLocal());
+        ps.setString(6, tarefa.getPrioridade().name());
+        ps.setString(7, tarefa.getDescricao());
+        ps.setString(8, tarefa.getEstado().name());
+        ps.setBoolean(9, tarefa.isAtivo());       
+        
+        ps.executeUpdate();	
+}
 
 }
