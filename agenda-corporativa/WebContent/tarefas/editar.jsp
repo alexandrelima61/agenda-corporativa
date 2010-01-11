@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-<%@page import="java.text.SimpleDateFormat"%><script type="text/javascript">
+<%@page import="java.text.SimpleDateFormat"%>
+<script type="text/javascript">
 	jQuery(function() {
 		jQuery('#dataTarefa').datepicker({
 			dateFormat: 'dd/mm/yy',
