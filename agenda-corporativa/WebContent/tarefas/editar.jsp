@@ -64,7 +64,7 @@
 		<div class="inputInline">
 			<label for="Data">Data</label>
 			<% SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy"); %>
-			<input type="text" class="input-medio" name="dataTarefa" id="dataTarefa" value="<%=fmt.format(tarefa.getData())%>"/>		
+			<input type="text" class="input-medio" name="dataTarefa" id="dataTarefa" value="<%=fmt.format(tarefa.getData())%>"/>					
 		</div>
 		
   <label for="Local">Local</label>

@@ -12,28 +12,28 @@ import br.edu.ifrn.agenda.beans.Tarefa;
 public class TarefaDAO {
 
 	public static TarefaDAO singleton;
-	
-	public static TarefaDAO getInstance(){
-		if(singleton == null)
+
+	public static TarefaDAO getInstance() {
+		if (singleton == null)
 			singleton = new TarefaDAO();
 		return singleton;
-	} 
-	
+	}
+
 	private Conexao conexao = Conexao.getInstance();
-
-
 
 	public List<Tarefa> recuperarPorData(Date dataInicio, Date dataFim)
 			throws SQLException {
 		ResultSet rs;
 		if (dataInicio.equals(dataFim)) {
-			PreparedStatement state = conexao.getPreparedStatement("select * from tb_tarefa where tar_data = ?");
+			PreparedStatement state = conexao
+					.getPreparedStatement("select * from tb_tarefa where tar_data = ?");
 			state.setDate(1, dataInicio);
 			rs = state.executeQuery();
 
 		} else {
-			
-			PreparedStatement state = conexao.getPreparedStatement("select * from tb_tarefa where tar_data >= ? and and tar_data <= ?");
+
+			PreparedStatement state = conexao
+					.getPreparedStatement("select * from tb_tarefa where tar_data >= ? and and tar_data <= ?");
 			state.setDate(1, dataInicio);
 			state.setDate(1, dataFim);
 			rs = state.executeQuery();
@@ -45,10 +45,13 @@ public class TarefaDAO {
 
 		return tarefas;
 	}
-	
-	public List<Tarefa> retornaTarefaPorTitulo(String titulo) throws SQLException {
 
-		ResultSet rs = conexao.executeQueryStatement("select * from tb_tarefa where tar_titulo = "	+ titulo);
+	public List<Tarefa> retornaTarefaPorTitulo(String titulo)
+			throws SQLException {
+
+		ResultSet rs = conexao
+				.executeQueryStatement("select * from tb_tarefa where tar_titulo = "
+						+ titulo);
 
 		List<Tarefa> tarefas = new ArrayList<Tarefa>();
 		while (rs.next())
@@ -79,7 +82,6 @@ public class TarefaDAO {
 
 	}
 
-
 	public void salvar(Tarefa tarefa) {
 
 		conexao.executeUpdateStatement("update tb_tarefa set tar_titulo="
@@ -93,25 +95,22 @@ public class TarefaDAO {
 	}
 
 	public void inserir(Tarefa tarefa) throws SQLException {
-		
-		 	String SQL = "insert into tb_tarefa (age_id int,usu_id,tar_titulo,tar_data,tar_local," +
-		 			"tar_prioridade,tar_descricao,tar_estado,tar_ativado) values = ?,?,?,?,?,?,?,?,";
-	        PreparedStatement ps = conexao.getPreparedStatement(SQL);
-	        ps.setInt(1, tarefa.getAgenda().getOid());
-	        ps.setInt(2, tarefa.getUsuario().getOid());
-	        ps.setString(3, tarefa.getTitulo());
-	        ps.setDate(4, (Date) tarefa.getData());
-	        ps.setString(5, tarefa.getLocal());
-	        ps.setString(6, tarefa.getPrioridade().name());
-	        ps.setString(7, tarefa.getDescricao());
-	        ps.setString(8, tarefa.getEstado().name());
-	        ps.setBoolean(9, tarefa.isAtivo());
-	        
-	        
-	        ps.executeUpdate();
-	        
 
-		
+		String SQL = "insert into tb_tarefa (age_id int,usu_id,tar_titulo,tar_data,tar_local,"
+				+ "tar_prioridade,tar_descricao,tar_estado,tar_ativado) values = ?,?,?,?,?,?,?,?,";
+		PreparedStatement ps = conexao.getPreparedStatement(SQL);
+		ps.setInt(1, tarefa.getAgenda().getOid());
+		ps.setInt(2, tarefa.getUsuario().getOid());
+		ps.setString(3, tarefa.getTitulo());
+		ps.setDate(4, (Date) tarefa.getData());
+		ps.setString(5, tarefa.getLocal());
+		ps.setString(6, tarefa.getPrioridade().name());
+		ps.setString(7, tarefa.getDescricao());
+		ps.setString(8, tarefa.getEstado().name());
+		ps.setBoolean(9, tarefa.isAtivo());
+
+		ps.executeUpdate();
+
 	}
 
 	public void remover(int tarefaOid) {
@@ -120,107 +119,101 @@ public class TarefaDAO {
 				.executeQueryStatement("update tb_tarefa set tar_ativo = 0 where tar_id="
 						+ tarefaOid);
 	}
-	
-	
-	public List<Tarefa> recuperarTarefasDaAgenda(int idAgenda) throws SQLException {
-				
-		
-            String SQL = "select * from tb_tarefa where age_id = ?";
-            PreparedStatement ps = conexao.getPreparedStatement(SQL);
-            ps.setInt(1, idAgenda);
-           
 
-            ResultSet rs = ps.executeQuery();
-            
-            List<Tarefa> tarefas = new ArrayList<Tarefa>();
-    		while (rs.next())
-    			tarefas.add(this.gerarTarefa(rs));
+	public List<Tarefa> recuperarTarefasDaAgenda(int idAgenda)
+			throws SQLException {
 
-    		return tarefas; 
+		String SQL = "select * from tb_tarefa where age_id = ?";
+		PreparedStatement ps = conexao.getPreparedStatement(SQL);
+		ps.setInt(1, idAgenda);
 
-       
-	}
-	
-	
-	public List<Tarefa> recuperarTarefasDoUsuario(int idUsuario) throws SQLException {
-		
-		
-        String SQL = "select * from tb_tarefa where usu_id = ?";
-        PreparedStatement ps = conexao.getPreparedStatement(SQL);
-        ps.setInt(1, idUsuario);
-       
+		ResultSet rs = ps.executeQuery();
 
-        ResultSet rs = ps.executeQuery();
-        
-        List<Tarefa> tarefas = new ArrayList<Tarefa>();
+		List<Tarefa> tarefas = new ArrayList<Tarefa>();
 		while (rs.next())
 			tarefas.add(this.gerarTarefa(rs));
 
-		return tarefas; 
+		return tarefas;
 
-   
 	}
-	
-		public List<Tarefa> recuperarTarefasDoUsuarioEDaAgenda(int idAgenda, int idUsuario) throws SQLException {
-		
-		
-        String SQL = "select * from tb_tarefa where age_id = ? usu_id = ?";
-        PreparedStatement ps = conexao.getPreparedStatement(SQL);
-        ps.setInt(1, idAgenda);
-        ps.setInt(2, idUsuario);
-       
 
-        ResultSet rs = ps.executeQuery();
-        
-        List<Tarefa> tarefas = new ArrayList<Tarefa>();
+	public List<Tarefa> recuperarTarefasDoUsuario(int idUsuario)
+			throws SQLException {
+
+		String SQL = "select * from tb_tarefa where usu_id = ?";
+		PreparedStatement ps = conexao.getPreparedStatement(SQL);
+		ps.setInt(1, idUsuario);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<Tarefa> tarefas = new ArrayList<Tarefa>();
 		while (rs.next())
 			tarefas.add(this.gerarTarefa(rs));
 
-		return tarefas; 
+		return tarefas;
 
-   
-		}
-	
-	
+	}
+
+	public List<Tarefa> recuperarTarefasDoUsuarioEDaAgenda(int idAgenda,
+			int idUsuario) throws SQLException {
+
+		String SQL = "select * from tb_tarefa where age_id = ? usu_id = ?";
+		PreparedStatement ps = conexao.getPreparedStatement(SQL);
+		ps.setInt(1, idAgenda);
+		ps.setInt(2, idUsuario);
+
+		ResultSet rs = ps.executeQuery();
+
+		List<Tarefa> tarefas = new ArrayList<Tarefa>();
+		while (rs.next())
+			tarefas.add(this.gerarTarefa(rs));
+
+		return tarefas;
+
+	}
+
 	private Tarefa gerarTarefa(ResultSet rs) throws SQLException {
 
 		Tarefa tarefa = new Tarefa();
 
 		if (rs.next()) {
 
-		  //tarefa.setAgenda(new
-		  //AgendaDAO().recuperarPorId(rs.getInt("age_id")));
+			// tarefa.setAgenda(new
+			// AgendaDAO().recuperarPorId(rs.getInt("age_id")));
 			tarefa.setOid(rs.getInt("tar_id"));
 			tarefa.setTitulo(rs.getString("tar_titulo"));
 			tarefa.setData(rs.getDate("tar_data"));
 			tarefa.setLocal(rs.getString("tar_local"));
-			//tarefa.setPrioridade(Prioridade.valueOf(rs.getString("tar_prioridade")));
+			// tarefa.setPrioridade(Prioridade.valueOf(rs.getString("tar_prioridade")));
 			tarefa.setDescricao(rs.getString("tar_descricao"));
-			//tarefa.setEstado(EstadoTarefa.valueOf(rs.getString("tar_estado")));
-			//tarefa.setAtivo(rs.getBoolean("tar_ativado"));
+			// tarefa.setEstado(EstadoTarefa.valueOf(rs.getString("tar_estado")));
+			// tarefa.setAtivo(rs.getBoolean("tar_ativado"));
 		}
 
 		return tarefa;
 
 	}
-	
+
 	// Método editar tarefa - Nélio
 	public void editar(Tarefa tarefa) throws SQLException {
 		
-	 	String SQL = "UPDATE tb_tarefa SET usu_id = ?, tar_titulo = ?, tar_data = ?, tar_local = ?," +
-	 			"tar_prioridade = ?, tar_descricao = ?, tar_estado = ?, tar_ativado = ? WHERE tar_id = ?";
-        PreparedStatement ps = conexao.getPreparedStatement(SQL);
-        ps.setInt(1, tarefa.getAgenda().getOid());
-        ps.setInt(2, tarefa.getUsuario().getOid());
-        ps.setString(3, tarefa.getTitulo());
-        ps.setDate(4, (Date) tarefa.getData());
-        ps.setString(5, tarefa.getLocal());
-        ps.setString(6, tarefa.getPrioridade().name());
-        ps.setString(7, tarefa.getDescricao());
-        ps.setString(8, tarefa.getEstado().name());
-        ps.setBoolean(9, tarefa.isAtivo());       
-        
-        ps.executeUpdate();	
-}
+		try {
+			String SQL = "UPDATE tb_tarefa SET tar_titulo = ?, tar_data = ?, tar_local = ?,"
+					+ "tar_descricao = ? WHERE tar_id = ?";
+			PreparedStatement ps = conexao.getPreparedStatement(SQL);
+			// ps.setInt(1, tarefa.getAgenda().getOid());
+			ps.setString(1, tarefa.getTitulo());
+			ps.setDate(2, (Date) tarefa.getData());
+			ps.setString(3, tarefa.getLocal());
+			// ps.setString(4, tarefa.getPrioridade().name());
+			ps.setString(4, tarefa.getDescricao());
+			// ps.setString(6, tarefa.getEstado().name());
+			// ps.setBoolean(7, tarefa.sisAtivo());
+			ps.executeUpdate();
+
+		} catch (SQLException ex) {
+			System.out.print("Erro ao editar os dados. Dá pra tirar um 7,0? " + ex.getMessage());
+		}
+	}
 
 }
