@@ -1,14 +1,21 @@
 package br.edu.ifrn.agenda;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCompromisso;
+import br.edu.ifrn.agenda.beans.Lembrete;
+import br.edu.ifrn.agenda.beans.Tarefa;
 import br.edu.ifrn.agenda.beans.Usuario;
 import br.edu.ifrn.agenda.persistencia.AgendaDAO;
 import br.edu.ifrn.agenda.persistencia.CompromissoDAO;
+import br.edu.ifrn.agenda.persistencia.LembreteDAO;
+import br.edu.ifrn.agenda.persistencia.TarefaDAO;
 import br.edu.ifrn.agenda.persistencia.UsuarioDAO;
 
 
@@ -89,6 +96,73 @@ private static Sistema singleton = new Sistema();
 	public Agenda buscarAgendaPorId(int id) throws SQLException{
 		return AgendaDAO.getInstance().recuperarPorId(id); 
 	}
+	
+	
+	public List<Tarefa> recuperarTarefaPorDia(String data){
+	    SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+	    java.util.Date date = new java.util.Date();
+	    Date dataTarefa = new Date(date.getTime()); 
+		try {
+			dataTarefa = new Date(fmt.parse(data).getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return TarefaDAO.getInstance().recuperarPorData(dataTarefa, dataTarefa);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.print("Erro em resgatar tarefa");
+		}
+		
+		
+		return new ArrayList<Tarefa>();
+		
+		
+	}
+	
+	public List<Tarefa> recuperarTarefaPorId(int id){
+		List<Tarefa> lista = new ArrayList<Tarefa>();
+		try {
+			lista.add(TarefaDAO.getInstance().recuperarPorOid(id));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+	
+	
+	public List<Lembrete> recuperarLembretes(){
+		
+		try {
+			return LembreteDAO.getInstance().recuperarTodosLembretes();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ArrayList<Lembrete>();
+		
+	}
+	
+	public void editarLembrete(int id, String assunto, String descricao){
+		Lembrete lembrete = new Lembrete();
+		lembrete.setOid(id);
+		lembrete.setTitulo(assunto);
+		lembrete.setCorpo(descricao);
+		//lembrete.setDatas(datas);
+		lembrete.setAtivo(true);
+		
+		LembreteDAO.getInstance().editarLembrete(lembrete);
+		
+		
+	}
+	
+	
+	
 	
 	
 }

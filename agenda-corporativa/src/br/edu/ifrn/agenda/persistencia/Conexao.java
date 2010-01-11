@@ -14,30 +14,39 @@ import javax.sql.DataSource;
 
 public class Conexao {
 
-	private static Conexao singleton = null;
+	
 	
 	private Connection connection;
-	private DataSource source;
-	private String driver = "org.postgresql.Driver";
-	private String url = "jdbc:postgresql://localhost:5432/agenda";
-	private String usuario = "postgres";
-	private String senha = "postgres";
+	//private DataSource source;
+	private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private String url = "jdbc:sqlserver://localhost:1433;databaseName=agenda";
+	private String usuario = "sa";
+	private String senha = "senha";
 	
-	public static Conexao createInstance() {
-		return new Conexao();
-	}
+	private static Conexao singleton = new Conexao();
 	
 	public static Conexao getInstance() {
-		if (Conexao.singleton == null) {
-			Conexao.singleton = new Conexao();
-			Conexao.singleton.init();
-		}
 		return Conexao.singleton;
 	}
-	
+
 	private Conexao() {
 		super();
+		this.init(driver, url, usuario, senha );
 	}
+	
+	public void init(String driver, String url, String usuario, String senha) {
+		try {
+			Class.forName(driver);
+			this.connection = DriverManager.getConnection(url, usuario, senha);
+		} catch (ClassNotFoundException e) {
+			System.out.println("Classe nao encontrada!");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Error no SQL!");
+			e.printStackTrace();
+		}
+	}
+
 	
 	public void initEnvironment(String driver, String url, String usuario, String senha) {
 		this.driver = driver;
@@ -50,13 +59,13 @@ public class Conexao {
 		Class.forName(this.driver);
 	}
 	
-	private void initDatasource() throws NamingException {
+	/*private void initDatasource() throws NamingException {
 		Context contextInitial = new InitialContext();
 		Context context = (Context)contextInitial.lookup("java:comp/env");
 		source = (DataSource)context.lookup("jdbc/agendaDataSource");
-	}
+	}*/
 	
-	public void init() {
+	/*public void init() {
 		try {
 			initDatasource();
 		} catch (NamingException excNaming) {
@@ -67,10 +76,10 @@ public class Conexao {
 				exClassNotFound.printStackTrace();
 			}
 		}
-	}
+	}*/
 	
 	public ResultSet executeQueryStatement(String comando) {
-		openConnection();
+		//openConnection();
 		try {
 			Statement statement = connection.createStatement();
 			return statement.executeQuery(comando);
@@ -81,7 +90,7 @@ public class Conexao {
 	}
 	
 	public int executeUpdateStatement(String comando) {
-		openConnection();
+		//openConnection();
 		try {
 			Statement statement = connection.createStatement();
 			return statement.executeUpdate(comando);
@@ -92,7 +101,7 @@ public class Conexao {
 	}
 	
 	public PreparedStatement getPreparedStatement(String comando) {
-		openConnection();
+		//openConnection();
 		try {
 			return connection.prepareStatement(comando);
 		} catch (SQLException e) {
@@ -101,7 +110,7 @@ public class Conexao {
 		return null;
 	}
 	
-	private void openConnection() {
+	/*private void openConnection() {
 		try {
 			if (source != null) {
 				this.connection = source.getConnection();
@@ -111,9 +120,9 @@ public class Conexao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Conexao conexao = new Conexao();
 		
 		try {
@@ -123,5 +132,5 @@ public class Conexao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-	}
+	}*/
 }

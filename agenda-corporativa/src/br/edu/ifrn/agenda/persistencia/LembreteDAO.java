@@ -8,15 +8,60 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import br.edu.ifrn.agenda.beans.Lembrete;
 
 public class LembreteDAO {
 	
-	private Conexao conexao = null;
+	private static LembreteDAO singleton = new LembreteDAO();
+	
+	public static LembreteDAO getInstance(){
+		return singleton;
+	}
+	
+	
+	private Conexao conexao = Conexao.getInstance();
 
-	public LembreteDAO() {
-		this.conexao = Conexao.getInstance();
+
+
+	public Lembrete recuperarPorId(int id){
+		String sql = "SELECT * FROM tb_lembrete WHERE lem_id = ?";
+		PreparedStatement statement = Conexao.getInstance().getPreparedStatement(sql);
+		
+		try {
+			statement.setInt(1, id);
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				Lembrete lem = new Lembrete();
+				
+				lem.setOid(result.getInt("lem_id"));
+				lem.setTitulo(result.getString("lem_titulo"));
+				lem.setCorpo(result.getString("lem_corpo"));
+							
+				 return lem;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	
+	
+	public void editarLembrete(Lembrete lembrete) {
+		PreparedStatement ps = null;
+		try {
+			String SQL = "UPDATE tb_lembrete SET lem_titulo = ?, lem_corpo = ?,"
+					+ "lem_ativo = ? WHERE lem_id = ?";
+			ps = conexao.getPreparedStatement(SQL);
+			ps.setString(1, lembrete.getTitulo());
+			ps.setString(2, lembrete.getCorpo());
+			ps.setBoolean(3, lembrete.isAtivo());
+			ps.setInt(4, lembrete.getOid());
+			ps.executeUpdate();
+		} catch (SQLException ex) {
+			System.out.print("Erro ao editar os dados " + ex.getMessage());
+		}
 	}
 
 	@SuppressWarnings("deprecation")

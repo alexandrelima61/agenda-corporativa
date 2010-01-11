@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="java.util.List"%>
+    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<%@page import="br.edu.ifrn.agenda.beans.Tarefa"%>
+<%@page import="br.edu.ifrn.agenda.Sistema"%>
+
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="br.edu.ifrn.agenda.persistencia.TarefaDAO"%><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>Agenda Corporativa :: Visualizar Calendário</title>
@@ -19,9 +28,22 @@
 		<link rel="stylesheet" type="text/css" href="css/jquery.tooltip.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/estilo.css" />
+		
     </head>
 	
     <body>
+    
+    <% 
+        for(int i = 1; i <= 31; i++){
+        	String data;
+        	if(i > 0 && i < 10) data = "0"+i+"/01/2010";
+        		else data = i+"/01/2010";
+        	
+    		request.setAttribute("dia"+i, Sistema.getInstance().recuperarTarefaPorDia(data));
+        }
+    
+     %>
+    
 <ul id="menu-direito" class="contextMenu">
     <li class="adicionar-compromisso">
         <a href="#adicionar-compromisso">Adicionar Compromisso</a>
@@ -79,23 +101,43 @@
 									<th>qui</th>
 									<th>sex</th>
 									<th>sab</th>
-								</tr>
+						</tr>
+<%		
+    	
+    	request.setAttribute("dia1", Sistema.getInstance().recuperarTarefaPorId(18));
+    	request.setAttribute("dia11", Sistema.getInstance().recuperarTarefaPorId(16));%>
 							</thead>
 							
 							<tbody>
 								<tr>
 									<td>
 										<div class="dia-calendario">01</div>
+										<jsp:useBean id="dia1" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
+										<div>
+											<% for(Tarefa tarefa : dia1){ %>				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=18"> <%=tarefa.getTitulo() %></a>
+											<% }%>
+										</div>
 									</td>
 									<td>
 										<div class="dia-calendario">02</div>
-									</td>
+										<jsp:useBean id="dia2" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
+										<div>
+											<% for(Tarefa tarefa : dia2){ %>				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=16"> <%=tarefa.getTitulo() %></a>
+											<% }%>
+										</div>									</td>
 									<td>
 										<div class="dia-calendario">03</div>
 										<a class="link-evento" href="visualizar_compromisso">
 										<div class="eventos-calendario-wrap">
 											<div class="eventos-dia-calendario agenda-laranja" title="Horario: 14:30">
-												Reuniao X
+											<jsp:useBean id="dia3" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
+										<div>
+											<% for(Tarefa tarefa : dia3){ %>				
+											  	<%=tarefa.getTitulo() %>
+											<% }%>
+										</div>
 											</div>
 										</div>	
 										</a>									
@@ -119,14 +161,22 @@
 									</td>
 									<td>
 										<div class="dia-calendario">09</div>
+										
 									</td>
 									<td>
 										<div class="dia-calendario">10</div>
+										<a href="<%=request.getContextPath() %>/LembreteServlet?pagina=editar&idLem=4">Lembrete de Hoje</a>
 
 									</td>
 									<td>
 										<div class="dia-calendario">11</div>
-
+										<jsp:useBean id="dia11" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
+										<div>
+											<% for(Tarefa tarefa : dia11){ %>				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=16"> <%=tarefa.getTitulo() %></a>
+											<% }%>
+											
+										</div>
 									</td>
 									<td>
 										<div class="dia-calendario">12</div>

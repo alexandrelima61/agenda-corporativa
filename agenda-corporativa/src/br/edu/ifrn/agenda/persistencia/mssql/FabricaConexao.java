@@ -12,7 +12,7 @@ public class FabricaConexao {
 	}
 		
 	public static Conexao construir(String login, String senha) {
-		Conexao conexao = Conexao.createInstance();
+		Conexao conexao = Conexao.getInstance();//Conexao.createInstance();
 		conexao.initEnvironment(driver, url, login, senha);
 		return conexao;
 	}
