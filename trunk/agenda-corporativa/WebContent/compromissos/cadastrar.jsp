@@ -64,7 +64,7 @@
 <div id="internas-content">
 	 <div class="backBtn"><a href="<%=request.getContextPath() %>">Voltar</a></div>
 	<h2>Adicionar Compromisso</h2>
-<form action="#">
+<form action="<%=request.getContextPath()%>/CompromissoServlet">
 	<fieldset>
 		<label for="Compromisso">Compromisso</label>
 		<input type="text" name="tituloCompromisso" class="input-longo" id="tituloCompromisso" />
@@ -102,7 +102,7 @@
 		 <textarea name="descricaoCompromisso" id="descricaoCompromisso"></textarea>
 		 
 		 <div class="buttonsForm">
-		 	<input type="button" value="Agendar" id="btnCadastro" />
+		 	<input type="submit" value="Agendar" id="btnCadastro" />
 			<input type="reset" value="Limpar" /> 
 		 </div>
 	</fieldset>
