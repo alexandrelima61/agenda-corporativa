@@ -42,25 +42,7 @@
 			});
 			return false;
 		});
-
-		jQuery('#btnBuscar').click(function(){
-			jQuery.post('/agenda/TarefaServlet?comando=editarTarefa',{
-				tituloTarefa : jQuery('#tituloTarefa').val(),
-				prioridadeTarefa : jQuery('#prioridadeTarefa option:selected').val(),
-				dataTarefa : jQuery('#dataTarefa').val(),
-				horaTarefa : jQuery('#horaTarefa').val(),
-				agendaTarefa : jQuery('#agendaTarefa option:selected').attr('id'),
-				localTarefa : jQuery('#localTarefa').val(),
-				descricaoTarefa : jQuery('#descricaoTarefa').val()	
-			},function(data){
-				if(data == 'ok')
-					jQuery('#calendario-content').load('/agenda');
-				else
-					alert('Erro ao Adicionar Tarefa.\nTente Novamente');
-			});
-			return false;
-		});
-
+		
 	});
 </script>
 
