@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.naming.java.javaURLContextFactory;
+
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCompromisso;
@@ -234,71 +236,113 @@ public class CompromissoDAO {
         return compromissos;
     }
 	
-	public List<Compromisso> buscarPorData(Date data) throws Exception{
-        PreparedStatement ps = null ;
-        PreparedStatement ps2 = null ;
+	@SuppressWarnings("deprecation")
+	public List<Compromisso> buscarPorData(java.util.Date data){
+		PreparedStatement ps = null ;
+		  List<Compromisso> compromissos = new ArrayList<Compromisso>();
+          List<Integer> lista = new ArrayList<Integer>();
+		  
+		  String SQL = "select com_id from tb_compromisso_data where com_dat_datainicio >= ? and com_dat_datainicio <= ?;";
+		  
+		  ResultSet rs;
+	try {
+		ps = conn.getPreparedStatement(SQL);
+		  Date data1 = data;
+		  data1.setHours(0); data1.setMinutes(0); data1.setSeconds(0);
+		  Date data2 = data;
+		  data2.setHours(23); data2.setMinutes(59); data2.setSeconds(59);
+		  
+		  ps.setDate(1, new java.sql.Date(data1.getTime()));            
+		  ps.setDate(2, new java.sql.Date(data2.getTime()));
+          rs = ps.executeQuery(SQL);
+          
+          while (rs.next()) lista.add(rs.getInt("com_id"));
+		  
+		  
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  	
+          
+	
+		rs = null; ps = null;
+		PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
+          	
+		
+		
+		for(Integer i : lista){
+			SQL = "select * from tb_compromisso where com_id = ?;";
+			
+			try {
+		            ps2 = conn.getPreparedStatement(SQL);
+		            ps2.setInt(1, i);            
+		            rs = ps2.executeQuery(SQL);
+			
+		            
+		            while (rs.next()){
+		                Compromisso comp = new Compromisso();
+		               // comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
+		               // comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
+		                comp.setTitulo(rs.getString("com_titulo"));
+		                comp.setLocal(rs.getString("com_local"));
+		                comp.setDescricao(rs.getString("com_descricao"));
+		                comp.setAtivo(rs.getBoolean("com_ativo"));
+		                                
+		                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
+		                
+		                SQL = "select * from tb_compromisso_data where com_id = ? ;";
+		                ps2 = conn.getPreparedStatement(SQL);
+		                ps2.setInt(1, comp.getOid());
+		                                
+		                ResultSet rs2 = ps2.executeQuery(SQL);
+		                
+		                while (rs2.next()){
+		                	HorarioCompromisso horario = new HorarioCompromisso();
+		                	horario.setOid(rs2.getInt("dat_id"));
+		                	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
+		                	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
+		                	comp.setAtivo(rs.getBoolean("dat_ativo"));    
+		                	horarios.add(horario);
+		                	
+		                }                
+		                comp.setDatas(horarios);
+		                
+		                /* List<Usuario> participantes = new ArrayList<Usuario>();
+		                
+		                SQL = "select * from tb_usuario where usu_id = ? ;";
+		                ps3 = conn.getPreparedStatement(SQL);
+		                ps3.setInt(1, comp.getOid());
+		                
+		                ResultSet rs3 = ps3.executeQuery(SQL);
+		                
+		                while (rs3.next()){
+		                	Usuario participante = new Usuario();
+		                	comp.setOid(rs3.getInt("com_id"));
+		                	participante.setOid(rs3.getInt("usu_id"));            
+		                	participantes.add(participante);
+		                
+		                }                
+		                comp.setParticipantes(participantes);*/
+		                compromissos.add(comp);
+		            
+		            }
+		        } catch (SQLException ex) {
+		        	System.out.println("Erro ao pegar os dados " + ex.getMessage());
+		        } 
+		        return compromissos;
+			
+		}
+		return compromissos;  	
+		
+		
+		
+		
         
-        List<Compromisso> compromissos = new ArrayList<Compromisso>();
-            String SQL = "select * from tb_compromisso where dat_datainicio = ?;";
+      
             
-        try {
-            ps = conn.getPreparedStatement(SQL);
-            ps.setDate(1, (java.sql.Date) data);            
-            ResultSet rs = ps.executeQuery(SQL);
-            
-            
-            while (rs.next()){
-                Compromisso comp = new Compromisso();
-                comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
-                comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
-                comp.setTitulo(rs.getString("com_titulo"));
-                comp.setLocal(rs.getString("com_local"));
-                comp.setDescricao(rs.getString("com_descricao"));
-                comp.setAtivo(rs.getBoolean("com_ativo"));
-                                
-                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
-                
-                SQL = "select * from tb_compromisso_data where dat_id = ? ;";
-                ps2 = conn.getPreparedStatement(SQL);
-                ps2.setInt(1, comp.getOid());
-                                
-                ResultSet rs2 = ps2.executeQuery(SQL);
-                
-                while (rs2.next()){
-                	HorarioCompromisso horario = new HorarioCompromisso();
-                	horario.setOid(rs2.getInt("dat_id"));
-                	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
-                	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
-                	comp.setAtivo(rs.getBoolean("dat_ativo"));    
-                	horarios.add(horario);
-                
-                }                
-                comp.setDatas(horarios);
-                
-                List<Usuario> participantes = new ArrayList<Usuario>();
-                
-                SQL = "select * from tb_usuario where usu_id = ? ;";
-                ps3 = conn.getPreparedStatement(SQL);
-                ps3.setInt(1, comp.getOid());
-                
-                ResultSet rs3 = ps3.executeQuery(SQL);
-                
-                while (rs3.next()){
-                	Usuario participante = new Usuario();
-                	comp.setOid(rs3.getInt("com_id"));
-                	participante.setOid(rs3.getInt("usu_id"));            
-                	participantes.add(participante);
-                
-                }                
-                comp.setParticipantes(participantes);
-                compromissos.add(comp);
-            
-            }
-        } catch (SQLException ex) {
-          throw new Exception("Erro ao pegar os dados " + ex);
-        } 
-        return compromissos;
+           
     }
 	
 	
