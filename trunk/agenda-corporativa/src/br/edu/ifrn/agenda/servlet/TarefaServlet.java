@@ -52,18 +52,18 @@ public class TarefaServlet extends HttpServlet {
 		
 		else if (comando.equalsIgnoreCase("visualizarTarefa")){
 			
-			int oidTarefa = Integer.parseInt(request.getParameter("oidTarefa"));
+			int oidTarefa = Integer.parseInt(request.getParameter("id"));
 			
 			try {
 				
-				Tarefa tarefa = new TarefaDAO().recuperarPorOid(oidTarefa);
+				Tarefa tarefa = TarefaDAO.getInstance().recuperarPorOid(oidTarefa);
 				request.setAttribute("tarefa", tarefa);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/* caminho pagina destino */");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/visualizar.jsp");
 			dispatcher.forward(request, response);
 		}
 		

@@ -13,18 +13,44 @@ import br.edu.ifrn.agenda.beans.Tarefa;
 
 public class TarefaDAO {
 
-	private Conexao conexao = null;
+	public static TarefaDAO singleton;
+	
+	public static TarefaDAO getInstance(){
+		if(singleton == null)
+			singleton = new TarefaDAO();
+		return singleton;
+	} 
+	
+	private Conexao conexao = Conexao.getInstance();
 
-	public TarefaDAO() {
-		conexao = Conexao.getInstance();
-	}
 
-	public List<Tarefa> retornaTarefaPorTitulo(String titulo)
+
+	public List<Tarefa> recuperarPorData(Date dataInicio, Date dataFim)
 			throws SQLException {
+		ResultSet rs;
+		if (dataInicio.equals(dataFim)) {
+			PreparedStatement state = conexao.getPreparedStatement("select * from tb_tarefa where tar_data = ?");
+			state.setDate(1, dataInicio);
+			rs = state.executeQuery();
 
-		ResultSet rs = conexao
-				.executeQueryStatement("select * from tb_tarefa where tar_titulo = "
-						+ titulo);
+		} else {
+			
+			PreparedStatement state = conexao.getPreparedStatement("select * from tb_tarefa where tar_data >= ? and and tar_data <= ?");
+			state.setDate(1, dataInicio);
+			state.setDate(1, dataFim);
+			rs = state.executeQuery();
+		}
+
+		List<Tarefa> tarefas = new ArrayList<Tarefa>();
+		while (rs.next())
+			tarefas.add(this.gerarTarefa(rs));
+
+		return tarefas;
+	}
+	
+	public List<Tarefa> retornaTarefaPorTitulo(String titulo) throws SQLException {
+
+		ResultSet rs = conexao.executeQueryStatement("select * from tb_tarefa where tar_titulo = "	+ titulo);
 
 		List<Tarefa> tarefas = new ArrayList<Tarefa>();
 		while (rs.next())
@@ -55,19 +81,6 @@ public class TarefaDAO {
 
 	}
 
-	public List<Tarefa> recuperarPorData(Date dataInicio, Date dataFim)
-			throws SQLException {
-
-		ResultSet rs = conexao
-				.executeQueryStatement("select * from tb_tarefe where tar_data > '"
-						+ dataInicio + "' and tar_data < '" + dataFim + "'");
-
-		List<Tarefa> tarefas = new ArrayList<Tarefa>();
-		while (rs.next())
-			tarefas.add(this.gerarTarefa(rs));
-
-		return tarefas;
-	}
 
 	public void salvar(Tarefa tarefa) {
 
@@ -177,17 +190,16 @@ public class TarefaDAO {
 
 		if (rs.next()) {
 
-			// tarefa.setAgenda(new
-			// AgendaDAO().recuperarPorId(rs.getInt("age_id")));
+		  //tarefa.setAgenda(new
+		  //AgendaDAO().recuperarPorId(rs.getInt("age_id")));
+			tarefa.setOid(rs.getInt("tar_id"));
 			tarefa.setTitulo(rs.getString("tar_titulo"));
 			tarefa.setData(rs.getDate("tar_data"));
 			tarefa.setLocal(rs.getString("tar_local"));
-			tarefa.setPrioridade(Prioridade.valueOf(rs
-					.getString("tar_prioridade")));
+			//tarefa.setPrioridade(Prioridade.valueOf(rs.getString("tar_prioridade")));
 			tarefa.setDescricao(rs.getString("tar_descricao"));
-			tarefa.setEstado(EstadoTarefa.valueOf(rs.getString("tar_estado")));
-			tarefa.setAtivo(rs.getBoolean("tar_ativado"));
-
+			//tarefa.setEstado(EstadoTarefa.valueOf(rs.getString("tar_estado")));
+			//tarefa.setAtivo(rs.getBoolean("tar_ativado"));
 		}
 
 		return tarefa;
