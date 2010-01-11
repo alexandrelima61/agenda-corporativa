@@ -48,7 +48,14 @@ public class CompromissoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String comando = request.getParameter("pagina");
+		if(comando.equalsIgnoreCase("visualizar")){
+			int id = Integer.parseInt(request.getParameter("id"));
+			request.setAttribute("compromisso", Sistema.getInstance().recuperarCompromissoPorId(id));
+			this.redirecionarPagina("compromissos/visualizar.jsp", request, response);
+		}
+		
+		
 	}
 
 	/**

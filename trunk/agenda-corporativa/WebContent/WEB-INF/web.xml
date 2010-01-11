@@ -31,7 +31,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CompromissoServlet</servlet-name>
-    <url-pattern>/compromisso</url-pattern>
+    <url-pattern>/CompromissoServlet</url-pattern>
   </servlet-mapping>
     
     <description>
