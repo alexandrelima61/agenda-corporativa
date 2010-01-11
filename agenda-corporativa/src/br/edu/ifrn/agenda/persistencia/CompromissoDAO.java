@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -236,31 +237,36 @@ public class CompromissoDAO {
         return compromissos;
     }
 	
+	
+	
+	
+	
 	@SuppressWarnings("deprecation")
 	public List<Compromisso> buscarPorData(java.util.Date data){
 		PreparedStatement ps = null ;
 		  List<Compromisso> compromissos = new ArrayList<Compromisso>();
           List<Integer> lista = new ArrayList<Integer>();
 		  
-		  String SQL = "select com_id from tb_compromisso_data where com_dat_datainicio >= ? and com_dat_datainicio <= ?;";
-		  
+		 		  
 		  ResultSet rs;
 	try {
-		ps = conn.getPreparedStatement(SQL);
-		  Date data1 = data;
-		  data1.setHours(0); data1.setMinutes(0); data1.setSeconds(0);
-		  Date data2 = data;
-		  data2.setHours(23); data2.setMinutes(59); data2.setSeconds(59);
+		
+		
+		ps = conn.getPreparedStatement("select com_id from tb_compromisso_data where (convert(varchar, com_dat_datainicio, 103)) like ?;");
 		  
-		  ps.setDate(1, new java.sql.Date(data1.getTime()));            
-		  ps.setDate(2, new java.sql.Date(data2.getTime()));
-          rs = ps.executeQuery(SQL);
-          
-          while (rs.next()) lista.add(rs.getInt("com_id"));
+		 SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+		  
+		  ps.setString(1, fmt.format(data));            
+		  
+          rs = ps.executeQuery();
+                    
+          while (rs.next()){
+        	  lista.add(rs.getInt("com_id"));
+          }
 		  
 		  
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("ERRROOOO: "+e.getMessage());
 			e.printStackTrace();
 		}
 		  	
@@ -270,33 +276,32 @@ public class CompromissoDAO {
 		PreparedStatement ps2 = null ;
         PreparedStatement ps3 = null;
           	
-		
+		try {		
 		
 		for(Integer i : lista){
-			SQL = "select * from tb_compromisso where com_id = ?;";
 			
-			try {
-		            ps2 = conn.getPreparedStatement(SQL);
+			
+
+		            ps2 = conn.getPreparedStatement("select * from tb_compromisso where com_id = ?;");
 		            ps2.setInt(1, i);            
-		            rs = ps2.executeQuery(SQL);
-			
-		            
+		            rs = ps2.executeQuery();
 		            while (rs.next()){
 		                Compromisso comp = new Compromisso();
 		               // comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
 		               // comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
+		                comp.setOid(rs.getInt("com_id"));
 		                comp.setTitulo(rs.getString("com_titulo"));
 		                comp.setLocal(rs.getString("com_local"));
 		                comp.setDescricao(rs.getString("com_descricao"));
 		                comp.setAtivo(rs.getBoolean("com_ativo"));
 		                                
-		                List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
+		                /*List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
 		                
-		                SQL = "select * from tb_compromisso_data where com_id = ? ;";
-		                ps2 = conn.getPreparedStatement(SQL);
+		                
+		                ps2 = conn.getPreparedStatement("select * from tb_compromisso_data where com_id = ? ;");
 		                ps2.setInt(1, comp.getOid());
 		                                
-		                ResultSet rs2 = ps2.executeQuery(SQL);
+		                ResultSet rs2 = ps2.executeQuery();
 		                
 		                while (rs2.next()){
 		                	HorarioCompromisso horario = new HorarioCompromisso();
@@ -309,7 +314,7 @@ public class CompromissoDAO {
 		                }                
 		                comp.setDatas(horarios);
 		                
-		                /* List<Usuario> participantes = new ArrayList<Usuario>();
+		                List<Usuario> participantes = new ArrayList<Usuario>();
 		                
 		                SQL = "select * from tb_usuario where usu_id = ? ;";
 		                ps3 = conn.getPreparedStatement(SQL);
@@ -328,16 +333,17 @@ public class CompromissoDAO {
 		                compromissos.add(comp);
 		            
 		            }
-		        } catch (SQLException ex) {
-		        	System.out.println("Erro ao pegar os dados " + ex.getMessage());
-		        } 
-		        return compromissos;
+		     
 			
 		}
 		return compromissos;  	
 		
 		
-		
+		   } catch (SQLException ex) {
+	        	System.out.println("Erro ao pegar os dados " + ex.getMessage());
+	    } 
+		   return null;
+	      
 		
         
       
@@ -346,24 +352,24 @@ public class CompromissoDAO {
     }
 	
 	
-	public Compromisso buscarPorId(int id) throws Exception{
+	public Compromisso buscarPorId(int id){
         PreparedStatement ps = null ;
         PreparedStatement ps2 = null ;
-        PreparedStatement ps3 = null;
+        //PreparedStatement ps3 = null;
         
  
-            String SQL = "select * from tb_compromisso where com_oid = ?;";
-            
+
         try {
-            ps = conn.getPreparedStatement(SQL);
+            ps = conn.getPreparedStatement("select * from tb_compromisso where com_id = ?;");
             ps.setInt(1, id);            
-            ResultSet rs = ps.executeQuery(SQL);
+            ResultSet rs = ps.executeQuery();
             Compromisso comp;
             
             while (rs.next()){
                 comp = new Compromisso();
-                comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
-                comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
+                //comp.setProprietario(UsuarioDAO.getInstance().buscarPorID(rs.getInt("usu_id")));
+                //comp.setAgenda(Agenda.buscarPorID(rs.getInt("age_id")));
+                comp.setOid(id);
                 comp.setTitulo(rs.getString("com_titulo"));
                 comp.setLocal(rs.getString("com_local"));
                 comp.setDescricao(rs.getString("com_descricao"));
@@ -371,30 +377,29 @@ public class CompromissoDAO {
                                 
                 List<HorarioCompromisso> horarios = new ArrayList<HorarioCompromisso>();                                                
                 
-                SQL = "select * from tb_compromisso_data where dat_id = ? ;";
-                ps2 = conn.getPreparedStatement(SQL);
-                ps2.setInt(1, comp.getOid());
-                                
-                ResultSet rs2 = ps2.executeQuery(SQL);
+                
+                ps2 = conn.getPreparedStatement("select * from tb_compromisso_data where com_id = ? ;");
+                ps2.setInt(1, id);              
+                ResultSet rs2 = ps2.executeQuery();
                 
                 while (rs2.next()){
                 	HorarioCompromisso horario = new HorarioCompromisso();
-                	horario.setOid(rs2.getInt("dat_id"));
-                	horario.setDataInicio(rs2.getTimestamp("dat_datainicio"));
-                	horario.setDataFim(rs2.getTimestamp("dat_datafim"));
-                	comp.setAtivo(rs.getBoolean("dat_ativo"));    
+                	horario.setOid(rs2.getInt("com_id"));
+                	horario.setDataInicio(rs2.getTimestamp("com_dat_datainicio"));
+                	horario.setDataFim(rs2.getTimestamp("com_dat_datafim"));
+                	comp.setAtivo(true);    
                 	horarios.add(horario);
                 
                 }                
                 comp.setDatas(horarios);
                 
-                List<Usuario> participantes = new ArrayList<Usuario>();
+                /* List<Usuario> participantes = new ArrayList<Usuario>();
                 
-                SQL = "select * from tb_usuario where usu_id = ? ;";
-                ps3 = conn.getPreparedStatement(SQL);
+           
+                ps3 = conn.getPreparedStatement("select * from tb_usuario where usu_id = ? ;");
                 ps3.setInt(1, comp.getOid());
                 
-                ResultSet rs3 = ps3.executeQuery(SQL);
+                ResultSet rs3 = ps3.executeQuery();
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();
@@ -402,12 +407,12 @@ public class CompromissoDAO {
                 	participante.setOid(rs3.getInt("usu_id"));                
                 	participantes.add(participante);                
                 }                
-                comp.setParticipantes(participantes); 
+                comp.setParticipantes(participantes);*/ 
                 
                 return comp;
             }
         } catch (SQLException ex) {
-          throw new Exception("Erro ao pegar os dados " + ex);
+          System.out.println("Erro ao pegar os dados " + ex);
         } 
         return null;
     }
@@ -424,7 +429,7 @@ public class CompromissoDAO {
         try {
             ps = conn.getPreparedStatement(SQL);
             ps.setString(1, titulo+"%");            
-            ResultSet rs = ps.executeQuery(SQL);
+            ResultSet rs = ps.executeQuery();
             
             
             while (rs.next()){
@@ -442,7 +447,7 @@ public class CompromissoDAO {
                 ps2 = conn.getPreparedStatement(SQL);
                 ps2.setInt(1, comp.getOid());
                                 
-                ResultSet rs2 = ps2.executeQuery(SQL);
+                ResultSet rs2 = ps2.executeQuery();
                 
                 while (rs2.next()){
                 	HorarioCompromisso horario = new HorarioCompromisso();
@@ -461,7 +466,7 @@ public class CompromissoDAO {
                 ps3 = conn.getPreparedStatement(SQL);
                 ps3.setInt(1, comp.getOid());
                 
-                ResultSet rs3 = ps3.executeQuery(SQL);
+                ResultSet rs3 = ps3.executeQuery();
                 
                 while (rs3.next()){
                 	Usuario participante = new Usuario();

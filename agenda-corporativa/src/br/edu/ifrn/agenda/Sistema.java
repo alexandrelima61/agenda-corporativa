@@ -209,6 +209,11 @@ private static Sistema singleton = new Sistema();
 		
 		TarefaDAO.getInstance().editar(tarefa);		
 		
+	} 
+
+	public Compromisso recuperarCompromissoPorId(int id) {
+		
+		return CompromissoDAO.getInstance().buscarPorId(id);
 	}	
 	
 }

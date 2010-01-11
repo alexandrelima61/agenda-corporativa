@@ -47,7 +47,7 @@
     	String data;
     	if(i > 0 && i < 10) data = "0"+i+"/01/2010";  		else data = i+"/01/2010";
     	
-		request.setAttribute("comdia"+i, Sistema.getInstance().recuperarCompromissoPorDia("04/01/2010"));
+		request.setAttribute("comdia"+i, Sistema.getInstance().recuperarCompromissoPorDia(data));
     }
     
      %>
@@ -152,7 +152,7 @@
 										<jsp:useBean id="comdia4" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
 										<div>
 											<% for(Compromisso com : comdia4){ %>				
-											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?"> <%=com.getTitulo() %></a>
+											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
 											<% }%>
 											
 										</div>
@@ -161,9 +161,25 @@
 									</td>
 									<td>
 										<div class="dia-calendario">05</div>
+										
+									<jsp:useBean id="comdia5" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
+										<div>
+											<% for(Compromisso com : comdia5){ %>				
+											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											<% }%>
+											
+										</div>
 									</td>
 									<td>
 										<div class="dia-calendario">06</div>
+										<jsp:useBean id="comdia6" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
+										<div>
+											<% for(Compromisso com : comdia6){ %>				
+											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											<% }%>
+											
+										</div>
+										
 									</td>
 									<td>
 										<div class="dia-calendario">07</div>
@@ -208,10 +224,12 @@
 							<tr>
 									<td>
 										<div class="dia-calendario">15</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
+									<jsp:useBean id="comdia15" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
+										<div>
+											<% for(Compromisso com : comdia15){ %>				
+											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											<% }%>
+											
 										</div>
 									<div class="eventos-calendario-wrap">
 											<div class="eventos-dia-calendario agenda-vermelha">
