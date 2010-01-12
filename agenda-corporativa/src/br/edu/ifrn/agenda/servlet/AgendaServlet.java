@@ -110,15 +110,8 @@ public class AgendaServlet extends HttpServlet {
 			RequestDispatcher d = request.getRequestDispatcher("/");
             d.forward(request, response);
             return;
-			
-			
-			
-			
-			
-			
-			
-			
 		}
+		
 		else if(desativar.equalsIgnoreCase("desativar agenda"))
 		{
 			Agenda agenda;
@@ -126,7 +119,7 @@ public class AgendaServlet extends HttpServlet {
 				agenda = sistema.buscarAgendaPorId(Integer.parseInt(request.getParameter("idAgenda")));
 				agenda.setAtivo(false);
 				
-				AgendaDAO.getInstance().editarAgenda(agenda);
+				AgendaDAO.getInstance().excluir(agenda);
 				
 			} catch (NumberFormatException e1) {
 				// TODO Auto-generated catch block
@@ -142,23 +135,6 @@ public class AgendaServlet extends HttpServlet {
 			RequestDispatcher d = request.getRequestDispatcher("/");
             d.forward(request, response);
 		}
-		/*else{
-			Agenda agenda;
-			
-			String titulo = request.getParameter("titulo");
-			String descricao = request.getParameter("descricao");
 
-			try {
-				agenda = new Agenda();
-				agenda.setTitulo(titulo);
-				agenda.setDescricao(descricao);
-				AgendaDAO.getInstance().salvar(agenda);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			RequestDispatcher d = request.getRequestDispatcher("/");
-            d.forward(request, response);
-		}*/	
 	}
 }
