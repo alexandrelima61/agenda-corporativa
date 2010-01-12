@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import br.edu.ifrn.agenda.beans.Tarefa;
+import br.edu.ifrn.agenda.persistencia.LembreteDAO;
 import br.edu.ifrn.agenda.persistencia.TarefaDAO;
 public class TarefaServlet extends HttpServlet {
 
@@ -55,9 +56,25 @@ public class TarefaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/visualizar2.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/editar.jsp");
 			dispatcher.forward(request, response);
 		}
+		
+		if(comando.equalsIgnoreCase("visualizarTarefa")){
+			int idTarefa = Integer.parseInt(request.getParameter("id"));
+			Tarefa tarefa = null;
+			try {
+				tarefa = TarefaDAO.getInstance().recuperarPorOid(idTarefa);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			request.setAttribute("tarefa", tarefa);
+			 RequestDispatcher dispache = request.getRequestDispatcher("tarefas/visualizar2.jsp");
+			 dispache.forward(request, response);
+			 
+		}
+		
 		
 	}
 
