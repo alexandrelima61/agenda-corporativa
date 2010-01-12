@@ -65,26 +65,6 @@ public class AgendaDAO {
 	}
 		
 		
-		
-		
-	/*	PreparedStatement ps = null;
-		String SQL = "SELECT * from tb_agenda where age_id = ?";
-		ps = conn.getPreparedStatement(SQL);
-		ps.setInt(1, id);
-		ps = conn.getPreparedStatement(SQL);
-		ResultSet rs = ps.executeQuery(SQL);
-		Agenda agenda = new Agenda();
-		while (rs.next()) {
-			agenda.setOid(rs.getInt("age_id"));
-			agenda.setTitulo(rs.getString("age_titulo"));
-			agenda.setDescricao(rs.getString("age_descricao"));
-			agenda.setAtivo(rs.getBoolean("age_ativo"));
-		}
-
-		return agenda;
-		}
-		*/
-
 	public List<Agenda> listarTodasAgendas() throws Exception {
 		PreparedStatement ps = null;
 		List<Agenda> agendas = new ArrayList<Agenda>();
@@ -121,18 +101,20 @@ public class AgendaDAO {
 	}
 
 	public void editarAgenda(Agenda agenda) throws Exception {
-		PreparedStatement ps = null;
+		
+		PreparedStatement pst = null;
 		try {
-			String SQL = "UPDATE tb_agenda SET age_titulo = ?, age_descricao = ?,"
-					+ "age_ativo = ? WHERE age_id = ?";
-			ps = conn.getPreparedStatement(SQL);
-			ps.setString(1, agenda.getTitulo());
-			ps.setString(2, agenda.getDescricao());
-			ps.setBoolean(3, agenda.isAtivo());
-			ps.setInt(4, agenda.getOid());
-			ps.executeUpdate();
+			String SQL = "UPDATE tb_agenda SET age_titulo = ?, age_descricao = ?, age_ativo = ? WHERE age_id = ?";
+			pst = conn.getPreparedStatement(SQL);
+			pst.setString(1, agenda.getTitulo());
+			pst.setString(2, agenda.getDescricao());
+			pst.setBoolean(3, agenda.isAtivo());
+			pst.setInt(4, agenda.getOid());
+			
+			pst.executeUpdate();
+			
 		} catch (SQLException ex) {
-			throw new Exception("Erro ao editar os dados " + ex);
+			throw new Exception("Erro ao Atualizar os dados " + ex);
 		}
 	}
 

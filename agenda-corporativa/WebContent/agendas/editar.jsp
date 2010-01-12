@@ -4,15 +4,24 @@
 <div id="internas-content">
 <div class="backBtn"><a href="<%=request.getContextPath() %>">Voltar</a></div>
 	<h2>Editar Agenda</h2>
-<form action="<%=request.getContextPath() %>/AgendaServlet" method="get" >
+<form action="<%=request.getContextPath() %>/AgendaServlet" method="post" >
   <fieldset>
   <label for="Título">Título:</label>
   <input type="text" class="input-longo" name="tituloAgenda" id="tituloAgenda" value="<%= agenda.getTitulo() %>"/>
   
   <input type="hidden" name="idAgenda" value="<%=agenda.getOid() %>" />
-  
-    <label for="Descrição">Descrição:</label>
+    
+  <label for="Descrição">Descrição:</label>
   <textarea name="descricaoAgenda" id="descricaoAgenda"> <%= agenda.getDescricao()  %> </textarea>
   </fieldset>
+  
+  <div class="buttonsForm">
+  
+  <form action="<%=request.getContextPath() %>/AgendaServlet" method="post">
+     <input type="submit" name="atualizar" id="atualiza" value="Atualizar Agenda"/>
+  	 <input type="submit" name="desativa" id="atualiza" value="Desativar Agenda"/>
+  </form>
+  
+  </div>
 </form>
 </div>
