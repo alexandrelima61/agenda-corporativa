@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 
 import br.edu.ifrn.agenda.beans.Tarefa;
 
@@ -88,8 +89,7 @@ public class TarefaDAO {
 				+ tarefa.getTitulo() + ",tar_data=" + tarefa.getData()
 				+ ",tar_local=" + tarefa.getLocal() + ",tar_prioridade="
 				+ tarefa.getPrioridade() + ",tar_descricao="
-				+ tarefa.getDescricao() + ",tar_estado=" + tarefa.getEstado()
-				+ ",tar_ativado=" + tarefa.isAtivo() + " where tar_id = "
+				+ tarefa.getDescricao() + " where tar_id = "
 				+ tarefa.getOid());
 
 	}
@@ -182,7 +182,7 @@ public class TarefaDAO {
 			// AgendaDAO().recuperarPorId(rs.getInt("age_id")));
 			tarefa.setOid(rs.getInt("tar_id"));
 			tarefa.setTitulo(rs.getString("tar_titulo"));
-			tarefa.setData(rs.getDate("tar_data"));
+			tarefa.setData(rs.getTimestamp("tar_data"));
 			tarefa.setLocal(rs.getString("tar_local"));
 			// tarefa.setPrioridade(Prioridade.valueOf(rs.getString("tar_prioridade")));
 			tarefa.setDescricao(rs.getString("tar_descricao"));
@@ -198,21 +198,24 @@ public class TarefaDAO {
 	public void editar(Tarefa tarefa) throws SQLException {
 		
 		try {
+						
 			String SQL = "UPDATE tb_tarefa SET tar_titulo = ?, tar_data = ?, tar_local = ?,"
-					+ "tar_descricao = ? WHERE tar_id = ?";
+					+ "tar_descricao = ? WHERE tar_id = 2";
 			PreparedStatement ps = conexao.getPreparedStatement(SQL);
 			// ps.setInt(1, tarefa.getAgenda().getOid());
 			ps.setString(1, tarefa.getTitulo());
-			ps.setDate(2, (Date) tarefa.getData());
+			Timestamp horario = new Timestamp(tarefa.getData().getTime());
+			ps.setTimestamp(2, horario);
 			ps.setString(3, tarefa.getLocal());
 			// ps.setString(4, tarefa.getPrioridade().name());
 			ps.setString(4, tarefa.getDescricao());
+			//ps.setInt(5, tarefa.getOid());
 			// ps.setString(6, tarefa.getEstado().name());
 			// ps.setBoolean(7, tarefa.sisAtivo());
 			ps.executeUpdate();
 
 		} catch (SQLException ex) {
-			System.out.print("Erro ao editar os dados. Dá pra tirar um 7,0? " + ex.getMessage());
+			System.out.print("Erro ao editar os dados." + ex.getMessage());
 		}
 	}
 

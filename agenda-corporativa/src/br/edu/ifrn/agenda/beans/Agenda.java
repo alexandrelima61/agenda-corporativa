@@ -1,6 +1,7 @@
 package br.edu.ifrn.agenda.beans;
 
 import java.util.List;
+import br.edu.ifrn.agenda.beans.Usuario;
 
 /**
  *
