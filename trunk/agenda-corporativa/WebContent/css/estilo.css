@@ -95,6 +95,19 @@ a:hover{color: #000;}
 	padding:5px;
 }
 
+#calendario-compromisso
+{
+	margin-right:0px;
+	width:732px;
+	-moz-border-radius: 5px; 
+	-moz-border-radius-topleft: 0px;
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-radius: 5px;
+	background:#f2f2f2;
+	overflow:hidden;
+	padding:5px;
+}
+
 #tabela-calendario
 {
 	border-collapse: collapse;
@@ -171,6 +184,12 @@ a:hover{color: #000;}
 #internas-content
 {
 	background: #f8f8f8;
+	padding: 4px;
+}
+
+#internas-compromisso
+{
+	background: #f2f2f2;
 	padding: 4px;
 }
 
