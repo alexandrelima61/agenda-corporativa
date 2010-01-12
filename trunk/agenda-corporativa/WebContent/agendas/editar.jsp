@@ -13,15 +13,15 @@
     
   <label for="Descrição">Descrição:</label>
   <textarea name="descricaoAgenda" id="descricaoAgenda"> <%= agenda.getDescricao()  %> </textarea>
-  </fieldset>
-  
+ 
   <div class="buttonsForm">
   
-  <form action="<%=request.getContextPath() %>/AgendaServlet" method="post">
-     <input type="submit" name="atualizar" id="atualiza" value="Atualizar Agenda"/>
-  	 <input type="submit" name="desativa" id="atualiza" value="Desativar Agenda"/>
-  </form>
+  		<form action="<%=request.getContextPath() %>/AgendaServlet" method="post">
+			  <input type="submit" name="atualizar" id="atualiza" value="Atualizar Agenda"/>
+  		</form>
   
-  </div>
+</div>
+ 
+  </fieldset>
 </form>
 </div>
