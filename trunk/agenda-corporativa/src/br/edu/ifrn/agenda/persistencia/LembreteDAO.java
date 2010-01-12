@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.Lembrete;
 
 public class LembreteDAO {
@@ -303,6 +306,68 @@ public class LembreteDAO {
 		}
 
 		return lembrete;
+	}
+
+
+	public List<Lembrete> recuperarPorDia(java.util.Date data) {
+		PreparedStatement ps = null;
+		List<Lembrete> lembretes = new ArrayList<Lembrete>();
+		List<Integer> lista = new ArrayList<Integer>();
+
+		ResultSet rs;
+		try {
+
+			ps = Conexao
+					.getInstance()
+					.getPreparedStatement(
+							"select lem_id from tb_lembretes_datas where (convert(varchar, lem_dat_data, 103)) like ?;");
+
+			SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+
+			ps.setString(1, fmt.format(data));
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				lista.add(rs.getInt("lem_id"));
+			}
+
+		} catch (SQLException e) {
+			System.out.println("ERRROOOO: " + e.getMessage());
+			e.printStackTrace();
+		}
+
+		rs = null;
+		ps = null;
+		PreparedStatement ps2 = null;
+	
+
+		try {
+
+			for (Integer i : lista) {
+
+				ps2 = Conexao.getInstance().getPreparedStatement(
+						"select * from tb_lembrete where lem_id = ?;");
+				ps2.setInt(1, i);
+				rs = ps2.executeQuery();
+				while (rs.next()) {
+					Lembrete lem = new Lembrete();
+
+					lem.setOid(rs.getInt("lem_id"));
+					lem.setTitulo(rs.getString("lem_titulo"));
+					lem.setCorpo(rs.getString("lem_corpo"));
+					lem.setAtivo(rs.getBoolean("lem_ativo"));
+					lembretes.add(lem);
+
+				}
+				
+			}
+			
+
+		} catch (SQLException ex) {
+			System.out.println("Erro ao pegar os dados " + ex.getMessage());
+		}
+		return lembretes;
 	}
 
 }

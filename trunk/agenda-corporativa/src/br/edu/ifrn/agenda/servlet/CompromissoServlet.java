@@ -52,7 +52,7 @@ public class CompromissoServlet extends HttpServlet {
 		if(comando.equalsIgnoreCase("visualizar")){
 			int id = Integer.parseInt(request.getParameter("id"));
 			request.setAttribute("compromisso", Sistema.getInstance().recuperarCompromissoPorId(id));
-			this.redirecionarPagina("compromissos/visualizar.jsp", request, response);
+			this.redirecionarPagina("compromissos/visualizar2.jsp", request, response);
 		}
 		
 		
