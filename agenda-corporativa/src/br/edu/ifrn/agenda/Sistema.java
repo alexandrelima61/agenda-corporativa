@@ -106,25 +106,18 @@ private static Sistema singleton = new Sistema();
 	
 	public List<Tarefa> recuperarTarefaPorDia(String data){
 	    SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-	    java.util.Date date = new java.util.Date();
-	    Date dataTarefa = new Date(date.getTime()); 
+	    java.util.Date dataTarefa = new java.util.Date();
+	     
 		try {
-			dataTarefa = new Date(fmt.parse(data).getTime());
+			dataTarefa = fmt.parse(data);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			return TarefaDAO.getInstance().recuperarPorData(dataTarefa, dataTarefa);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.print("Erro em resgatar tarefa");
-		}
-		
-		
-		return new ArrayList<Tarefa>();
-		
+		List<Tarefa> tarefas = TarefaDAO.getInstance().recuperarPorData(dataTarefa, dataTarefa);
+		if(tarefas.size()==0)	return new ArrayList<Tarefa>();
+		else return tarefas;
+			
 		
 	}
 	
@@ -170,6 +163,23 @@ private static Sistema singleton = new Sistema();
 		return new ArrayList<Lembrete>();
 		
 	}
+	
+	public List<Lembrete> recuperarLembretePorDia(String data){
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+	
+	
+			try {
+				return LembreteDAO.getInstance().recuperarPorDia(fmt.parse(data));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+		return new ArrayList<Lembrete>();
+		
+	}
+
+	
 	
 	public void editarLembrete(int id, String assunto, String descricao){
 		Lembrete lembrete = new Lembrete();

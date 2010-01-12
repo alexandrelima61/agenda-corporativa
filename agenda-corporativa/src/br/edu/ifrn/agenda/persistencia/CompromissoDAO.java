@@ -340,13 +340,7 @@ public class CompromissoDAO {
 		   } catch (SQLException ex) {
 	        	System.out.println("Erro ao pegar os dados " + ex.getMessage());
 	    } 
-		   return null;
-	      
-		
-        
-      
-            
-           
+		   return null;   
     }
 	
 	

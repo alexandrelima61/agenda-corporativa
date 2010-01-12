@@ -55,7 +55,7 @@ public class TarefaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/editar.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/tarefas/visualizar2.jsp");
 			dispatcher.forward(request, response);
 		}
 		
