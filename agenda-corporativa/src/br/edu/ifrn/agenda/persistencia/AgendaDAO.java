@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.edu.ifrn.agenda.beans.Agenda;
+import br.edu.ifrn.agenda.beans.Usuario;
 
 public class AgendaDAO {
 
@@ -20,20 +21,19 @@ public class AgendaDAO {
 	
 	
 
-	public void salvar(Agenda categoria) throws Exception {
+	public void salvar(Agenda agenda) throws Exception {
 		PreparedStatement ps = null;
 
-		if (categoria == null) {
+		if (agenda == null) {
 			throw new Exception("O valor passado nao pode ser nulo");
 		}
 
 		try {
-			String SQL = "INSERT INTO tb_agenda (age_titulo, age_descricao, age_ativado) "
-					+ "values (?, ?, ?)";
+			String SQL = "INSERT INTO tb_agenda (age_titulo, age_descricao, age_ativo) values (?, ?, ?)";
 			ps = conn.getPreparedStatement(SQL);
-			ps.setString(1, categoria.getTitulo());
-			ps.setString(2, categoria.getDescricao());
-			ps.setBoolean(3, categoria.isAtivo());
+			ps.setString(1, agenda.getTitulo());
+			ps.setString(2, agenda.getDescricao());
+			ps.setBoolean(3, agenda.isAtivo());
 
 			ps.executeUpdate();
 
@@ -43,11 +43,34 @@ public class AgendaDAO {
 	}
 
 	public Agenda recuperarPorId(int id) throws SQLException {
-		PreparedStatement ps = null;
+		
+		String sql = "SELECT age_id, age_titulo, age_descricao, age_ativo FROM tb_agenda WHERE (age_id=?);";
+		PreparedStatement statement = Conexao.getInstance().getPreparedStatement(sql);
+		
+		try {
+			statement.setInt(1, id);
+			ResultSet rs = statement.executeQuery();
+			Agenda agenda = new Agenda();
+			while (rs.next()) {
+				agenda.setOid(rs.getInt("age_id"));
+				agenda.setTitulo(rs.getString("age_titulo"));
+				agenda.setDescricao(rs.getString("age_descricao"));
+				agenda.setAtivo(rs.getBoolean("age_ativo"));
+			}
+			return agenda;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+		
+		
+		
+		
+	/*	PreparedStatement ps = null;
 		String SQL = "SELECT * from tb_agenda where age_id = ?";
 		ps = conn.getPreparedStatement(SQL);
 		ps.setInt(1, id);
-
 		ps = conn.getPreparedStatement(SQL);
 		ResultSet rs = ps.executeQuery(SQL);
 		Agenda agenda = new Agenda();
@@ -55,11 +78,12 @@ public class AgendaDAO {
 			agenda.setOid(rs.getInt("age_id"));
 			agenda.setTitulo(rs.getString("age_titulo"));
 			agenda.setDescricao(rs.getString("age_descricao"));
-			agenda.setAtivo(rs.getBoolean("age_ativado"));
+			agenda.setAtivo(rs.getBoolean("age_ativo"));
 		}
 
 		return agenda;
-	}
+		}
+		*/
 
 	public List<Agenda> listarTodasAgendas() throws Exception {
 		PreparedStatement ps = null;
@@ -74,7 +98,7 @@ public class AgendaDAO {
 				a.setOid(rs.getInt("age_id"));
 				a.setTitulo(rs.getString("age_titulo"));
 				a.setDescricao(rs.getString("age_descricao"));
-				a.setAtivo(rs.getBoolean("age_ativado"));
+				a.setAtivo(rs.getBoolean("age_ativo"));
 				agendas.add(a);
 			}
 		} catch (SQLException ex) {
@@ -100,7 +124,7 @@ public class AgendaDAO {
 		PreparedStatement ps = null;
 		try {
 			String SQL = "UPDATE tb_agenda SET age_titulo = ?, age_descricao = ?,"
-					+ "age_ativado = ? WHERE age_id = ?";
+					+ "age_ativo = ? WHERE age_id = ?";
 			ps = conn.getPreparedStatement(SQL);
 			ps.setString(1, agenda.getTitulo());
 			ps.setString(2, agenda.getDescricao());

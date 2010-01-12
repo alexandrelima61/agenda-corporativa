@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.naming.java.javaURLContextFactory;
-
 import br.edu.ifrn.agenda.beans.Agenda;
 import br.edu.ifrn.agenda.beans.Compromisso;
 import br.edu.ifrn.agenda.beans.HorarioCompromisso;

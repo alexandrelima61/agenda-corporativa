@@ -82,14 +82,17 @@
 								<div class="portlet-header">Agendas</div>
 								<div class="portlet-content">
 									<div class="eventos-dia-calendario agenda-laranja">
-										Agenda Laranja
+										<a href="<%=request.getContextPath() %>/AgendaServlet?pagina=editar&id=1" >Agenda Laranja</a>
 									</div>
+
 									<div class="eventos-dia-calendario agenda-vermelha">
 										Agenda Vermelha
 									</div>
+									
 									<div class="eventos-dia-calendario agenda-verde" >
 										Agenda Verde
 									</div>
+									
 									<div class="add-button-wrap">
 										<a href="<%=request.getContextPath() %>/agendas/cadastrar.jsp">Adicionar Agenda</a>
 									</div>
