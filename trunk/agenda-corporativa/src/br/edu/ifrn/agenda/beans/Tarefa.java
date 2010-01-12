@@ -1,7 +1,6 @@
 package br.edu.ifrn.agenda.beans;
 
 import java.util.Date;
-import java.util.Timer;
 
 public class Tarefa {
 
@@ -11,7 +10,6 @@ public class Tarefa {
 	private Prioridade prioridade;
 	private EstadoTarefa estado = EstadoTarefa.ABERTO;
 	private Date data;
-	private Date hora;
 	private String local;
 	private String descricao;
 	private boolean ativo;
@@ -49,7 +47,7 @@ public class Tarefa {
 	
 	public void setData(Date data) {
 		this.data = data;
-	}
+	}	
 	
 	public String getLocal() {
 		return local;

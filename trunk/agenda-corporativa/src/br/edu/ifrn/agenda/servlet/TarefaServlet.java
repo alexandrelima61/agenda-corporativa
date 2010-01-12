@@ -11,23 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.org.apache.xml.internal.serialize.Printer;
-
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-
-import br.edu.ifrn.agenda.beans.Agenda;
-import br.edu.ifrn.agenda.beans.EstadoTarefa;
-import br.edu.ifrn.agenda.beans.Prioridade;
 import br.edu.ifrn.agenda.beans.Tarefa;
-import br.edu.ifrn.agenda.beans.Usuario;
 import br.edu.ifrn.agenda.persistencia.TarefaDAO;
-
 public class TarefaServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
     public TarefaServlet() {
@@ -50,7 +42,7 @@ public class TarefaServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		else if (comando.equalsIgnoreCase("visualizarTarefa")){
+		else if (comando.equalsIgnoreCase("editarTarefa")){
 			
 			int oidTarefa = Integer.parseInt(request.getParameter("id"));
 			
@@ -69,6 +61,7 @@ public class TarefaServlet extends HttpServlet {
 		
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String comando = request.getParameter("comando");
@@ -76,18 +69,24 @@ public class TarefaServlet extends HttpServlet {
 		
 		if (comando.equalsIgnoreCase("inserirTarefa") || comando.equalsIgnoreCase("editarTarefa")){
 			
+						
 			Tarefa tarefa = new Tarefa();
 			
 			String titulo = request.getParameter("tituloTarefa");
 			//Prioridade prioridade = Prioridade.valueOf((request.getParameter("prioridadeTarefa").toUpperCase()));
 			try {
-				DateFormat fmt = new SimpleDateFormat("dd/MM/yy");
-				java.sql.Date data = new java.sql.Date(fmt.parse(request.getParameter("dataTarefa")).getTime());
-				String hora = request.getParameter("horaTarefa");
+				DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 				
-				String[] aux = hora.split(":");
-				data.setHours(Integer.parseInt(aux[0]));
-				data.setMinutes(Integer.parseInt(aux[1]));
+				
+				java.util.Date data1 = fmt.parse(request.getParameter("dataTarefa"));
+				String[] aux = request.getParameter("horaTarefa").split(":");
+				data1.setHours(Integer.parseInt(aux[0]));
+				data1.setMinutes(Integer.parseInt(aux[1]));
+				
+				java.sql.Date data = new java.sql.Date(data1.getTime());
+				
+				
+
 				String local = request.getParameter("localTarefa");
 				String descricao = request.getParameter("descricaoTarefa");
 				//int oidAgenda = Integer.parseInt(request.getParameter("AgendaTarefa"));
@@ -126,10 +125,15 @@ public class TarefaServlet extends HttpServlet {
 			else{
 				int oidTarefa = Integer.parseInt(request.getParameter("oidTarefa"));
 				tarefa.setOid(oidTarefa);
-				new TarefaDAO().salvar(tarefa);
+				try {
+					new TarefaDAO().editar(tarefa);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/* caminho pagina destino */");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 		
