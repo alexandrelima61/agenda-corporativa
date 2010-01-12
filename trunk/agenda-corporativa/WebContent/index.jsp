@@ -67,7 +67,7 @@
 								<div class="portlet-header">Agendas</div>
 								<div class="portlet-content">
 									<div class="eventos-dia-calendario agenda-laranja">
-										<a href="<%=request.getContextPath() %>/AgendaServlet?pagina=editar&id=6" >Agenda Laranja</a>
+										<a href="<%=request.getContextPath() %>/AgendaServlet?pagina=editar&id=1" >Agenda Laranja</a>
 									</div>
 
 									<div class="eventos-dia-calendario agenda-vermelha">
@@ -98,56 +98,13 @@
 									<th>sex</th>
 									<th>sab</th>
 						</tr>
-<<<<<<< .mine
-=======
-<%		
-    	
-    	request.setAttribute("dia1", Sistema.getInstance().recuperarTarefaPorId(2));
-    	request.setAttribute("dia11", Sistema.getInstance().recuperarTarefaPorId(16));%>
->>>>>>> .r238
+
 							</thead>
 							
-							   <% 
-        for(int i = 1; i <= 31; i++){
-        	String data;
-        	if(i > 0 && i < 10) data = "0"+i+"/01/2010";
-        		else data = i+"/01/2010";
-        	
-    		request.setAttribute("tar_dia"+i, Sistema.getInstance().recuperarTarefaPorDia(data));
-        }
-    
-    for(int i = 1; i <= 31; i++){
-    	String data;
-    	if(i > 0 && i < 10) data = "0"+i+"/01/2010";  		else data = i+"/01/2010";
-    	
-		request.setAttribute("com_dia"+i, Sistema.getInstance().recuperarCompromissoPorDia(data));
-    }
-    
-     %>
-							
+			
 							<tbody>
 								<tr>
-<<<<<<< .mine
 								<% for(int i = 1; i < 8; i++){%>
-=======
-									<td>
-										<div class="dia-calendario">01</div>
-										<jsp:useBean id="dia1" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
-										<div>
-											<% for(Tarefa tarefa : dia1){ %>				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=editarTarefa&id=2"> <%=tarefa.getTitulo() %></a>
-											<% }%>
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">02</div>
-										<jsp:useBean id="dia2" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
-										<div>
-											<% for(Tarefa tarefa : dia2){ %>				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=16"> <%=tarefa.getTitulo() %></a>
-											<% }%>
-										</div>									</td>
->>>>>>> .r238
 									<td>
 										<div class="dia-calendario"><%= i %></div>
 										

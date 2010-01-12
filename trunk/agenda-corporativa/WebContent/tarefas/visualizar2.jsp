@@ -106,7 +106,12 @@
 					<td>Data:</td>
 					<td><%=fmt.format(tarefa.getData())%></td>
 				</tr>
-
+				<td> &nbsp;</td>
+				
+				<tr>
+					<td></td>
+					<td> <a style="color : blue;" href="<%=request.getContextPath() %>/TarefaServlet?comando=editarTarefa&id=<%=tarefa.getOid()%>"> Editar Tarefa</a></td>
+				</tr>
 			</table>
 
 			</div>
