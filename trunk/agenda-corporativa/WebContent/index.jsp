@@ -115,7 +115,7 @@
 						</tr>
 <%		
     	
-    	request.setAttribute("dia1", Sistema.getInstance().recuperarTarefaPorId(18));
+    	request.setAttribute("dia1", Sistema.getInstance().recuperarTarefaPorId(2));
     	request.setAttribute("dia11", Sistema.getInstance().recuperarTarefaPorId(16));%>
 							</thead>
 							
@@ -126,7 +126,7 @@
 										<jsp:useBean id="dia1" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
 										<div>
 											<% for(Tarefa tarefa : dia1){ %>				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=18"> <%=tarefa.getTitulo() %></a>
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=editarTarefa&id=2"> <%=tarefa.getTitulo() %></a>
 											<% }%>
 										</div>
 									</td>
