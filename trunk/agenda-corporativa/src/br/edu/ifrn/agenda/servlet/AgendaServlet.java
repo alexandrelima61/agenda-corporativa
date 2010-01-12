@@ -87,36 +87,37 @@ public class AgendaServlet extends HttpServlet {
 			RequestDispatcher d = request.getRequestDispatcher("/");
             d.forward(request, response);
             return;
-		}else
 		
-		if(atualizar.equalsIgnoreCase("Atualizar Agenda")){
+		}else if(atualizar.equalsIgnoreCase("Atualizar Agenda")){
 			
-			Agenda agenda;
+			String titulo = request.getParameter("tituloAgenda");
+			String descricao = request.getParameter("descricaoAgenda");
+			int id = Integer.parseInt(request.getParameter("idAgenda"));
+			Agenda agenda = new Agenda();
+			agenda.setOid(id);
+			agenda.setTitulo(titulo);
+			agenda.setDescricao(descricao);
+			agenda.setAtivo(true);
 			
-			
-			String titulo = request.getParameter("titulo");
-			String descricao = request.getParameter("descricao");
-			
+			AgendaDAO dao = new AgendaDAO();
 			try {
-				agenda = sistema.buscarAgendaPorId(Integer.parseInt(request.getParameter("idAgenda")));
-				agenda.setTitulo(titulo);
-				agenda.setDescricao(descricao);
-				
-				AgendaDAO.getInstance().editarAgenda(agenda);
-			} catch (NumberFormatException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				dao.editarAgenda(agenda);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-
+			request.setAttribute("Agenda", agenda);
 			RequestDispatcher d = request.getRequestDispatcher("/");
             d.forward(request, response);
+            return;
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		else if(desativar.equalsIgnoreCase("desativar agenda"))
 		{
