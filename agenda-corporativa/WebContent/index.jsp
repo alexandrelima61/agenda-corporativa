@@ -112,18 +112,18 @@
 											
 							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
 							        		<div class="eventos-dia-calendario agenda-vermelha">				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
 											  	</div>
 										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-verde">			
-											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
 											 </div>
 													
 										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-laranja">			
-											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
 											 </div>
 										<% }%>	
 																											
@@ -145,18 +145,18 @@
 											
 							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
 							        		<div class="eventos-dia-calendario agenda-vermelha">				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
 											 </div>
 										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-verde">			
-											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											  	<a  style="color : white" href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
 											 </div>
 													
 										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-laranja">			
-											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											  	<a  style="color : white" href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
 											 </div>
 										<% }%>	
 																											
@@ -176,18 +176,18 @@
 											
 							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
 							        		<div class="eventos-dia-calendario agenda-vermelha">				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
 											  	</div>
 										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-verde">			
-											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
 											 </div>
 													
 										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-laranja">			
-											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											  	<a  style="color : white" href= "<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
 											 </div>
 										<% }%>	
 																											
@@ -207,18 +207,18 @@
 											
 							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
 							        		<div class="eventos-dia-calendario agenda-vermelha">				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	<a  style="color : white" href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
 											  </div>
 										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-verde">			
-											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											  	<a style="color : white"  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
 											 </div>
 													
 										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-laranja">			
-											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											  	<a style="color : white"  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
 											 </div>
 										<% }%>	
 																											
@@ -238,18 +238,18 @@
 											
 							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
 							        		<div class="eventos-dia-calendario agenda-vermelha">				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	<a style="color : white" href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
 											 </div>
 										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-verde">			
-											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											  	<a style="color : white"  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
 											 </div>
 													
 										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
 											
 											<div class="eventos-dia-calendario agenda-laranja">			
-											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											  	<a style="color : white"  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
 											 </div>
 										<% }%>	
 										</div>																
