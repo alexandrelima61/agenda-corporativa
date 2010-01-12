@@ -6,6 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%@page import="br.edu.ifrn.agenda.beans.Tarefa"%>
+<%@page import="br.edu.ifrn.agenda.beans.Lembrete"%>
 <%@page import="br.edu.ifrn.agenda.beans.Compromisso"%>
 <%@page import="br.edu.ifrn.agenda.Sistema"%>
 
@@ -34,23 +35,7 @@
 	
     <body>
     
-    <% 
-        for(int i = 1; i <= 31; i++){
-        	String data;
-        	if(i > 0 && i < 10) data = "0"+i+"/01/2010";
-        		else data = i+"/01/2010";
-        	
-    		request.setAttribute("dia"+i, Sistema.getInstance().recuperarTarefaPorDia(data));
-        }
-    
-    for(int i = 1; i <= 31; i++){
-    	String data;
-    	if(i > 0 && i < 10) data = "0"+i+"/01/2010";  		else data = i+"/01/2010";
-    	
-		request.setAttribute("comdia"+i, Sistema.getInstance().recuperarCompromissoPorDia(data));
-    }
-    
-     %>
+ 
     
 <ul id="menu-direito" class="contextMenu">
     <li class="adicionar-compromisso">
@@ -113,14 +98,38 @@
 									<th>sex</th>
 									<th>sab</th>
 						</tr>
+<<<<<<< .mine
+=======
 <%		
     	
     	request.setAttribute("dia1", Sistema.getInstance().recuperarTarefaPorId(2));
     	request.setAttribute("dia11", Sistema.getInstance().recuperarTarefaPorId(16));%>
+>>>>>>> .r238
 							</thead>
+							
+							   <% 
+        for(int i = 1; i <= 31; i++){
+        	String data;
+        	if(i > 0 && i < 10) data = "0"+i+"/01/2010";
+        		else data = i+"/01/2010";
+        	
+    		request.setAttribute("tar_dia"+i, Sistema.getInstance().recuperarTarefaPorDia(data));
+        }
+    
+    for(int i = 1; i <= 31; i++){
+    	String data;
+    	if(i > 0 && i < 10) data = "0"+i+"/01/2010";  		else data = i+"/01/2010";
+    	
+		request.setAttribute("com_dia"+i, Sistema.getInstance().recuperarCompromissoPorDia(data));
+    }
+    
+     %>
 							
 							<tbody>
 								<tr>
+<<<<<<< .mine
+								<% for(int i = 1; i < 8; i++){%>
+=======
 									<td>
 										<div class="dia-calendario">01</div>
 										<jsp:useBean id="dia1" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
@@ -138,206 +147,161 @@
 											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=16"> <%=tarefa.getTitulo() %></a>
 											<% }%>
 										</div>									</td>
+>>>>>>> .r238
 									<td>
-										<div class="dia-calendario">03</div>
-										<div class="eventos-dia-calendario agenda-laranja">
-											<jsp:useBean id="dia3" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
-										<div>
-											<% for(Tarefa tarefa : dia3){ %>				
-											  	<%=tarefa.getTitulo() %>
-											<% }%>
+										<div class="dia-calendario"><%= i %></div>
+										
+										<%  String data = "0"+i+"/01/2010";
+											
+							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
+							        		<div class="eventos-dia-calendario agenda-vermelha">				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	</div>
+										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-verde">			
+											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											 </div>
+													
+										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-laranja">			
+											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											 </div>
+										<% }%>	
+																											
 										</div>
-											</div>
+									</td>
+								<%} %>
 								
-									</td>
-									<td>
-										<div class="dia-calendario">04</div>
-										<jsp:useBean id="comdia4" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
-										<div>
-											<% for(Compromisso com : comdia4){ %>				
-											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
-											<% }%>
-											
-										</div>
-										
-										
-									</td>
-									<td>
-										<div class="dia-calendario">05</div>
-										
-									<jsp:useBean id="comdia5" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
-										<div>
-											<% for(Compromisso com : comdia5){ %>				
-											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
-											<% }%>
-											
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">06</div>
-										<jsp:useBean id="comdia6" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
-										<div>
-											<% for(Compromisso com : comdia6){ %>				
-											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
-											<% }%>
-											
-										</div>
-										
-									</td>
-									<td>
-										<div class="dia-calendario">07</div>
-									</td>								
 								</tr>
-							<tr>
+								
+								
+																<tr>
+								<% for(int i = 8; i < 15; i++){%>
 									<td>
-										<div class="dia-calendario">08</div>
-									</td>
-									<td>
-										<div class="dia-calendario">09</div>
-										
-									</td>
-									<td>
-										<div class="dia-calendario">10</div>
-										<a href="<%=request.getContextPath() %>/LembreteServlet?pagina=editar&idLem=4">Lembrete de Hoje</a>
-
-									</td>
-									<td>
-										<div class="dia-calendario">11</div>
-										<jsp:useBean id="dia11" type="java.util.List<br.edu.ifrn.agenda.beans.Tarefa>" scope="request"/>
-										<div>
-											<% for(Tarefa tarefa : dia11){ %>				
-											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=16"> <%=tarefa.getTitulo() %></a>
-											<% }%>
-											
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">12</div>
-
-									</td>
-									<td>
-										<div class="dia-calendario">13</div>
-	
-									</td>
-									<td>
-										<div class="dia-calendario">14</div>
-
-									</td>								
-								</tr>
-							<tr>
-									<td>
-										<div class="dia-calendario">15</div>
-									<jsp:useBean id="comdia15" type="java.util.List<br.edu.ifrn.agenda.beans.Compromisso>" scope="request"/>
-										<div>
-											<% for(Compromisso com : comdia15){ %>				
-											  	<a href="<%=request.getContextPath() %>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
-											<% }%>
-											
-										</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">16</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">17</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">18</div>
+										<div class="dia-calendario"><%= i %></div>
 										<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
+										<%  String data = "";
+										if(i < 10) data = "0"+i+"/01/2010"; 	else data = i+"/01/2010";
+										
+											
+							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
+							        		<div class="eventos-dia-calendario agenda-vermelha">				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											 </div>
+										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-verde">			
+											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											 </div>
+													
+										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-laranja">			
+											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											 </div>
+										<% }%>	
+																											
+										</div>
 										</div>
 									</td>
-									<td>
-										<div class="dia-calendario">19</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">20</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
-										</div>
-									</td>
-									<td>
-										<div class="dia-calendario">21</div>
-									<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Reunião com...
-											</div>
-										</div>
-									</td>								
+								<%} %>
+								
 								</tr>
-							<tr>
+								
+								<tr>
+								<% for(int i = 15; i < 22; i++){%>
 									<td>
-										<div class="dia-calendario">22</div>
-
-									</td>
-									<td>
-										<div class="dia-calendario">23</div>
-
-									</td>
-									<td>
-										<div class="dia-calendario">24</div>
-
-									</td>
-									<td>
-										<div class="dia-calendario">25</div>
-
-									</td>
-									<td>
-										<div class="dia-calendario">26</div>
-
-									</td>
-									<td>
-										<div class="dia-calendario">27</div>
-	
-									</td>
-									<td>
-										<div class="dia-calendario">28</div>
+										<div class="dia-calendario"><%= i %></div>
 										<div class="eventos-calendario-wrap">
-											<div class="eventos-dia-calendario agenda-verde">
-												Reuniao Y
-											</div>
-											<div class="eventos-dia-calendario agenda-vermelha">
-												Encontro
-											</div>
-										</div>	
-									</td>								
+										<%  String data = i+"/01/2010";
+											
+							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
+							        		<div class="eventos-dia-calendario agenda-vermelha">				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  	</div>
+										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-verde">			
+											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											 </div>
+													
+										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-laranja">			
+											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											 </div>
+										<% }%>	
+																											
+										</div>
+										</div>
+									</td>
+								<%} %>
+								
 								</tr>
-							<tr>
+								
+								<tr>
+								<% for(int i = 22; i < 29; i++){%>
 									<td>
-										<div class="dia-calendario">29</div>
+										<div class="dia-calendario"><%= i %></div>
+										<div class="eventos-calendario-wrap">
+										<%  String data = i+"/01/2010";
+											
+							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
+							        		<div class="eventos-dia-calendario agenda-vermelha">				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											  </div>
+										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-verde">			
+											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											 </div>
+													
+										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-laranja">			
+											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											 </div>
+										<% }%>	
+																											
+										</div>
+										</div>
+									</td>
+								<%} %>
+								
+								</tr>
+								<tr>
+								<% for(int i = 29; i < 32; i++){%>
+									<td>
+										<div class="dia-calendario"><%= i %></div>
+										<div class="eventos-calendario-wrap">
+										
+										<%  String data = i+"/01/2010";
+											
+							        		for(Tarefa tarefa : Sistema.getInstance().recuperarTarefaPorDia(data)){ %>
+							        		<div class="eventos-dia-calendario agenda-vermelha">				
+											  	<a href="<%=request.getContextPath() %>/TarefaServlet?comando=visualizarTarefa&id=<%=tarefa.getOid() %>"> <%=tarefa.getTitulo() %></a>
+											 </div>
+										<% } for(Compromisso com : Sistema.getInstance().recuperarCompromissoPorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-verde">			
+											  	<a  href="<%=request.getContextPath()%>/CompromissoServlet?pagina=visualizar&id=<%=com.getOid()%>"> <%=com.getTitulo() %></a>
+											 </div>
+													
+										<% } for(Lembrete lem : Sistema.getInstance().recuperarLembretePorDia(data)){ %>
+											
+											<div class="eventos-dia-calendario agenda-laranja">			
+											  	<a  href="<%=request.getContextPath()%>/LembreteServlet?pagina=editar&idLem=<%=lem.getOid()%>"> <%=lem.getTitulo() %></a>
+											 </div>
+										<% }%>	
+										</div>																
+										</div>
+									</td>
+								<%} %>
+				
 
-									</td>
-									<td>
-										<div class="dia-calendario">30</div>
 
-									</td>
-									<td>
-										<div class="dia-calendario">31</div>
-									</td>
 									<td>
 
 									</td>

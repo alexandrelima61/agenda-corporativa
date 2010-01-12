@@ -1,9 +1,10 @@
 package br.edu.ifrn.agenda.persistencia;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
@@ -22,29 +23,29 @@ public class TarefaDAO {
 
 	private Conexao conexao = Conexao.getInstance();
 
-	public List<Tarefa> recuperarPorData(Date dataInicio, Date dataFim)
-			throws SQLException {
+	public List<Tarefa> recuperarPorData(java.util.Date dataInicio, java.util.Date dataFim) {
+		try {
 		ResultSet rs;
-		if (dataInicio.equals(dataFim)) {
-			PreparedStatement state = conexao
-					.getPreparedStatement("select * from tb_tarefa where tar_data = ?");
-			state.setDate(1, dataInicio);
+  
+			PreparedStatement state = conexao.getPreparedStatement("select * from tb_tarefa where (convert(varchar, tar_data, 103)) like ?");
+				
+				SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+			 	state.setString(1, fmt.format(dataInicio));
+			
 			rs = state.executeQuery();
 
-		} else {
 
-			PreparedStatement state = conexao
-					.getPreparedStatement("select * from tb_tarefa where tar_data >= ? and and tar_data <= ?");
-			state.setDate(1, dataInicio);
-			state.setDate(1, dataFim);
-			rs = state.executeQuery();
-		}
 
 		List<Tarefa> tarefas = new ArrayList<Tarefa>();
 		while (rs.next())
 			tarefas.add(this.gerarTarefa(rs));
 
 		return tarefas;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<Tarefa>();
+		
 	}
 
 	public List<Tarefa> retornaTarefaPorTitulo(String titulo)
@@ -102,7 +103,7 @@ public class TarefaDAO {
 		ps.setInt(1, tarefa.getAgenda().getOid());
 		ps.setInt(2, tarefa.getUsuario().getOid());
 		ps.setString(3, tarefa.getTitulo());
-		ps.setDate(4, (Date) tarefa.getData());
+		ps.setTimestamp(4, new Timestamp(tarefa.getData().getTime()));
 		ps.setString(5, tarefa.getLocal());
 		ps.setString(6, tarefa.getPrioridade().name());
 		ps.setString(7, tarefa.getDescricao());
@@ -204,8 +205,12 @@ public class TarefaDAO {
 			PreparedStatement ps = conexao.getPreparedStatement(SQL);
 			// ps.setInt(1, tarefa.getAgenda().getOid());
 			ps.setString(1, tarefa.getTitulo());
+
+			ps.setTimestamp(2, new Timestamp( tarefa.getData().getTime()));
+
 			Timestamp horario = new Timestamp(tarefa.getData().getTime());
 			ps.setTimestamp(2, horario);
+
 			ps.setString(3, tarefa.getLocal());
 			// ps.setString(4, tarefa.getPrioridade().name());
 			ps.setString(4, tarefa.getDescricao());
